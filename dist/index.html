@@ -3,266 +3,271 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="description" content="A real-world strawberry dataset with bounding boxes, five keypoints, ripeness labels, and occlusion labels for agricultural vision research." />
-        <meta name="theme-color" content="#111914" />
+        <meta name="description" content="A real-world strawberry dataset for object detection, keypoint estimation, ripeness classification, and occlusion reasoning." />
+        <meta name="theme-color" content="#17364d" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Strawberry Dataset" />
-        <meta property="og:description" content="Real-world strawberry imagery with structured annotations for localization, geometry, ripeness, and occlusion." />
+        <meta property="og:description" content="A research dataset with bounding boxes, five keypoints, ripeness labels, and occlusion labels." />
         <meta property="og:url" content="https://strawberry-vision-dataset.yuhao-jin.chatgpt.site/" />
         <meta property="og:image" content="https://strawberry-vision-dataset.yuhao-jin.chatgpt.site/assets/og-strawberry-dataset.jpg" />
         <meta name="twitter:card" content="summary_large_image" />
-        <title>Strawberry Dataset — Real-world annotations for agricultural vision</title>
+        <title>Strawberry Dataset | Agricultural Computer Vision</title>
         <link rel="canonical" href="https://strawberry-vision-dataset.yuhao-jin.chatgpt.site/" />
         <link rel="icon" type="image/png" href="assets/strawberry-favicon.png" />
-        <!-- Bootstrap icons-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
     </head>
     <body>
         <a class="skip-link" href="#main-content">Skip to content</a>
-        <nav class="navbar navbar-expand-lg navbar-dark site-navbar" id="site-navigation">
+        <nav class="navbar navbar-expand-lg navbar-light site-navbar" id="site-navigation">
             <div class="container px-4 px-lg-5">
-                <a class="navbar-brand brand-lockup" href="#overview" aria-label="Strawberry Dataset home">
-                    <span class="brand-mark" aria-hidden="true"></span>
-                    <span>Strawberry Dataset</span>
+                <a class="navbar-brand research-brand" href="#overview" aria-label="Strawberry Dataset home">
+                    <span class="brand-index" aria-hidden="true">SD</span>
+                    <span class="brand-copy">
+                        <strong>Strawberry Dataset</strong>
+                        <small>Agricultural Computer Vision</small>
+                    </span>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#primaryNavigation" aria-controls="primaryNavigation" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="primaryNavigation">
                     <ul class="navbar-nav ms-auto align-items-lg-center">
-                        <li class="nav-item"><a class="nav-link" href="#dataset">Dataset</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#annotations">Annotations</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#abstract">Abstract</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#protocol">Protocol</a></li>
                         <li class="nav-item"><a class="nav-link" href="#examples">Examples</a></li>
-                        <li class="nav-item nav-download"><a class="btn btn-primary btn-sm" href="#download">Download</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#resources">Resources</a></li>
+                        <li class="nav-item nav-download"><a class="btn btn-research btn-sm" href="#resources">Download</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
         <main id="main-content">
-            <header class="hero-section" id="overview">
+            <header class="research-hero" id="overview">
                 <div class="container px-4 px-lg-5">
-                    <div class="row g-5 align-items-center">
-                        <div class="col-lg-6">
-                            <div class="hero-copy">
-                                <div class="eyebrow">
-                                    <span class="eyebrow-dot"></span>
-                                    Real-world agricultural vision data
-                                </div>
-                                <h1 class="hero-title">
-                                    See every strawberry.
-                                    <span>Train for every condition.</span>
-                                </h1>
-                                <p class="hero-lead">A structured strawberry dataset with bounding boxes, five keypoints, ripeness labels, and occlusion labels—built from real greenhouse scenes.</p>
-                                <div class="hero-actions">
-                                    <a class="btn btn-primary btn-lg" href="https://pan.baidu.com/s/1ul6L7jNT5VSTEdgTZroezA?pwd=pgna" target="_blank" rel="noopener noreferrer">
-                                        Download dataset
-                                        <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
-                                    </a>
-                                    <a class="btn btn-ghost btn-lg" href="#annotations">Explore annotations</a>
-                                </div>
-                                <ul class="hero-notes" aria-label="Dataset highlights">
-                                    <li>
-                                        <i class="bi bi-check-circle-fill" aria-hidden="true"></i>
-                                        Instance-level labels
-                                    </li>
-                                    <li>
-                                        <i class="bi bi-check-circle-fill" aria-hidden="true"></i>
-                                        Natural lighting and occlusion
-                                    </li>
-                                    <li>
-                                        <i class="bi bi-check-circle-fill" aria-hidden="true"></i>
-                                        Research-ready structure
-                                    </li>
-                                </ul>
+                    <div class="project-label">Dataset project page</div>
+                    <div class="row g-5 align-items-start">
+                        <div class="col-lg-7">
+                            <h1>A real-world strawberry dataset for detection and keypoint estimation</h1>
+                            <p class="hero-abstract">This dataset provides instance-level annotations for strawberries captured in greenhouse environments. Each annotated fruit combines a bounding box, five anatomical keypoints, a ripeness label, and an occlusion label.</p>
+                            <div class="hero-actions">
+                                <a class="btn btn-research" href="https://pan.baidu.com/s/1ul6L7jNT5VSTEdgTZroezA?pwd=pgna" target="_blank" rel="noopener noreferrer">Download dataset</a>
+                                <a class="btn btn-outline-research" href="#protocol">Read annotation protocol</a>
                             </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <figure class="hero-visual">
-                                <div class="annotation-stage">
-                                    <img src="assets/strawberry-field.webp" alt="Strawberries growing in a greenhouse with an example bounding box and keypoint overlay" width="1280" height="720" fetchpriority="high" />
-                                    <div class="annotation-box annotation-box--hero" aria-hidden="true"><span class="annotation-label">strawberry</span></div>
-                                    <span class="keypoint keypoint--1" aria-hidden="true"></span>
-                                    <span class="keypoint keypoint--2" aria-hidden="true"></span>
-                                    <span class="keypoint keypoint--3" aria-hidden="true"></span>
-                                    <span class="keypoint keypoint--4" aria-hidden="true"></span>
-                                    <span class="keypoint keypoint--5" aria-hidden="true"></span>
-                                    <div class="visual-badge visual-badge--top">
-                                        <span class="badge-value">5</span>
-                                        <span class="badge-label">keypoints</span>
-                                    </div>
-                                    <div class="visual-badge visual-badge--bottom">
-                                        <i class="bi bi-bounding-box-circles" aria-hidden="true"></i>
-                                        <span>instance annotation</span>
-                                    </div>
+                            <dl class="project-metadata">
+                                <div class="metadata-row">
+                                    <dt>Research tasks</dt>
+                                    <dd>Object detection · Keypoint estimation · Attribute recognition</dd>
                                 </div>
-                                <figcaption>Real greenhouse imagery, shown with an illustrative annotation overlay.</figcaption>
+                                <div class="metadata-row">
+                                    <dt>Annotation unit</dt>
+                                    <dd>Individual strawberry instance</dd>
+                                </div>
+                                <div class="metadata-row">
+                                    <dt>Capture domain</dt>
+                                    <dd>Real greenhouse scenes</dd>
+                                </div>
+                                <div class="metadata-row">
+                                    <dt>Dataset access</dt>
+                                    <dd>Public download link</dd>
+                                </div>
+                            </dl>
+                        </div>
+                        <div class="col-lg-5">
+                            <figure class="research-figure hero-figure">
+                                <div class="figure-frame">
+                                    <img src="assets/strawberry-field.webp" alt="Strawberries growing in a greenhouse with an illustrative instance annotation" width="1280" height="720" fetchpriority="high" />
+                                    <div class="scientific-box" aria-hidden="true"><span>bbox</span></div>
+                                    <span class="scientific-point scientific-point--1" aria-hidden="true"></span>
+                                    <span class="scientific-point scientific-point--2" aria-hidden="true"></span>
+                                    <span class="scientific-point scientific-point--3" aria-hidden="true"></span>
+                                    <span class="scientific-point scientific-point--4" aria-hidden="true"></span>
+                                    <span class="scientific-point scientific-point--5" aria-hidden="true"></span>
+                                </div>
+                                <figcaption>
+                                    <span class="figure-number">Figure 1.</span>
+                                    Example greenhouse image with an illustrative bounding box and five landmark points.
+                                </figcaption>
                             </figure>
                         </div>
                     </div>
                 </div>
             </header>
-            <section class="dataset-rail" aria-label="Annotation summary">
-                <div class="container px-4 px-lg-5">
-                    <div class="rail-grid">
-                        <div class="rail-item">
-                            <strong>1</strong>
-                            <span>bounding box</span>
-                        </div>
-                        <div class="rail-item">
-                            <strong>5</strong>
-                            <span>anatomical keypoints</span>
-                        </div>
-                        <div class="rail-item">
-                            <strong>2</strong>
-                            <span>attribute labels</span>
-                        </div>
-                        <div class="rail-item">
-                            <strong>1</strong>
-                            <span>unified record</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <section class="content-section" id="dataset">
-                <div class="container px-4 px-lg-5">
-                    <div class="row g-5 align-items-end">
-                        <div class="col-lg-7">
-                            <div class="section-kicker">Dataset overview</div>
-                            <h2 class="section-title">Built for strawberries in the wild—not on a white background.</h2>
-                        </div>
-                        <div class="col-lg-5"><p class="section-intro">Real plants create difficult vision problems: overlapping fruit, changing color, foliage, uneven light, and partial visibility. The dataset keeps those conditions instead of cleaning them away.</p></div>
-                    </div>
-                    <div class="overview-grid">
-                        <article class="overview-card overview-card--feature">
-                            <div class="overview-icon"><i class="bi bi-camera" aria-hidden="true"></i></div>
-                            <h3>Real scenes</h3>
-                            <p>Captured in greenhouse environments where leaves, stems, flowers, and neighboring fruit remain part of the visual context.</p>
-                        </article>
-                        <article class="overview-card">
-                            <div class="overview-icon"><i class="bi bi-layers" aria-hidden="true"></i></div>
-                            <h3>Multi-task labels</h3>
-                            <p>One record can support localization, keypoint estimation, ripeness classification, and occlusion reasoning.</p>
-                        </article>
-                        <article class="overview-card">
-                            <div class="overview-icon"><i class="bi bi-robot" aria-hidden="true"></i></div>
-                            <h3>Research focused</h3>
-                            <p>A practical starting point for agricultural perception, grading, monitoring, and robotic harvesting studies.</p>
-                        </article>
-                    </div>
-                </div>
-            </section>
-            <section class="content-section content-section--tinted" id="annotations">
+            <section class="paper-section" id="abstract">
                 <div class="container px-4 px-lg-5">
                     <div class="section-heading">
-                        <div class="section-kicker">Annotation design</div>
-                        <h2 class="section-title">One strawberry, four complementary signals.</h2>
-                        <p class="section-intro">Each annotation describes where the fruit is, how it is shaped, and the conditions in which it appears.</p>
+                        <span class="section-number">01</span>
+                        <div>
+                            <p class="section-type">Overview</p>
+                            <h2>Abstract</h2>
+                        </div>
                     </div>
-                    <div class="annotation-grid">
-                        <article class="annotation-card">
-                            <div class="annotation-number">01</div>
-                            <div class="annotation-icon"><i class="bi bi-bounding-box-circles" aria-hidden="true"></i></div>
-                            <h3>Bounding box</h3>
-                            <p>Defines the visible fruit instance for detection and localization tasks.</p>
-                            <span class="task-tag">Detection</span>
-                        </article>
-                        <article class="annotation-card">
-                            <div class="annotation-number">02</div>
-                            <div class="annotation-icon"><i class="bi bi-bezier2" aria-hidden="true"></i></div>
-                            <h3>Five keypoints</h3>
-                            <p>Captures landmark geometry for pose, shape, and grasp-related reasoning.</p>
-                            <span class="task-tag">Keypoint estimation</span>
-                        </article>
-                        <article class="annotation-card">
-                            <div class="annotation-number">03</div>
-                            <div class="annotation-icon"><i class="bi bi-palette2" aria-hidden="true"></i></div>
-                            <h3>Ripeness</h3>
-                            <p>Adds a categorical maturity signal to support visual grading experiments.</p>
-                            <span class="task-tag">Classification</span>
-                        </article>
-                        <article class="annotation-card">
-                            <div class="annotation-number">04</div>
-                            <div class="annotation-icon"><i class="bi bi-eye" aria-hidden="true"></i></div>
-                            <h3>Occlusion</h3>
-                            <p>Records visibility conditions so models can be evaluated beyond ideal views.</p>
-                            <span class="task-tag">Robustness</span>
-                        </article>
+                    <div class="abstract-layout">
+                        <div class="abstract-text">
+                            <p>Strawberry perception in field conditions is complicated by foliage, uneven illumination, overlapping fruit, maturity variation, and partial visibility. These conditions are retained in the dataset so that models can be studied under realistic visual complexity.</p>
+                            <p>The annotation structure supports several related computer-vision tasks within one instance record. Bounding boxes define object extent, five keypoints encode landmark geometry, and two categorical attributes describe ripeness and occlusion.</p>
+                        </div>
+                        <aside class="contribution-panel" aria-labelledby="contribution-title">
+                            <h3 id="contribution-title">Dataset scope</h3>
+                            <ul>
+                                <li>Real greenhouse imagery rather than isolated objects</li>
+                                <li>Instance localization and landmark supervision</li>
+                                <li>Ripeness and visibility attributes</li>
+                                <li>Suitable for multi-task agricultural perception studies</li>
+                            </ul>
+                        </aside>
                     </div>
                 </div>
             </section>
-            <section class="content-section" id="examples">
+            <section class="paper-section paper-section--alt" id="protocol">
                 <div class="container px-4 px-lg-5">
-                    <div class="section-heading section-heading--split">
-                        <div class="section-heading-copy">
-                            <div class="section-kicker">Label examples</div>
-                            <h2 class="section-title">From image to structured supervision.</h2>
+                    <div class="section-heading">
+                        <span class="section-number">02</span>
+                        <div>
+                            <p class="section-type">Method</p>
+                            <h2>Annotation protocol</h2>
                         </div>
-                        <p class="section-intro">The same greenhouse scene can support multiple learning objectives without losing its real-world complexity.</p>
                     </div>
-                    <div class="examples-grid">
-                        <article class="example-card">
-                            <div class="example-media example-media--ripe">
-                                <img src="assets/strawberry-field.webp" alt="Close crop of fully ripe strawberries" width="1280" height="720" loading="lazy" />
-                                <div class="example-chip">R0 · fully ripe</div>
-                                <div class="annotation-box annotation-box--example" aria-hidden="true"></div>
-                            </div>
-                            <div class="example-body">
-                                <span class="example-index">01</span>
-                                <div>
-                                    <h3>Ripeness label</h3>
-                                    <p>Mature fruit remains visible alongside unripe fruit for meaningful color variation.</p>
-                                </div>
-                            </div>
-                        </article>
-                        <article class="example-card">
-                            <div class="example-media example-media--occlusion">
-                                <img src="assets/strawberry-field.webp" alt="Strawberries and foliage demonstrating a clear visibility condition" width="1280" height="720" loading="lazy" />
-                                <div class="example-chip">O2 · unobstructed</div>
-                                <div class="occlusion-guide" aria-hidden="true"></div>
-                            </div>
-                            <div class="example-body">
-                                <span class="example-index">02</span>
-                                <div>
-                                    <h3>Occlusion label</h3>
-                                    <p>Visibility metadata separates clear instances from partially hidden observations.</p>
-                                </div>
-                            </div>
-                        </article>
-                        <article class="example-card">
-                            <div class="example-media example-media--keypoints">
-                                <img src="assets/strawberry-field.webp" alt="A strawberry crop with five illustrative landmark points" width="1280" height="720" loading="lazy" />
-                                <div class="example-chip">5 landmarks</div>
-                                <div class="mini-point mini-point--1" aria-hidden="true"></div>
-                                <div class="mini-point mini-point--2" aria-hidden="true"></div>
-                                <div class="mini-point mini-point--3" aria-hidden="true"></div>
-                                <div class="mini-point mini-point--4" aria-hidden="true"></div>
-                                <div class="mini-point mini-point--5" aria-hidden="true"></div>
-                            </div>
-                            <div class="example-body">
-                                <span class="example-index">03</span>
-                                <div>
-                                    <h3>Keypoint geometry</h3>
-                                    <p>Five landmarks add shape-aware supervision beyond a rectangular detection target.</p>
-                                </div>
-                            </div>
-                        </article>
+                    <p class="section-summary">Each strawberry instance is represented by a compact set of spatial and categorical annotations. The table summarizes the public schema without inferring unpublished dataset statistics.</p>
+                    <div class="table-responsive protocol-table-wrap">
+                        <table class="protocol-table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Signal</th>
+                                    <th scope="col">Representation</th>
+                                    <th scope="col">Intended use</th>
+                                    <th scope="col">Per instance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">Localization</th>
+                                    <td>Axis-aligned bounding box</td>
+                                    <td>Object detection and instance localization</td>
+                                    <td>1 box</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Geometry</th>
+                                    <td>Anatomical landmark coordinates</td>
+                                    <td>Keypoint estimation and shape reasoning</td>
+                                    <td>5 points</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Ripeness</th>
+                                    <td>Categorical maturity label</td>
+                                    <td>Visual grading and attribute recognition</td>
+                                    <td>1 label</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Occlusion</th>
+                                    <td>Categorical visibility label</td>
+                                    <td>Robustness analysis under partial visibility</td>
+                                    <td>1 label</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="protocol-note">
+                        <span class="protocol-note-label">Annotation record</span>
+                        <code>{ bbox, keypoints[5], ripeness, occlusion }</code>
                     </div>
                 </div>
             </section>
-            <section class="download-section" id="download">
+            <section class="paper-section" id="examples">
                 <div class="container px-4 px-lg-5">
-                    <div class="download-panel">
-                        <div class="download-copy">
-                            <div class="section-kicker section-kicker--light">Get the data</div>
-                            <h2>Start exploring the strawberry dataset.</h2>
-                            <p>Download the current dataset package and inspect its images and annotation records.</p>
+                    <div class="section-heading">
+                        <span class="section-number">03</span>
+                        <div>
+                            <p class="section-type">Qualitative examples</p>
+                            <h2>Annotation views</h2>
                         </div>
-                        <div class="download-actions">
-                            <a class="btn btn-light btn-lg" href="https://pan.baidu.com/s/1ul6L7jNT5VSTEdgTZroezA?pwd=pgna" target="_blank" rel="noopener noreferrer">
-                                <i class="bi bi-download" aria-hidden="true"></i>
-                                Download from Baidu Netdisk
-                            </a>
-                            <span class="download-code">Access code: pgna</span>
+                    </div>
+                    <p class="section-summary">The examples below isolate the principal supervision signals. Visual overlays are explanatory and use the same real greenhouse image distributed with this project page.</p>
+                    <div class="figure-grid">
+                        <figure class="research-figure example-figure">
+                            <div class="figure-frame figure-frame--crop figure-frame--ripe">
+                                <img src="assets/strawberry-field.webp" alt="Close crop of ripe strawberries used to illustrate a maturity label" width="1280" height="720" loading="lazy" />
+                                <div class="figure-code">R0</div>
+                                <div class="example-box" aria-hidden="true"></div>
+                            </div>
+                            <figcaption>
+                                <span class="figure-number">Figure 2a.</span>
+                                Ripeness attribute for a localized fruit instance.
+                            </figcaption>
+                        </figure>
+                        <figure class="research-figure example-figure">
+                            <div class="figure-frame figure-frame--crop figure-frame--occlusion">
+                                <img src="assets/strawberry-field.webp" alt="Strawberry and surrounding foliage used to illustrate visibility annotation" width="1280" height="720" loading="lazy" />
+                                <div class="figure-code">O2</div>
+                                <div class="visibility-outline" aria-hidden="true"></div>
+                            </div>
+                            <figcaption>
+                                <span class="figure-number">Figure 2b.</span>
+                                Occlusion label describing instance visibility.
+                            </figcaption>
+                        </figure>
+                        <figure class="research-figure example-figure">
+                            <div class="figure-frame figure-frame--crop figure-frame--keypoints">
+                                <img src="assets/strawberry-field.webp" alt="Strawberry crop with five illustrative keypoint landmarks" width="1280" height="720" loading="lazy" />
+                                <div class="figure-code">K=5</div>
+                                <span class="example-point example-point--1" aria-hidden="true"></span>
+                                <span class="example-point example-point--2" aria-hidden="true"></span>
+                                <span class="example-point example-point--3" aria-hidden="true"></span>
+                                <span class="example-point example-point--4" aria-hidden="true"></span>
+                                <span class="example-point example-point--5" aria-hidden="true"></span>
+                            </div>
+                            <figcaption>
+                                <span class="figure-number">Figure 2c.</span>
+                                Five landmarks encoding strawberry geometry.
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </section>
+            <section class="paper-section paper-section--alt" id="resources">
+                <div class="container px-4 px-lg-5">
+                    <div class="section-heading">
+                        <span class="section-number">04</span>
+                        <div>
+                            <p class="section-type">Availability</p>
+                            <h2>Resources</h2>
+                        </div>
+                    </div>
+                    <div class="resources-layout">
+                        <div class="download-record">
+                            <div class="resource-status">
+                                <span class="status-indicator" aria-hidden="true"></span>
+                                Dataset available
+                            </div>
+                            <h3>Strawberry dataset package</h3>
+                            <p>The current release is distributed through Baidu Netdisk.</p>
+                            <a class="btn btn-research" href="https://pan.baidu.com/s/1ul6L7jNT5VSTEdgTZroezA?pwd=pgna" target="_blank" rel="noopener noreferrer">Open dataset download</a>
+                            <p class="access-code">
+                                Access code:
+                                <code>pgna</code>
+                            </p>
+                        </div>
+                        <div class="resource-index">
+                            <dl>
+                                <div class="resource-row">
+                                    <dt>Dataset</dt>
+                                    <dd><span class="resource-available">Available</span></dd>
+                                </div>
+                                <div class="resource-row">
+                                    <dt>Associated paper</dt>
+                                    <dd>To be added</dd>
+                                </div>
+                                <div class="resource-row">
+                                    <dt>Source code</dt>
+                                    <dd>To be added</dd>
+                                </div>
+                                <div class="resource-row">
+                                    <dt>Dataset license</dt>
+                                    <dd>To be specified</dd>
+                                </div>
+                                <div class="resource-row">
+                                    <dt>Citation</dt>
+                                    <dd>To be added with publication details</dd>
+                                </div>
+                            </dl>
                         </div>
                     </div>
                 </div>
@@ -271,12 +276,9 @@
         <footer class="site-footer">
             <div class="container px-4 px-lg-5">
                 <div class="footer-inner">
-                    <div class="footer-brand">
-                        <span class="brand-mark brand-mark--small" aria-hidden="true"></span>
-                        <div>
-                            <strong>Strawberry Dataset</strong>
-                            <span>Real-world annotations for agricultural vision.</span>
-                        </div>
+                    <div class="footer-project">
+                        <strong>Strawberry Dataset</strong>
+                        <span>Research project page for agricultural computer vision.</span>
                     </div>
                     <div class="footer-meta">
                         <span>

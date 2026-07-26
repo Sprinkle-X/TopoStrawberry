@@ -1,17 +1,21 @@
-nav#site-navigation.navbar.navbar-expand-lg.navbar-dark.site-navbar
+nav#site-navigation.navbar.navbar-expand-lg.navbar-light.site-navbar
     .container.px-4.px-lg-5
-        a.navbar-brand.brand-lockup(href='#overview', aria-label='Strawberry Dataset home')
-            span.brand-mark(aria-hidden='true')
-            span Strawberry Dataset
+        a.navbar-brand.research-brand(href='#overview', aria-label='Strawberry Dataset home')
+            span.brand-index(aria-hidden='true') SD
+            span.brand-copy
+                strong Strawberry Dataset
+                small Agricultural Computer Vision
         button.navbar-toggler(type='button', data-bs-toggle='collapse', data-bs-target='#primaryNavigation', aria-controls='primaryNavigation', aria-expanded='false', aria-label='Toggle navigation')
             span.navbar-toggler-icon
         #primaryNavigation.collapse.navbar-collapse
             ul.navbar-nav.ms-auto.align-items-lg-center
                 li.nav-item
-                    a.nav-link(href='#dataset') Dataset
+                    a.nav-link(href='#abstract') Abstract
                 li.nav-item
-                    a.nav-link(href='#annotations') Annotations
+                    a.nav-link(href='#protocol') Protocol
                 li.nav-item
                     a.nav-link(href='#examples') Examples
+                li.nav-item
+                    a.nav-link(href='#resources') Resources
                 li.nav-item.nav-download
-                    a.btn.btn-primary.btn-sm(href='#download') Download
+                    a.btn.btn-research.btn-sm(href='#resources') Download

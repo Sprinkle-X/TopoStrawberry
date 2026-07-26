@@ -2,8 +2,8 @@ const securityHeaders = {
     'Content-Security-Policy': [
         "default-src 'self'",
         "script-src 'self' https://cdn.jsdelivr.net",
-        "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net",
-        "font-src 'self' https://cdn.jsdelivr.net data:",
+        "style-src 'self'",
+        "font-src 'self' data:",
         "img-src 'self' data:",
         "connect-src 'self'",
         "base-uri 'self'",
