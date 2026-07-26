@@ -1,0 +1,207 @@
+doctype html
+html(lang='en')
+
+    head
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1')
+        meta(name='description', content='A real-world strawberry dataset with bounding boxes, five keypoints, ripeness labels, and occlusion labels for agricultural vision research.')
+        meta(name='theme-color', content='#111914')
+        meta(property='og:type', content='website')
+        meta(property='og:title', content='Strawberry Dataset')
+        meta(property='og:description', content='Real-world strawberry imagery with structured annotations for localization, geometry, ripeness, and occlusion.')
+        meta(property='og:image', content='assets/og-strawberry-dataset.jpg')
+        meta(name='twitter:card', content='summary_large_image')
+        title Strawberry Dataset — Real-world annotations for agricultural vision
+
+        link(rel='icon', type='image/png', href='assets/strawberry-favicon.png')
+        include includes/css.pug
+
+    body
+        a.skip-link(href='#main-content') Skip to content
+
+        include includes/navbar.pug
+
+        main#main-content
+            header#overview.hero-section
+                .container.px-4.px-lg-5
+                    .row.g-5.align-items-center
+                        .col-lg-6
+                            .hero-copy
+                                .eyebrow
+                                    span.eyebrow-dot
+                                    | Real-world agricultural vision data
+                                h1.hero-title
+                                    | See every strawberry.
+                                    span Train for every condition.
+                                p.hero-lead
+                                    | A structured strawberry dataset with bounding boxes, five keypoints, ripeness labels, and occlusion labels—built from real greenhouse scenes.
+                                .hero-actions
+                                    a.btn.btn-primary.btn-lg(href='https://pan.baidu.com/s/1ul6L7jNT5VSTEdgTZroezA?pwd=pgna', target='_blank', rel='noopener noreferrer')
+                                        | Download dataset
+                                        i.bi.bi-arrow-up-right(aria-hidden='true')
+                                    a.btn.btn-ghost.btn-lg(href='#annotations') Explore annotations
+                                ul.hero-notes(aria-label='Dataset highlights')
+                                    li
+                                        i.bi.bi-check-circle-fill(aria-hidden='true')
+                                        | Instance-level labels
+                                    li
+                                        i.bi.bi-check-circle-fill(aria-hidden='true')
+                                        | Natural lighting and occlusion
+                                    li
+                                        i.bi.bi-check-circle-fill(aria-hidden='true')
+                                        | Research-ready structure
+                        .col-lg-6
+                            figure.hero-visual
+                                .annotation-stage
+                                    img(src='assets/strawberry-field.webp', alt='Strawberries growing in a greenhouse with an example bounding box and keypoint overlay', width='1280', height='720', fetchpriority='high')
+                                    .annotation-box.annotation-box--hero(aria-hidden='true')
+                                        span.annotation-label strawberry
+                                    span.keypoint.keypoint--1(aria-hidden='true')
+                                    span.keypoint.keypoint--2(aria-hidden='true')
+                                    span.keypoint.keypoint--3(aria-hidden='true')
+                                    span.keypoint.keypoint--4(aria-hidden='true')
+                                    span.keypoint.keypoint--5(aria-hidden='true')
+                                    .visual-badge.visual-badge--top
+                                        span.badge-value 5
+                                        span.badge-label keypoints
+                                    .visual-badge.visual-badge--bottom
+                                        i.bi.bi-bounding-box-circles(aria-hidden='true')
+                                        span instance annotation
+                                figcaption Real greenhouse imagery, shown with an illustrative annotation overlay.
+
+            section.dataset-rail(aria-label='Annotation summary')
+                .container.px-4.px-lg-5
+                    .rail-grid
+                        .rail-item
+                            strong 1
+                            span bounding box
+                        .rail-item
+                            strong 5
+                            span anatomical keypoints
+                        .rail-item
+                            strong 2
+                            span attribute labels
+                        .rail-item
+                            strong 1
+                            span unified record
+
+            section#dataset.content-section
+                .container.px-4.px-lg-5
+                    .row.g-5.align-items-end
+                        .col-lg-7
+                            .section-kicker Dataset overview
+                            h2.section-title Built for strawberries in the wild—not on a white background.
+                        .col-lg-5
+                            p.section-intro
+                                | Real plants create difficult vision problems: overlapping fruit, changing color, foliage, uneven light, and partial visibility. The dataset keeps those conditions instead of cleaning them away.
+                    .overview-grid
+                        article.overview-card.overview-card--feature
+                            .overview-icon
+                                i.bi.bi-camera(aria-hidden='true')
+                            h3 Real scenes
+                            p Captured in greenhouse environments where leaves, stems, flowers, and neighboring fruit remain part of the visual context.
+                        article.overview-card
+                            .overview-icon
+                                i.bi.bi-layers(aria-hidden='true')
+                            h3 Multi-task labels
+                            p One record can support localization, keypoint estimation, ripeness classification, and occlusion reasoning.
+                        article.overview-card
+                            .overview-icon
+                                i.bi.bi-robot(aria-hidden='true')
+                            h3 Research focused
+                            p A practical starting point for agricultural perception, grading, monitoring, and robotic harvesting studies.
+
+            section#annotations.content-section.content-section--tinted
+                .container.px-4.px-lg-5
+                    .section-heading
+                        .section-kicker Annotation design
+                        h2.section-title One strawberry, four complementary signals.
+                        p.section-intro Each annotation describes where the fruit is, how it is shaped, and the conditions in which it appears.
+                    .annotation-grid
+                        article.annotation-card
+                            .annotation-number 01
+                            .annotation-icon
+                                i.bi.bi-bounding-box-circles(aria-hidden='true')
+                            h3 Bounding box
+                            p Defines the visible fruit instance for detection and localization tasks.
+                            span.task-tag Detection
+                        article.annotation-card
+                            .annotation-number 02
+                            .annotation-icon
+                                i.bi.bi-bezier2(aria-hidden='true')
+                            h3 Five keypoints
+                            p Captures landmark geometry for pose, shape, and grasp-related reasoning.
+                            span.task-tag Keypoint estimation
+                        article.annotation-card
+                            .annotation-number 03
+                            .annotation-icon
+                                i.bi.bi-palette2(aria-hidden='true')
+                            h3 Ripeness
+                            p Adds a categorical maturity signal to support visual grading experiments.
+                            span.task-tag Classification
+                        article.annotation-card
+                            .annotation-number 04
+                            .annotation-icon
+                                i.bi.bi-eye(aria-hidden='true')
+                            h3 Occlusion
+                            p Records visibility conditions so models can be evaluated beyond ideal views.
+                            span.task-tag Robustness
+
+            section#examples.content-section
+                .container.px-4.px-lg-5
+                    .section-heading.section-heading--split
+                        .section-heading-copy
+                            .section-kicker Label examples
+                            h2.section-title From image to structured supervision.
+                        p.section-intro The same greenhouse scene can support multiple learning objectives without losing its real-world complexity.
+                    .examples-grid
+                        article.example-card
+                            .example-media.example-media--ripe
+                                img(src='assets/strawberry-field.webp', alt='Close crop of fully ripe strawberries', width='1280', height='720', loading='lazy')
+                                .example-chip R0 · fully ripe
+                                .annotation-box.annotation-box--example(aria-hidden='true')
+                            .example-body
+                                span.example-index 01
+                                div
+                                    h3 Ripeness label
+                                    p Mature fruit remains visible alongside unripe fruit for meaningful color variation.
+                        article.example-card
+                            .example-media.example-media--occlusion
+                                img(src='assets/strawberry-field.webp', alt='Strawberries and foliage demonstrating a clear visibility condition', width='1280', height='720', loading='lazy')
+                                .example-chip O2 · unobstructed
+                                .occlusion-guide(aria-hidden='true')
+                            .example-body
+                                span.example-index 02
+                                div
+                                    h3 Occlusion label
+                                    p Visibility metadata separates clear instances from partially hidden observations.
+                        article.example-card
+                            .example-media.example-media--keypoints
+                                img(src='assets/strawberry-field.webp', alt='A strawberry crop with five illustrative landmark points', width='1280', height='720', loading='lazy')
+                                .example-chip 5 landmarks
+                                .mini-point.mini-point--1(aria-hidden='true')
+                                .mini-point.mini-point--2(aria-hidden='true')
+                                .mini-point.mini-point--3(aria-hidden='true')
+                                .mini-point.mini-point--4(aria-hidden='true')
+                                .mini-point.mini-point--5(aria-hidden='true')
+                            .example-body
+                                span.example-index 03
+                                div
+                                    h3 Keypoint geometry
+                                    p Five landmarks add shape-aware supervision beyond a rectangular detection target.
+
+            section#download.download-section
+                .container.px-4.px-lg-5
+                    .download-panel
+                        .download-copy
+                            .section-kicker.section-kicker--light Get the data
+                            h2 Start exploring the strawberry dataset.
+                            p Download the current dataset package and inspect its images and annotation records.
+                        .download-actions
+                            a.btn.btn-light.btn-lg(href='https://pan.baidu.com/s/1ul6L7jNT5VSTEdgTZroezA?pwd=pgna', target='_blank', rel='noopener noreferrer')
+                                i.bi.bi-download(aria-hidden='true')
+                                | Download from Baidu Netdisk
+                            span.download-code Access code: pgna
+
+        include includes/footer.pug
+        include includes/scripts.pug
