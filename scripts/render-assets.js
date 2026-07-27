@@ -10,6 +10,10 @@ module.exports = function renderAssets() {
         'og-strawberry-dataset.jpg',
         'strawberry-favicon.png',
         'strawberry-field.webp',
+        'dataset-annotation-overview.webp',
+        'dataset-distributions.webp',
+        'dataset-pointcloud.webp',
+        'dataset-summary.json',
     ];
 
     sh.mkdir('-p', destPath);

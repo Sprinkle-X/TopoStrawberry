@@ -4,15 +4,15 @@ html(lang='en')
     head
         meta(charset='utf-8')
         meta(name='viewport', content='width=device-width, initial-scale=1')
-        meta(name='description', content='A real-world strawberry dataset for object detection, keypoint estimation, ripeness classification, and occlusion reasoning.')
+        meta(name='description', content='A synchronized greenhouse RGB-D strawberry dataset with 3,758 frames, 14,286 instances, bounding boxes, five keypoints, ripeness, and occlusion annotations.')
         meta(name='theme-color', content='#17364d')
         meta(property='og:type', content='website')
-        meta(property='og:title', content='Strawberry Dataset')
-        meta(property='og:description', content='A research dataset with bounding boxes, five keypoints, ripeness labels, and occlusion labels.')
+        meta(property='og:title', content='Strawberry RGB-D Dataset')
+        meta(property='og:description', content='3,758 synchronized RGB-D frames with 14,286 instance annotations and 71,430 anatomical keypoints.')
         meta(property='og:url', content='https://strawberry-vision-dataset.yuhao-jin.chatgpt.site/')
         meta(property='og:image', content='https://strawberry-vision-dataset.yuhao-jin.chatgpt.site/assets/og-strawberry-dataset.jpg')
         meta(name='twitter:card', content='summary_large_image')
-        title Strawberry Dataset | Agricultural Computer Vision
+        title Strawberry RGB-D Dataset | Agricultural Computer Vision
 
         link(rel='canonical', href='https://strawberry-vision-dataset.yuhao-jin.chatgpt.site/')
         link(rel='icon', type='image/png', href='assets/strawberry-favicon.png')
@@ -26,149 +26,259 @@ html(lang='en')
         main#main-content
             header#overview.research-hero
                 .container.px-4.px-lg-5
-                    .project-label Dataset project page
-                    .row.g-5.align-items-start
-                        .col-lg-7
-                            h1 A real-world strawberry dataset for detection and keypoint estimation
+                    .project-label Dataset release · July 2026
+                    .row.g-5.align-items-center
+                        .col-lg-6
+                            h1 A synchronized RGB-D strawberry dataset for real greenhouse perception
                             p.hero-abstract
-                                | This dataset provides instance-level annotations for strawberries captured in greenhouse environments. Each annotated fruit combines a bounding box, five anatomical keypoints, a ripeness label, and an occlusion label.
+                                | The current release contains 3,758 paired frames and 14,286 annotated strawberry instances. Every instance combines a bounding box, five anatomical keypoints, a ripeness category, and an occlusion category.
                             .hero-actions
                                 a.btn.btn-research(href='https://pan.baidu.com/s/1ul6L7jNT5VSTEdgTZroezA?pwd=pgna', target='_blank', rel='noopener noreferrer') Download dataset
-                                a.btn.btn-outline-research(href='#protocol') Read annotation protocol
+                                a.btn.btn-outline-research(href='#statistics') Explore release statistics
                             dl.project-metadata
                                 .metadata-row
+                                    dt Modalities
+                                    dd RGB · aligned depth · post-processed depth · raw depth · LabelMe JSON
+                                .metadata-row
                                     dt Research tasks
-                                    dd Object detection · Keypoint estimation · Attribute recognition
+                                    dd Object detection · keypoint estimation · attribute recognition · RGB-D perception
                                 .metadata-row
-                                    dt Annotation unit
-                                    dd Individual strawberry instance
+                                    dt Capture system
+                                    dd Four Intel RealSense D435I camera units
                                 .metadata-row
-                                    dt Capture domain
-                                    dd Real greenhouse scenes
-                                .metadata-row
-                                    dt Dataset access
-                                    dd Public download link
-                        .col-lg-5
+                                    dt Image resolution
+                                    dd 1280 × 720 pixels
+                        .col-lg-6
                             figure.research-figure.hero-figure
-                                .figure-frame
-                                    img(src='assets/strawberry-field.webp', alt='Strawberries growing in a greenhouse with an illustrative instance annotation', width='1280', height='720', fetchpriority='high')
-                                    .scientific-box(aria-hidden='true')
-                                        span bbox
-                                    span.scientific-point.scientific-point--1(aria-hidden='true')
-                                    span.scientific-point.scientific-point--2(aria-hidden='true')
-                                    span.scientific-point.scientific-point--3(aria-hidden='true')
-                                    span.scientific-point.scientific-point--4(aria-hidden='true')
-                                    span.scientific-point.scientific-point--5(aria-hidden='true')
+                                .figure-frame.figure-frame--clean
+                                    img(src='assets/dataset-annotation-overview.webp', alt='Representative greenhouse RGB frame with strawberry bounding boxes, five landmark types, ripeness categories, and occlusion categories', width='1800', height='1080', fetchpriority='high')
                                 figcaption
                                     span.figure-number Figure 1.
-                                    |  Example greenhouse image with an illustrative bounding box and five landmark points.
+                                    |  Real annotation overlay from data_collection1/270495; category IDs are shown exactly as stored.
 
-            section#abstract.paper-section
+            section#statistics.paper-section
                 .container.px-4.px-lg-5
                     .section-heading
                         span.section-number 01
                         div
-                            p.section-type Overview
-                            h2 Abstract
-                    .abstract-layout
-                        .abstract-text
-                            p
-                                | Strawberry perception in field conditions is complicated by foliage, uneven illumination, overlapping fruit, maturity variation, and partial visibility. These conditions are retained in the dataset so that models can be studied under realistic visual complexity.
-                            p
-                                | The annotation structure supports several related computer-vision tasks within one instance record. Bounding boxes define object extent, five keypoints encode landmark geometry, and two categorical attributes describe ripeness and occlusion.
-                        aside.contribution-panel(aria-labelledby='contribution-title')
-                            h3#contribution-title Dataset scope
-                            ul
-                                li Real greenhouse imagery rather than isolated objects
-                                li Instance localization and landmark supervision
-                                li Ripeness and visibility attributes
-                                li Suitable for multi-task agricultural perception studies
+                            p.section-type Release audit
+                            h2 Dataset snapshot
+                    p.section-summary
+                        | Statistics were computed directly from the current data directory. Counts cover all nine collections and all synchronized modalities in this release.
+                    .dataset-stat-grid
+                        article.dataset-stat
+                            span.stat-kicker Frames
+                            strong 3,758
+                            p Synchronized RGB-D samples
+                        article.dataset-stat
+                            span.stat-kicker Instances
+                            strong 14,286
+                            p Strawberry bounding boxes
+                        article.dataset-stat
+                            span.stat-kicker Landmarks
+                            strong 71,430
+                            p Five keypoints per instance
+                        article.dataset-stat
+                            span.stat-kicker Storage
+                            strong 7.11 GB
+                            p 18,805 files in total
+                    .integrity-grid
+                        article.integrity-item
+                            span.integrity-value 100%
+                            div
+                                h3 Cross-modal pairing
+                                p 3,758 complete RGB, label, aligned-depth, post-processed-depth, and raw-depth sets.
+                        article.integrity-item
+                            span.integrity-value 100%
+                            div
+                                h3 Annotation structure
+                                p All 14,286 instances contain one each of Cut, Top, Bottom, Left, and Right.
+                        article.integrity-item
+                            span.integrity-value 0
+                            div
+                                h3 Structural errors
+                                p No invalid bounding boxes or unmatched keypoint groups were found by the release audit.
+                    .audit-note
+                        div
+                            strong Reproducible release summary
+                            p The complete machine-readable count table and observed category values are included with the site.
+                        a.text-link(href='assets/dataset-summary.json', target='_blank') Open statistics JSON
 
-            section#protocol.paper-section.paper-section--alt
+            section#composition.paper-section.paper-section--alt
                 .container.px-4.px-lg-5
                     .section-heading
                         span.section-number 02
                         div
-                            p.section-type Method
-                            h2 Annotation protocol
+                            p.section-type Dataset analysis
+                            h2 Composition and label balance
                     p.section-summary
-                        | Each strawberry instance is represented by a compact set of spatial and categorical annotations. The table summarizes the public schema without inferring unpublished dataset statistics.
+                        | The collection-level distribution is heterogeneous: later collections contribute more instances per frame, while category labels remain binary for ripeness and occlusion.
+                    figure.research-figure.data-figure
+                        .figure-frame.figure-frame--clean
+                            img(src='assets/dataset-distributions.webp', alt='Charts showing frame and strawberry instance counts by collection, plus ripeness, occlusion, and keypoint visibility distributions', width='1800', height='1250', loading='lazy')
+                        figcaption
+                            span.figure-number Figure 2.
+                            |  Release-wide counts. Ripeness and occlusion use their stored numeric IDs; semantic class names are not inferred without a finalized codebook.
+                    .composition-grid
+                        .table-responsive.collection-table-wrap
+                            table.collection-table
+                                caption Collection-level sample and instance counts
+                                thead
+                                    tr
+                                        th(scope='col') Collection
+                                        th(scope='col') Frames
+                                        th(scope='col') Instances
+                                        th(scope='col') Inst./frame
+                                tbody
+                                    tr
+                                        th(scope='row') C1
+                                        td 186
+                                        td 687
+                                        td 3.69
+                                    tr
+                                        th(scope='row') C2
+                                        td 776
+                                        td 1,615
+                                        td 2.08
+                                    tr
+                                        th(scope='row') C3
+                                        td 435
+                                        td 1,053
+                                        td 2.42
+                                    tr
+                                        th(scope='row') C4
+                                        td 385
+                                        td 887
+                                        td 2.30
+                                    tr
+                                        th(scope='row') C5
+                                        td 506
+                                        td 1,295
+                                        td 2.56
+                                    tr
+                                        th(scope='row') C6
+                                        td 65
+                                        td 203
+                                        td 3.12
+                                    tr
+                                        th(scope='row') C7
+                                        td 96
+                                        td 327
+                                        td 3.41
+                                    tr
+                                        th(scope='row') C8
+                                        td 483
+                                        td 3,441
+                                        td 7.12
+                                    tr
+                                        th(scope='row') C9
+                                        td 826
+                                        td 4,778
+                                        td 5.78
+                                tfoot
+                                    tr
+                                        th(scope='row') Total
+                                        td 3,758
+                                        td 14,286
+                                        td 3.80
+                        aside.label-summary
+                            p.section-type Observed labels
+                            h3 Attribute distribution
+                            dl
+                                .label-row
+                                    dt Ripeness 0
+                                    dd 4,957
+                                        span 34.7%
+                                .label-row
+                                    dt Ripeness 1
+                                    dd 9,329
+                                        span 65.3%
+                                .label-row
+                                    dt Occlusion 0
+                                    dd 9,278
+                                        span 64.9%
+                                .label-row
+                                    dt Occlusion 1
+                                    dd 5,008
+                                        span 35.1%
+                            p.label-footnote Keypoint visibility: v0 = 774, v1 = 10,062, v2 = 60,594.
+
+            section#protocol.paper-section
+                .container.px-4.px-lg-5
+                    .section-heading
+                        span.section-number 03
+                        div
+                            p.section-type Data specification
+                            h2 Modalities and annotation protocol
+                    p.section-summary
+                        | Every sample stem identifies one synchronized record across five folders. Post-processed aligned depth is used for the 3D visualization below, with per-camera calibration selected from the collection metadata.
                     .table-responsive.protocol-table-wrap
                         table.protocol-table
                             thead
                                 tr
                                     th(scope='col') Signal
                                     th(scope='col') Representation
+                                    th(scope='col') Release count
                                     th(scope='col') Intended use
-                                    th(scope='col') Per instance
                             tbody
                                 tr
-                                    th(scope='row') Localization
-                                    td Axis-aligned bounding box
-                                    td Object detection and instance localization
-                                    td 1 box
+                                    th(scope='row') RGB
+                                    td 1280 × 720 PNG
+                                    td 3,758
+                                    td Appearance, localization, and attribute recognition
                                 tr
-                                    th(scope='row') Geometry
-                                    td Anatomical landmark coordinates
-                                    td Keypoint estimation and shape reasoning
-                                    td 5 points
+                                    th(scope='row') Aligned depth
+                                    td 16-bit depth PNG aligned to color
+                                    td 3,758
+                                    td RGB-D fusion and metric geometry
                                 tr
-                                    th(scope='row') Ripeness
-                                    td Categorical maturity label
-                                    td Visual grading and attribute recognition
-                                    td 1 label
+                                    th(scope='row') Processed depth
+                                    td Spatial, temporal, and hole-filled aligned depth
+                                    td 3,758
+                                    td Stable visualization and downstream geometry
                                 tr
-                                    th(scope='row') Occlusion
-                                    td Categorical visibility label
-                                    td Robustness analysis under partial visibility
-                                    td 1 label
-                    .protocol-note
-                        span.protocol-note-label Annotation record
-                        code { bbox, keypoints[5], ripeness, occlusion }
+                                    th(scope='row') Raw depth
+                                    td Original 16-bit depth PNG
+                                    td 3,758
+                                    td Reprocessing and sensor-level studies
+                                tr
+                                    th(scope='row') Instance label
+                                    td LabelMe JSON
+                                    td 3,758
+                                    td Boxes, five keypoints, ripeness, and occlusion
+                    .protocol-record
+                        .protocol-code
+                            span.protocol-note-label Instance record
+                            code { bbox, Cut, Top, Bottom, Left, Right, ripeness, occlusion }
+                        p Visibility is stored per keypoint as 0, 1, or 2. Ripeness and occlusion use observed values 0 and 1.
 
-            section#examples.paper-section
-                .container.px-4.px-lg-5
-                    .section-heading
-                        span.section-number 03
-                        div
-                            p.section-type Qualitative examples
-                            h2 Annotation views
-                    p.section-summary
-                        | The examples below isolate the principal supervision signals. Visual overlays are explanatory and use the same real greenhouse image distributed with this project page.
-                    .figure-grid
-                        figure.research-figure.example-figure
-                            .figure-frame.figure-frame--crop.figure-frame--ripe
-                                img(src='assets/strawberry-field.webp', alt='Close crop of ripe strawberries used to illustrate a maturity label', width='1280', height='720', loading='lazy')
-                                .figure-code R0
-                                .example-box(aria-hidden='true')
-                            figcaption
-                                span.figure-number Figure 2a.
-                                |  Ripeness attribute for a localized fruit instance.
-                        figure.research-figure.example-figure
-                            .figure-frame.figure-frame--crop.figure-frame--occlusion
-                                img(src='assets/strawberry-field.webp', alt='Strawberry and surrounding foliage used to illustrate visibility annotation', width='1280', height='720', loading='lazy')
-                                .figure-code O2
-                                .visibility-outline(aria-hidden='true')
-                            figcaption
-                                span.figure-number Figure 2b.
-                                |  Occlusion label describing instance visibility.
-                        figure.research-figure.example-figure
-                            .figure-frame.figure-frame--crop.figure-frame--keypoints
-                                img(src='assets/strawberry-field.webp', alt='Strawberry crop with five illustrative keypoint landmarks', width='1280', height='720', loading='lazy')
-                                .figure-code K=5
-                                span.example-point.example-point--1(aria-hidden='true')
-                                span.example-point.example-point--2(aria-hidden='true')
-                                span.example-point.example-point--3(aria-hidden='true')
-                                span.example-point.example-point--4(aria-hidden='true')
-                                span.example-point.example-point--5(aria-hidden='true')
-                            figcaption
-                                span.figure-number Figure 2c.
-                                |  Five landmarks encoding strawberry geometry.
-
-            section#resources.paper-section.paper-section--alt
+            section#visualizations.paper-section.paper-section--alt
                 .container.px-4.px-lg-5
                     .section-heading
                         span.section-number 04
+                        div
+                            p.section-type Qualitative inspection
+                            h2 Annotation and depth visualization
+                    p.section-summary
+                        | Both views below use the same representative sample. The first shows the complete instance-level label overlay; the second reconstructs aligned post-processed depth into a colorized 3D point cloud.
+                    .visual-stack
+                        figure.research-figure.visual-figure
+                            .figure-frame.figure-frame--clean
+                                img(src='assets/dataset-annotation-overview.webp', alt='Complete instance annotation overlay for representative sample data_collection1 270495', width='1800', height='1080', loading='lazy')
+                            figcaption
+                                span.figure-number Figure 3a.
+                                |  Twelve labeled instances with bounding boxes, category IDs, and five anatomical landmark types. Filled points denote visibility 2; outlined points denote visibility 1.
+                        figure.research-figure.visual-figure
+                            .figure-frame.figure-frame--clean.figure-frame--dark
+                                img(src='assets/dataset-pointcloud.webp', alt='RGB-colored 3D point cloud reconstructed from aligned post-processed depth for sample data_collection1 270495', width='1800', height='1120', loading='lazy')
+                            figcaption
+                                span.figure-number Figure 3b.
+                                |  RGB-colored point cloud reconstructed with color-camera intrinsics. This frame has 99.96% valid depth pixels and a median depth of 0.377 m.
+
+            section#resources.paper-section
+                .container.px-4.px-lg-5
+                    .section-heading
+                        span.section-number 05
                         div
                             p.section-type Availability
                             h2 Resources
@@ -177,10 +287,10 @@ html(lang='en')
                             .resource-status
                                 span.status-indicator(aria-hidden='true')
                                 | Dataset available
-                            h3 Strawberry dataset package
-                            p The current release is distributed through Baidu Netdisk.
+                            h3 Strawberry RGB-D dataset package
+                            p The current release is distributed through Baidu Netdisk and contains all nine audited collections.
                             a.btn.btn-research(href='https://pan.baidu.com/s/1ul6L7jNT5VSTEdgTZroezA?pwd=pgna', target='_blank', rel='noopener noreferrer') Open dataset download
-                            p.access-code Access code: 
+                            p.access-code Access code:
                                 code pgna
                         .resource-index
                             dl
@@ -188,6 +298,10 @@ html(lang='en')
                                     dt Dataset
                                     dd
                                         span.resource-available Available
+                                .resource-row
+                                    dt Statistics
+                                    dd
+                                        a(href='assets/dataset-summary.json', target='_blank') Release summary JSON
                                 .resource-row
                                     dt Associated paper
                                     dd To be added

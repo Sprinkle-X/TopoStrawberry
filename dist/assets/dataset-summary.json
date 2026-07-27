@@ -1,0 +1,246 @@
+{
+  "generated_at": "2026-07-27T05:46:24.187349+00:00",
+  "dataset_root": "data",
+  "collections": [
+    {
+      "collection": "data_collection1",
+      "samples": 186,
+      "instances": 687,
+      "keypoints": 3435,
+      "schema_complete_instances": 687,
+      "invalid_boxes": 0,
+      "unmatched_keypoints": 0,
+      "modalities": {
+        "rgb": 186,
+        "label": 186,
+        "depth_aligned": 186,
+        "depth_aligned_pp": 186,
+        "depth_raw": 186
+      },
+      "fully_paired_samples": 186
+    },
+    {
+      "collection": "data_collection2",
+      "samples": 776,
+      "instances": 1615,
+      "keypoints": 8075,
+      "schema_complete_instances": 1615,
+      "invalid_boxes": 0,
+      "unmatched_keypoints": 0,
+      "modalities": {
+        "rgb": 776,
+        "label": 776,
+        "depth_aligned": 776,
+        "depth_aligned_pp": 776,
+        "depth_raw": 776
+      },
+      "fully_paired_samples": 776
+    },
+    {
+      "collection": "data_collection3",
+      "samples": 435,
+      "instances": 1053,
+      "keypoints": 5265,
+      "schema_complete_instances": 1053,
+      "invalid_boxes": 0,
+      "unmatched_keypoints": 0,
+      "modalities": {
+        "rgb": 435,
+        "label": 435,
+        "depth_aligned": 435,
+        "depth_aligned_pp": 435,
+        "depth_raw": 435
+      },
+      "fully_paired_samples": 435
+    },
+    {
+      "collection": "data_collection4",
+      "samples": 385,
+      "instances": 887,
+      "keypoints": 4435,
+      "schema_complete_instances": 887,
+      "invalid_boxes": 0,
+      "unmatched_keypoints": 0,
+      "modalities": {
+        "rgb": 385,
+        "label": 385,
+        "depth_aligned": 385,
+        "depth_aligned_pp": 385,
+        "depth_raw": 385
+      },
+      "fully_paired_samples": 385
+    },
+    {
+      "collection": "data_collection5",
+      "samples": 506,
+      "instances": 1295,
+      "keypoints": 6475,
+      "schema_complete_instances": 1295,
+      "invalid_boxes": 0,
+      "unmatched_keypoints": 0,
+      "modalities": {
+        "rgb": 506,
+        "label": 506,
+        "depth_aligned": 506,
+        "depth_aligned_pp": 506,
+        "depth_raw": 506
+      },
+      "fully_paired_samples": 506
+    },
+    {
+      "collection": "data_collection6",
+      "samples": 65,
+      "instances": 203,
+      "keypoints": 1015,
+      "schema_complete_instances": 203,
+      "invalid_boxes": 0,
+      "unmatched_keypoints": 0,
+      "modalities": {
+        "rgb": 65,
+        "label": 65,
+        "depth_aligned": 65,
+        "depth_aligned_pp": 65,
+        "depth_raw": 65
+      },
+      "fully_paired_samples": 65
+    },
+    {
+      "collection": "data_collection7",
+      "samples": 96,
+      "instances": 327,
+      "keypoints": 1635,
+      "schema_complete_instances": 327,
+      "invalid_boxes": 0,
+      "unmatched_keypoints": 0,
+      "modalities": {
+        "rgb": 96,
+        "label": 96,
+        "depth_aligned": 96,
+        "depth_aligned_pp": 96,
+        "depth_raw": 96
+      },
+      "fully_paired_samples": 96
+    },
+    {
+      "collection": "data_collection8",
+      "samples": 483,
+      "instances": 3441,
+      "keypoints": 17205,
+      "schema_complete_instances": 3441,
+      "invalid_boxes": 0,
+      "unmatched_keypoints": 0,
+      "modalities": {
+        "rgb": 483,
+        "label": 483,
+        "depth_aligned": 483,
+        "depth_aligned_pp": 483,
+        "depth_raw": 483
+      },
+      "fully_paired_samples": 483
+    },
+    {
+      "collection": "data_collection9",
+      "samples": 826,
+      "instances": 4778,
+      "keypoints": 23890,
+      "schema_complete_instances": 4778,
+      "invalid_boxes": 0,
+      "unmatched_keypoints": 0,
+      "modalities": {
+        "rgb": 826,
+        "label": 826,
+        "depth_aligned": 826,
+        "depth_aligned_pp": 826,
+        "depth_raw": 826
+      },
+      "fully_paired_samples": 826
+    }
+  ],
+  "overall": {
+    "collections": 9,
+    "samples": 3758,
+    "instances": 14286,
+    "keypoints": 71430,
+    "expected_keypoints": 71430,
+    "mean_instances_per_frame": 3.8,
+    "schema_complete_instances": 14286,
+    "schema_completeness_percent": 100.0,
+    "valid_boxes": 14286,
+    "invalid_boxes": 0,
+    "unmatched_keypoints": 0,
+    "fully_paired_samples": 3758,
+    "pairing_percent": 100.0,
+    "rgb_files": 3758,
+    "label_files": 3758,
+    "depth_aligned_files": 3758,
+    "depth_aligned_pp_files": 3758,
+    "depth_raw_files": 3758,
+    "camera_units": 4,
+    "device_names": [
+      "Intel RealSense D435I"
+    ],
+    "total_files": 18805,
+    "total_bytes": 7114928294,
+    "total_gb_decimal": 7.11,
+    "total_gib": 6.63
+  },
+  "distributions": {
+    "ripeness": {
+      "0": 4957,
+      "1": 9329
+    },
+    "occlusion": {
+      "0": 9278,
+      "1": 5008
+    },
+    "keypoint_visibility": {
+      "0": 774,
+      "1": 10062,
+      "2": 60594
+    },
+    "image_size": {
+      "1280x720": 3758
+    },
+    "file_extension": {
+      ".json": 3773,
+      ".png": 15032
+    }
+  },
+  "annotation_schema": {
+    "instance_label": "strawberry",
+    "keypoints": [
+      "Cut",
+      "Top",
+      "Bottom",
+      "Left",
+      "Right"
+    ],
+    "ripeness_values_observed": [
+      "0",
+      "1"
+    ],
+    "occlusion_values_observed": [
+      "0",
+      "1"
+    ],
+    "visibility_values_observed": [
+      "0",
+      "1",
+      "2"
+    ],
+    "note": "Ripeness and occlusion are reported as stored numeric categories; no undocumented semantic names are inferred."
+  },
+  "representative_sample": {
+    "collection": "data_collection1",
+    "stem": "270495",
+    "instances": 12,
+    "depth": {
+      "valid_pixel_percent": 99.96,
+      "p10_depth_m": 0.311,
+      "median_depth_m": 0.377,
+      "p90_depth_m": 0.563,
+      "rendered_points": 57500,
+      "calibration_file": "camera_calibration.json"
+    }
+  }
+}
