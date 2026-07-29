@@ -535,7 +535,10 @@ def render_pointcloud(
     candidate: dict,
     output_path: Path,
     interactive_output_path: Path | None = None,
+    max_foreground_depth: float = 0.5,
 ) -> dict:
+    if not 0.15 < max_foreground_depth <= 2.5:
+        raise ValueError("Maximum foreground depth must be greater than 0.15 m and no more than 2.5 m.")
     stem = candidate["stem"]
     rgb = np.asarray(Image.open(candidate["rgb_path"]).convert("RGB"))
     depth = np.asarray(Image.open(candidate["depth_pp_path"]))
@@ -560,7 +563,7 @@ def render_pointcloud(
         if (shape.get("shape_type") == "rectangle" or shape.get("label") == "strawberry")
         and len(shape.get("points", [])) == 2
     ]
-    depth_min, depth_max = 0.15, 2.5
+    depth_min, depth_max = 0.15, max_foreground_depth
     roi_left, roi_top, roi_right, roi_bottom = 0, 0, depth.shape[1] - 1, depth.shape[0] - 1
     if boxes:
         x_values = [float(point[0]) for box in boxes for point in box]
@@ -596,7 +599,7 @@ def render_pointcloud(
             subject_depth = np.concatenate(usable_subject_depth)
             subject_near, subject_far = np.percentile(subject_depth, [2, 98])
             depth_min = max(0.15, float(subject_near) - 0.08)
-            depth_max = min(2.5, float(subject_far) + 0.22)
+            depth_max = min(max_foreground_depth, float(subject_far) + 0.22)
 
     foreground_roi = (
         (uu >= roi_left)
@@ -863,6 +866,12 @@ def main() -> None:
         default="train/0238",
         help="Sample used for the annotation and point-cloud figures (default: train/0238).",
     )
+    parser.add_argument(
+        "--foreground-depth-max",
+        type=float,
+        default=0.5,
+        help="Maximum depth retained in the foreground point cloud, in meters (default: 0.5).",
+    )
     args = parser.parse_args()
     dataset_root = args.dataset_root.resolve()
     output_dir = args.output_dir.resolve()
@@ -882,6 +891,7 @@ def main() -> None:
         candidate,
         pointcloud_path,
         interactive_pointcloud_path,
+        args.foreground_depth_max,
     )
     render_distributions(summary, distribution_path)
 

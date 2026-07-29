@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-29T10:33:14.367038+00:00",
+  "generated_at": "2026-07-29T10:37:08.894511+00:00",
   "dataset_root": "data",
   "layout": "train_val",
   "partitions": [
@@ -152,16 +152,16 @@
       "p10_depth_m": 0.319,
       "median_depth_m": 0.364,
       "p90_depth_m": 0.497,
-      "rendered_points": 33696,
+      "rendered_points": 32978,
       "foreground_depth_min_m": 0.22,
-      "foreground_depth_max_m": 0.668,
+      "foreground_depth_max_m": 0.5,
       "foreground_roi": [
         68,
         68,
         1018,
         667
       ],
-      "kept_sampled_pixels_percent": 61.75,
+      "kept_sampled_pixels_percent": 60.38,
       "calibration_file": "camera_calibration_233622079124.json"
     }
   }
