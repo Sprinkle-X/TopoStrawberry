@@ -535,7 +535,7 @@ def render_pointcloud(
     candidate: dict,
     output_path: Path,
     interactive_output_path: Path | None = None,
-    max_foreground_depth: float = 0.5,
+    max_foreground_depth: float = 0.4,
 ) -> dict:
     if not 0.15 < max_foreground_depth <= 2.5:
         raise ValueError("Maximum foreground depth must be greater than 0.15 m and no more than 2.5 m.")
@@ -702,13 +702,13 @@ def render_pointcloud(
         draw.rectangle((px, py, px + 2, py + 2), fill=fill)
 
     panel_left = 1382
-    draw.text((panel_left, 174), "Frame depth", font=font(27, bold=True), fill="#f2f6f8")
+    draw.text((panel_left, 174), "Filtered depth", font=font(27, bold=True), fill="#f2f6f8")
     draw.line((panel_left, 218, 1745, 218), fill="#335064", width=2)
     valid_full = depth > 0
-    depth_m = depth[valid_full].astype(np.float32) * scale
-    p10, p50, p90 = np.percentile(depth_m, [10, 50, 90]) if depth_m.size else (0, 0, 0)
+    p10, p50, p90 = np.percentile(z, [10, 50, 90]) if z.size else (0, 0, 0)
+    kept_sampled_percent = percent(int(valid.sum()), int(base_valid.sum()))
     metrics = [
-        ("Valid pixels", f"{percent(int(valid_full.sum()), depth.size):.1f}%"),
+        ("Kept samples", f"{kept_sampled_percent:.1f}%"),
         ("P10 depth", f"{p10:.2f} m"),
         ("Median depth", f"{p50:.2f} m"),
         ("P90 depth", f"{p90:.2f} m"),
@@ -744,7 +744,7 @@ def render_pointcloud(
         "foreground_depth_min_m": round(depth_min, 3),
         "foreground_depth_max_m": round(depth_max, 3),
         "foreground_roi": [roi_left, roi_top, roi_right, roi_bottom],
-        "kept_sampled_pixels_percent": percent(int(valid.sum()), int(base_valid.sum())),
+        "kept_sampled_pixels_percent": kept_sampled_percent,
         "calibration_file": calibration_name,
     }
 
@@ -869,8 +869,8 @@ def main() -> None:
     parser.add_argument(
         "--foreground-depth-max",
         type=float,
-        default=0.5,
-        help="Maximum depth retained in the foreground point cloud, in meters (default: 0.5).",
+        default=0.4,
+        help="Maximum depth retained in the foreground point cloud, in meters (default: 0.4).",
     )
     args = parser.parse_args()
     dataset_root = args.dataset_root.resolve()
