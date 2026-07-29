@@ -545,7 +545,7 @@ def render_pointcloud(
     center = np.median(points, axis=0)
     centered = points - center
     if interactive_output_path is not None:
-        target_count = min(14000, len(centered))
+        target_count = min(60000, len(centered))
         sample_indexes = np.linspace(0, len(centered) - 1, target_count, dtype=np.int32)
         interactive_points = centered[sample_indexes]
         extent = max(float(np.max(np.ptp(interactive_points, axis=0))), 1e-6)

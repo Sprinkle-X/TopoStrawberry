@@ -250,7 +250,9 @@ html(lang='en')
                                 .pointcloud-toolbar
                                     div
                                         span.pointcloud-eyebrow Interactive RGB-D reconstruction
-                                        strong train / 0210 · 14,000 rendered points
+                                        strong
+                                            | train / 0210 ·
+                                            span#pointcloudPointCount Preparing dense cloud…
                                     button#pointcloudReset.pointcloud-reset(type='button') Reset view
                                 .pointcloud-stage
                                     canvas#pointcloudViewer(

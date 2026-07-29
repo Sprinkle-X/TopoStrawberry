@@ -1001,6 +1001,10 @@ a {
     font-weight: 700;
 }
 
+#pointcloudPointCount {
+    margin-left: 0.3rem;
+}
+
 .pointcloud-eyebrow {
     color: #8faebe;
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -1040,6 +1044,11 @@ a {
     height: clamp(26rem, 56vw, 47rem);
     cursor: grab;
     outline: 0;
+    background-color: #081521;
+    background-image:
+        linear-gradient(rgba(55, 91, 112, 0.28) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(55, 91, 112, 0.28) 1px, transparent 1px);
+    background-size: 72px 72px;
     touch-action: none;
 }
 

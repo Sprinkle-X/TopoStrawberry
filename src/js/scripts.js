@@ -27,110 +27,201 @@
         return;
     }
 
-    const context = canvas.getContext('2d', { alpha: false });
     const loading = document.getElementById('pointcloudLoading');
     const fallback = document.getElementById('pointcloudFallback');
     const resetButton = document.getElementById('pointcloudReset');
+    const pointCountLabel = document.getElementById('pointcloudPointCount');
     const state = {
         yaw: -0.58,
         pitch: 0.22,
-        zoom: 1.15,
+        zoom: 2.6,
         panX: 0,
         panY: 0,
     };
     const initialState = { ...state };
     const pointers = new Map();
-    let positions = null;
-    let colorStyles = null;
     let pointCount = 0;
     let frameRequested = false;
     let pinchDistance = 0;
     let pinchMidpoint = null;
+    let renderer = null;
+
+    function showFallback(message) {
+        canvas.hidden = true;
+        if (fallback) {
+            fallback.hidden = false;
+        }
+        if (loading) {
+            loading.textContent = message;
+        }
+    }
+
+    function createShader(gl, type, source) {
+        const shader = gl.createShader(type);
+        gl.shaderSource(shader, source);
+        gl.compileShader(shader);
+        if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+            gl.deleteShader(shader);
+            throw new Error('Unable to initialize point-cloud shader.');
+        }
+        return shader;
+    }
+
+    function createWebGLRenderer() {
+        const gl = canvas.getContext('webgl', {
+            alpha: true,
+            antialias: true,
+            depth: true,
+            powerPreference: 'high-performance',
+        });
+        if (!gl) {
+            throw new Error('WebGL is unavailable.');
+        }
+
+        const vertexShader = createShader(
+            gl,
+            gl.VERTEX_SHADER,
+            `
+                attribute vec3 aPosition;
+                attribute vec3 aColor;
+                uniform float uYaw;
+                uniform float uPitch;
+                uniform float uZoom;
+                uniform float uAspect;
+                uniform float uPixelRatio;
+                uniform vec2 uPan;
+                varying vec3 vColor;
+
+                void main() {
+                    float cy = cos(uYaw);
+                    float sy = sin(uYaw);
+                    float cp = cos(uPitch);
+                    float sp = sin(uPitch);
+                    float rotatedX = cy * aPosition.x + sy * aPosition.z;
+                    float yawDepth = -sy * aPosition.x + cy * aPosition.z;
+                    float rotatedY = cp * aPosition.y - sp * yawDepth;
+                    float rotatedDepth = sp * aPosition.y + cp * yawDepth;
+                    float viewDepth = max(rotatedDepth + 2.35, 0.15);
+                    vec2 projected = vec2(
+                        (rotatedX / viewDepth) * 1.9 / uAspect,
+                        (rotatedY / viewDepth) * 1.9
+                    );
+                    projected = projected * uZoom + uPan;
+                    gl_Position = vec4(
+                        projected,
+                        clamp(rotatedDepth * 0.65, -0.95, 0.95),
+                        1.0
+                    );
+                    gl_PointSize = clamp(
+                        (3.4 * uPixelRatio * uZoom) / viewDepth,
+                        1.4 * uPixelRatio,
+                        4.5 * uPixelRatio
+                    );
+                    vColor = aColor;
+                }
+            `
+        );
+        const fragmentShader = createShader(
+            gl,
+            gl.FRAGMENT_SHADER,
+            `
+                precision mediump float;
+                varying vec3 vColor;
+
+                void main() {
+                    vec2 center = gl_PointCoord - vec2(0.5);
+                    float radius = dot(center, center);
+                    if (radius > 0.25) {
+                        discard;
+                    }
+                    float edge = 1.0 - smoothstep(0.17, 0.25, radius);
+                    gl_FragColor = vec4(vColor * (0.9 + 0.1 * edge), edge);
+                }
+            `
+        );
+        const program = gl.createProgram();
+        gl.attachShader(program, vertexShader);
+        gl.attachShader(program, fragmentShader);
+        gl.linkProgram(program);
+        if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+            throw new Error('Unable to link point-cloud renderer.');
+        }
+        gl.deleteShader(vertexShader);
+        gl.deleteShader(fragmentShader);
+
+        const locations = {
+            position: gl.getAttribLocation(program, 'aPosition'),
+            color: gl.getAttribLocation(program, 'aColor'),
+            yaw: gl.getUniformLocation(program, 'uYaw'),
+            pitch: gl.getUniformLocation(program, 'uPitch'),
+            zoom: gl.getUniformLocation(program, 'uZoom'),
+            aspect: gl.getUniformLocation(program, 'uAspect'),
+            pixelRatio: gl.getUniformLocation(program, 'uPixelRatio'),
+            pan: gl.getUniformLocation(program, 'uPan'),
+        };
+        const positionBuffer = gl.createBuffer();
+        const colorBuffer = gl.createBuffer();
+
+        gl.useProgram(program);
+        gl.enable(gl.DEPTH_TEST);
+        gl.depthFunc(gl.LESS);
+        gl.enable(gl.BLEND);
+        gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+        gl.clearColor(0, 0, 0, 0);
+
+        return {
+            upload(payload) {
+                pointCount = payload.point_count;
+                gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(payload.positions), gl.STATIC_DRAW);
+                gl.enableVertexAttribArray(locations.position);
+                gl.vertexAttribPointer(locations.position, 3, gl.FLOAT, false, 0, 0);
+
+                gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
+                gl.bufferData(gl.ARRAY_BUFFER, new Uint8Array(payload.colors), gl.STATIC_DRAW);
+                gl.enableVertexAttribArray(locations.color);
+                gl.vertexAttribPointer(locations.color, 3, gl.UNSIGNED_BYTE, true, 0, 0);
+            },
+            resize() {
+                const bounds = canvas.getBoundingClientRect();
+                const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+                const width = Math.max(1, Math.round(bounds.width * pixelRatio));
+                const height = Math.max(1, Math.round(bounds.height * pixelRatio));
+                if (canvas.width !== width || canvas.height !== height) {
+                    canvas.width = width;
+                    canvas.height = height;
+                    gl.viewport(0, 0, width, height);
+                }
+            },
+            draw() {
+                const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+                gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+                gl.useProgram(program);
+                gl.uniform1f(locations.yaw, state.yaw);
+                gl.uniform1f(locations.pitch, state.pitch);
+                gl.uniform1f(locations.zoom, state.zoom);
+                gl.uniform1f(locations.aspect, canvas.width / Math.max(canvas.height, 1));
+                gl.uniform1f(locations.pixelRatio, pixelRatio);
+                gl.uniform2f(
+                    locations.pan,
+                    (2 * state.panX * pixelRatio) / canvas.width,
+                    (-2 * state.panY * pixelRatio) / canvas.height
+                );
+                gl.drawArrays(gl.POINTS, 0, pointCount);
+            },
+        };
+    }
 
     function scheduleRender() {
-        if (frameRequested || !positions) {
+        if (frameRequested || !renderer || !pointCount) {
             return;
         }
         frameRequested = true;
         window.requestAnimationFrame(() => {
             frameRequested = false;
-            renderPointCloud();
+            renderer.resize();
+            renderer.draw();
         });
-    }
-
-    function resizeCanvas() {
-        const bounds = canvas.getBoundingClientRect();
-        const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
-        const width = Math.max(1, Math.round(bounds.width * pixelRatio));
-        const height = Math.max(1, Math.round(bounds.height * pixelRatio));
-        if (canvas.width !== width || canvas.height !== height) {
-            canvas.width = width;
-            canvas.height = height;
-            scheduleRender();
-        }
-    }
-
-    function renderPointCloud() {
-        const width = canvas.width;
-        const height = canvas.height;
-        const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
-        context.fillStyle = '#081521';
-        context.fillRect(0, 0, width, height);
-
-        context.strokeStyle = '#173246';
-        context.lineWidth = Math.max(1, pixelRatio * 0.55);
-        const gridSpacing = Math.max(60, Math.round(width / 10));
-        for (let x = gridSpacing; x < width; x += gridSpacing) {
-            context.beginPath();
-            context.moveTo(x, 0);
-            context.lineTo(x, height);
-            context.stroke();
-        }
-        for (let y = gridSpacing; y < height; y += gridSpacing) {
-            context.beginPath();
-            context.moveTo(0, y);
-            context.lineTo(width, y);
-            context.stroke();
-        }
-
-        const cosineYaw = Math.cos(state.yaw);
-        const sineYaw = Math.sin(state.yaw);
-        const cosinePitch = Math.cos(state.pitch);
-        const sinePitch = Math.sin(state.pitch);
-        const projectionScale = Math.min(width, height) * 1.5 * state.zoom;
-        const cameraDistance = 2.45;
-        const projected = [];
-
-        for (let index = 0; index < pointCount; index += 1) {
-            const offset = index * 3;
-            const x = positions[offset];
-            const y = positions[offset + 1];
-            const z = positions[offset + 2];
-            const rotatedX = cosineYaw * x + sineYaw * z;
-            const yawDepth = -sineYaw * x + cosineYaw * z;
-            const rotatedY = cosinePitch * y - sinePitch * yawDepth;
-            const rotatedDepth = sinePitch * y + cosinePitch * yawDepth;
-            const depth = rotatedDepth + cameraDistance;
-            if (depth <= 0.1) {
-                continue;
-            }
-            const screenX = width / 2 + state.panX * pixelRatio + (rotatedX / depth) * projectionScale;
-            const screenY = height / 2 + state.panY * pixelRatio - (rotatedY / depth) * projectionScale;
-            if (screenX < -4 || screenX > width + 4 || screenY < -4 || screenY > height + 4) {
-                continue;
-            }
-            projected.push([rotatedDepth, screenX, screenY, index, depth]);
-        }
-
-        projected.sort((a, b) => b[0] - a[0]);
-        context.globalAlpha = 0.96;
-        for (const point of projected) {
-            const index = point[3];
-            const size = clamp((2.8 / point[4]) * pixelRatio, 1.1 * pixelRatio, 2.6 * pixelRatio);
-            context.fillStyle = colorStyles[index];
-            context.fillRect(point[1], point[2], size, size);
-        }
-        context.globalAlpha = 1;
     }
 
     function resetView() {
@@ -251,6 +342,13 @@
         resetButton.addEventListener('click', resetView);
     }
 
+    try {
+        renderer = createWebGLRenderer();
+    } catch (error) {
+        showFallback('WebGL is unavailable; showing the static reconstruction.');
+        return;
+    }
+
     fetch(canvas.dataset.source)
         .then((response) => {
             if (!response.ok) {
@@ -259,33 +357,24 @@
             return response.json();
         })
         .then((payload) => {
-            pointCount = payload.point_count;
-            positions = new Float32Array(payload.positions);
-            colorStyles = new Array(pointCount);
-            for (let index = 0; index < pointCount; index += 1) {
-                const offset = index * 3;
-                colorStyles[index] = `rgb(${payload.colors[offset]},${payload.colors[offset + 1]},${payload.colors[offset + 2]})`;
+            renderer.upload(payload);
+            if (pointCountLabel) {
+                pointCountLabel.textContent = `${pointCount.toLocaleString()} rendered points`;
             }
             if (loading) {
-                loading.textContent = `${pointCount.toLocaleString()} points loaded · drag to explore`;
+                loading.textContent = `${pointCount.toLocaleString()} points loaded · GPU rendering active`;
                 window.setTimeout(() => loading.classList.add('is-hidden'), 900);
             }
-            resizeCanvas();
+            renderer.resize();
             scheduleRender();
         })
         .catch(() => {
-            canvas.hidden = true;
-            if (fallback) {
-                fallback.hidden = false;
-            }
-            if (loading) {
-                loading.textContent = 'Interactive data unavailable; showing the static reconstruction.';
-            }
+            showFallback('Interactive data unavailable; showing the static reconstruction.');
         });
 
     if ('ResizeObserver' in window) {
-        new ResizeObserver(resizeCanvas).observe(canvas);
+        new ResizeObserver(scheduleRender).observe(canvas);
     } else {
-        window.addEventListener('resize', resizeCanvas);
+        window.addEventListener('resize', scheduleRender);
     }
 })();
