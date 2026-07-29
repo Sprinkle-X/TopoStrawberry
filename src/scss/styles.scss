@@ -85,18 +85,11 @@ a {
     color: var(--research-ink);
 }
 
-.brand-index {
-    display: grid;
-    width: 2.1rem;
-    height: 2.1rem;
-    place-items: center;
-    border: 1px solid var(--research-navy);
-    color: #fff;
-    background: var(--research-navy);
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-    font-size: 0.72rem;
-    font-weight: 750;
-    letter-spacing: 0.05em;
+.brand-mascot {
+    width: 2.4rem;
+    height: 2.4rem;
+    flex: 0 0 auto;
+    object-fit: contain;
 }
 
 .brand-copy {

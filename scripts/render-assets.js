@@ -8,7 +8,9 @@ module.exports = function renderAssets() {
     const destPath = upath.resolve(upath.dirname(__filename), '../dist/assets');
     const publicAssets = [
         'og-strawberry-dataset.jpg',
+        'favicon.ico',
         'strawberry-favicon.png',
+        'strawberry-mascot.png',
         'strawberry-field.webp',
         'dataset-annotation-overview.webp',
         'dataset-distributions.webp',
