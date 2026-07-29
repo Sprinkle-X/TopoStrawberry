@@ -57,7 +57,7 @@ html(lang='en')
                                     img(src='assets/dataset-annotation-overview.webp', alt='Representative greenhouse RGB frame with strawberry bounding boxes, five landmark types, ripeness categories, and occlusion categories', width='1800', height='1080', fetchpriority='high')
                                 figcaption
                                     span.figure-number Figure 1.
-                                    |  Real annotation overlay from train/0210; category IDs are shown exactly as stored.
+                                    |  Real annotation overlay from train/0238; category IDs are shown exactly as stored.
 
             section#statistics.paper-section
                 .container.px-4.px-lg-5
@@ -241,17 +241,17 @@ html(lang='en')
                     .visual-stack
                         figure.research-figure.visual-figure
                             .figure-frame.figure-frame--clean
-                                img(src='assets/dataset-annotation-overview.webp', alt='Complete instance annotation overlay for representative training sample 0210', width='1800', height='1080', loading='lazy')
+                                img(src='assets/dataset-annotation-overview.webp', alt='Complete instance annotation overlay for representative training sample 0238', width='1800', height='1080', loading='lazy')
                             figcaption
                                 span.figure-number Figure 3a.
-                                |  Twelve labeled instances with bounding boxes, category IDs, and five anatomical landmark types. Filled points denote visibility 2; outlined points denote visibility 1.
+                                |  Seven labeled instances with bounding boxes, category IDs, and five anatomical landmark types. Filled points denote visibility 2; outlined points denote visibility 1.
                         figure.research-figure.visual-figure
                             .figure-frame.figure-frame--clean.figure-frame--dark.pointcloud-viewer
                                 .pointcloud-toolbar
                                     div
                                         span.pointcloud-eyebrow Interactive RGB-D reconstruction
                                         strong
-                                            | train / 0210 ·
+                                            | train / 0238 ·
                                             span#pointcloudPointCount Preparing dense cloud…
                                     button#pointcloudReset.pointcloud-reset(type='button') Reset view
                                 .pointcloud-stage
@@ -262,17 +262,17 @@ html(lang='en')
                                         data-source='assets/dataset-pointcloud-data.json'
                                     )
                                     #pointcloudLoading.pointcloud-loading(role='status') Loading real point-cloud data…
-                                    img#pointcloudFallback.pointcloud-fallback(src='assets/dataset-pointcloud.webp', alt='Static RGB-colored 3D point cloud fallback for training sample 0210', width='1800', height='1120', hidden)
+                                    img#pointcloudFallback.pointcloud-fallback(src='assets/dataset-pointcloud.webp', alt='Static RGB-colored 3D point cloud fallback for training sample 0238', width='1800', height='1120', hidden)
                                 .pointcloud-help
                                     span Drag to rotate
                                     span Shift/right-drag to pan
                                     span Wheel or pinch to zoom
                                     span Arrow keys · +/− · R
                                 noscript
-                                    img(src='assets/dataset-pointcloud.webp', alt='Static RGB-colored 3D point cloud for training sample 0210', width='1800', height='1120', loading='lazy')
+                                    img(src='assets/dataset-pointcloud.webp', alt='Static RGB-colored 3D point cloud for training sample 0238', width='1800', height='1120', loading='lazy')
                             figcaption
                                 span.figure-number Figure 3b.
-                                |  Interactive RGB-colored point cloud reconstructed with mapped color-camera intrinsics. Rotate, pan, and zoom freely; this frame has 99.96% valid depth pixels and a median depth of 0.413 m.
+                                |  Interactive RGB-colored point cloud reconstructed with mapped color-camera intrinsics. Rotate, pan, and zoom freely; this frame has 99.87% valid depth pixels and a median depth of 0.364 m.
 
             section#resources.paper-section
                 .container.px-4.px-lg-5

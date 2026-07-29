@@ -149,9 +149,16 @@ def load_calibration_mapping(dataset_root: Path) -> dict[tuple[str, str], Path]:
     return mapping
 
 
-def scan_dataset(dataset_root: Path) -> tuple[dict, dict]:
+def scan_dataset(dataset_root: Path, preferred_sample: str | None = None) -> tuple[dict, dict]:
     layout, partitions = discover_partitions(dataset_root)
     calibration_mapping = load_calibration_mapping(dataset_root)
+    preferred_partition: str | None = None
+    preferred_stem: str | None = None
+    if preferred_sample:
+        sample_parts = preferred_sample.replace("\\", "/").strip("/").split("/", 1)
+        if len(sample_parts) != 2 or not all(sample_parts):
+            raise ValueError("Representative sample must use the form 'partition/stem', for example 'train/0238'.")
+        preferred_partition, preferred_stem = sample_parts
     overall = Counter()
     ripeness = Counter()
     occlusion = Counter()
@@ -263,6 +270,11 @@ def scan_dataset(dataset_root: Path) -> tuple[dict, dict]:
                 + (12 if has_all_modalities else 0)
                 + (10 if calibration_path and calibration_path.exists() else 0)
                 + min(n_boxes, 12)
+                + (
+                    10_000
+                    if partition["name"] == preferred_partition and label_path.stem == preferred_stem
+                    else 0
+                )
             )
             if candidate is None or score > candidate["score"]:
                 candidate = {
@@ -309,6 +321,13 @@ def scan_dataset(dataset_root: Path) -> tuple[dict, dict]:
         size = path.stat().st_size
         total_bytes += size
         extension_counts[path.suffix.lower() or "[no extension]"] += 1
+
+    if preferred_sample and (
+        not candidate
+        or candidate["partition"] != preferred_partition
+        or candidate["stem"] != preferred_stem
+    ):
+        raise FileNotFoundError(f"Representative sample '{preferred_sample}' was not found in the dataset labels.")
 
     total_samples = overall["label_files"]
     expected_keypoints = overall["instances"] * len(KEYPOINTS)
@@ -779,12 +798,17 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("dataset_root", type=Path)
     parser.add_argument("output_dir", type=Path)
+    parser.add_argument(
+        "--representative-sample",
+        default="train/0238",
+        help="Sample used for the annotation and point-cloud figures (default: train/0238).",
+    )
     args = parser.parse_args()
     dataset_root = args.dataset_root.resolve()
     output_dir = args.output_dir.resolve()
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    summary, candidate = scan_dataset(dataset_root)
+    summary, candidate = scan_dataset(dataset_root, args.representative_sample)
     if not candidate:
         raise RuntimeError("No labeled representative sample could be selected.")
 

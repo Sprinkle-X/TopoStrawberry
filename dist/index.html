@@ -81,7 +81,7 @@
                                 <div class="figure-frame figure-frame--clean"><img src="assets/dataset-annotation-overview.webp" alt="Representative greenhouse RGB frame with strawberry bounding boxes, five landmark types, ripeness categories, and occlusion categories" width="1800" height="1080" fetchpriority="high" /></div>
                                 <figcaption>
                                     <span class="figure-number">Figure 1.</span>
-                                    Real annotation overlay from train/0210; category IDs are shown exactly as stored.
+                                    Real annotation overlay from train/0238; category IDs are shown exactly as stored.
                                 </figcaption>
                             </figure>
                         </div>
@@ -328,10 +328,10 @@
                     <p class="section-summary">Both views below use the same representative sample. The first shows the complete instance-level label overlay; the second reconstructs aligned post-processed depth into a colorized 3D point cloud.</p>
                     <div class="visual-stack">
                         <figure class="research-figure visual-figure">
-                            <div class="figure-frame figure-frame--clean"><img src="assets/dataset-annotation-overview.webp" alt="Complete instance annotation overlay for representative training sample 0210" width="1800" height="1080" loading="lazy" /></div>
+                            <div class="figure-frame figure-frame--clean"><img src="assets/dataset-annotation-overview.webp" alt="Complete instance annotation overlay for representative training sample 0238" width="1800" height="1080" loading="lazy" /></div>
                             <figcaption>
                                 <span class="figure-number">Figure 3a.</span>
-                                Twelve labeled instances with bounding boxes, category IDs, and five anatomical landmark types. Filled points denote visibility 2; outlined points denote visibility 1.
+                                Seven labeled instances with bounding boxes, category IDs, and five anatomical landmark types. Filled points denote visibility 2; outlined points denote visibility 1.
                             </figcaption>
                         </figure>
                         <figure class="research-figure visual-figure">
@@ -340,7 +340,7 @@
                                     <div>
                                         <span class="pointcloud-eyebrow">Interactive RGB-D reconstruction</span>
                                         <strong>
-                                            train / 0210 ·
+                                            train / 0238 ·
                                             <span id="pointcloudPointCount">Preparing dense cloud…</span>
                                         </strong>
                                     </div>
@@ -349,7 +349,7 @@
                                 <div class="pointcloud-stage">
                                     <canvas id="pointcloudViewer" tabindex="0" role="img" aria-label="Interactive RGB-colored strawberry point cloud. Drag to rotate, shift-drag to pan, and use the wheel to zoom." data-source="assets/dataset-pointcloud-data.json"></canvas>
                                     <div class="pointcloud-loading" id="pointcloudLoading" role="status">Loading real point-cloud data…</div>
-                                    <img class="pointcloud-fallback" id="pointcloudFallback" src="assets/dataset-pointcloud.webp" alt="Static RGB-colored 3D point cloud fallback for training sample 0210" width="1800" height="1120" hidden />
+                                    <img class="pointcloud-fallback" id="pointcloudFallback" src="assets/dataset-pointcloud.webp" alt="Static RGB-colored 3D point cloud fallback for training sample 0238" width="1800" height="1120" hidden />
                                 </div>
                                 <div class="pointcloud-help">
                                     <span>Drag to rotate</span>
@@ -357,11 +357,11 @@
                                     <span>Wheel or pinch to zoom</span>
                                     <span>Arrow keys · +/− · R</span>
                                 </div>
-                                <noscript><img src="assets/dataset-pointcloud.webp" alt="Static RGB-colored 3D point cloud for training sample 0210" width="1800" height="1120" loading="lazy" /></noscript>
+                                <noscript><img src="assets/dataset-pointcloud.webp" alt="Static RGB-colored 3D point cloud for training sample 0238" width="1800" height="1120" loading="lazy" /></noscript>
                             </div>
                             <figcaption>
                                 <span class="figure-number">Figure 3b.</span>
-                                Interactive RGB-colored point cloud reconstructed with mapped color-camera intrinsics. Rotate, pan, and zoom freely; this frame has 99.96% valid depth pixels and a median depth of 0.413 m.
+                                Interactive RGB-colored point cloud reconstructed with mapped color-camera intrinsics. Rotate, pan, and zoom freely; this frame has 99.87% valid depth pixels and a median depth of 0.364 m.
                             </figcaption>
                         </figure>
                     </div>
