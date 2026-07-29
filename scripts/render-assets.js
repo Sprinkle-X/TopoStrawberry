@@ -13,6 +13,7 @@ module.exports = function renderAssets() {
         'dataset-annotation-overview.webp',
         'dataset-distributions.webp',
         'dataset-pointcloud.webp',
+        'dataset-pointcloud-data.json',
         'dataset-summary.json',
     ];
 

@@ -335,10 +335,30 @@
                             </figcaption>
                         </figure>
                         <figure class="research-figure visual-figure">
-                            <div class="figure-frame figure-frame--clean figure-frame--dark"><img src="assets/dataset-pointcloud.webp" alt="RGB-colored 3D point cloud reconstructed from aligned post-processed depth for training sample 0210" width="1800" height="1120" loading="lazy" /></div>
+                            <div class="figure-frame figure-frame--clean figure-frame--dark pointcloud-viewer">
+                                <div class="pointcloud-toolbar">
+                                    <div>
+                                        <span class="pointcloud-eyebrow">Interactive RGB-D reconstruction</span>
+                                        <strong>train / 0210 · 14,000 rendered points</strong>
+                                    </div>
+                                    <button class="pointcloud-reset" id="pointcloudReset" type="button">Reset view</button>
+                                </div>
+                                <div class="pointcloud-stage">
+                                    <canvas id="pointcloudViewer" tabindex="0" role="img" aria-label="Interactive RGB-colored strawberry point cloud. Drag to rotate, shift-drag to pan, and use the wheel to zoom." data-source="assets/dataset-pointcloud-data.json"></canvas>
+                                    <div class="pointcloud-loading" id="pointcloudLoading" role="status">Loading real point-cloud data…</div>
+                                    <img class="pointcloud-fallback" id="pointcloudFallback" src="assets/dataset-pointcloud.webp" alt="Static RGB-colored 3D point cloud fallback for training sample 0210" width="1800" height="1120" hidden />
+                                </div>
+                                <div class="pointcloud-help">
+                                    <span>Drag to rotate</span>
+                                    <span>Shift/right-drag to pan</span>
+                                    <span>Wheel or pinch to zoom</span>
+                                    <span>Arrow keys · +/− · R</span>
+                                </div>
+                                <noscript><img src="assets/dataset-pointcloud.webp" alt="Static RGB-colored 3D point cloud for training sample 0210" width="1800" height="1120" loading="lazy" /></noscript>
+                            </div>
                             <figcaption>
                                 <span class="figure-number">Figure 3b.</span>
-                                RGB-colored point cloud reconstructed with its mapped color-camera intrinsics. This frame has 99.96% valid depth pixels and a median depth of 0.413 m.
+                                Interactive RGB-colored point cloud reconstructed with mapped color-camera intrinsics. Rotate, pan, and zoom freely; this frame has 99.96% valid depth pixels and a median depth of 0.413 m.
                             </figcaption>
                         </figure>
                     </div>

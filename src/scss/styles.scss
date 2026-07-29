@@ -974,6 +974,125 @@ a {
     background: #081521;
 }
 
+.pointcloud-viewer {
+    color: #dce8ee;
+}
+
+.pointcloud-toolbar {
+    display: flex;
+    min-height: 5.2rem;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid #28495e;
+    background: #0d2332;
+}
+
+.pointcloud-toolbar strong,
+.pointcloud-eyebrow {
+    display: block;
+}
+
+.pointcloud-toolbar strong {
+    margin-top: 0.25rem;
+    color: #f2f6f8;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.pointcloud-eyebrow {
+    color: #8faebe;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.62rem;
+    font-weight: 750;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+}
+
+.pointcloud-reset {
+    flex: 0 0 auto;
+    padding: 0.48rem 0.8rem;
+    border: 1px solid #547589;
+    border-radius: 0.2rem;
+    color: #dce8ee;
+    background: #173246;
+    font-size: 0.72rem;
+    font-weight: 700;
+}
+
+.pointcloud-reset:hover,
+.pointcloud-reset:focus-visible {
+    border-color: #8faebe;
+    color: #fff;
+    background: #24475e;
+}
+
+.pointcloud-stage {
+    position: relative;
+    overflow: hidden;
+    background: #081521;
+}
+
+#pointcloudViewer {
+    display: block;
+    width: 100%;
+    height: clamp(26rem, 56vw, 47rem);
+    cursor: grab;
+    outline: 0;
+    touch-action: none;
+}
+
+#pointcloudViewer.is-dragging {
+    cursor: grabbing;
+}
+
+#pointcloudViewer:focus-visible {
+    box-shadow: inset 0 0 0 3px #6c9dad;
+}
+
+.pointcloud-loading {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    padding: 0.45rem 0.65rem;
+    border: 1px solid #335469;
+    color: #c6d8e1;
+    background: rgba(8, 21, 33, 0.9);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.66rem;
+    transition: opacity 180ms ease;
+    pointer-events: none;
+}
+
+.pointcloud-loading.is-hidden {
+    opacity: 0;
+}
+
+.pointcloud-fallback {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.pointcloud-help {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem 1.3rem;
+    padding: 0.75rem 1.25rem;
+    border-top: 1px solid #28495e;
+    color: #90a8b6;
+    background: #0d2332;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.63rem;
+}
+
+.pointcloud-help span::before {
+    content: "·";
+    margin-right: 0.45rem;
+    color: #6f9fc0;
+}
+
 .resource-index a {
     color: var(--research-navy);
     font-weight: 700;
@@ -1158,6 +1277,15 @@ a {
     .audit-note {
         align-items: flex-start;
         flex-direction: column;
+    }
+
+    .pointcloud-toolbar {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    #pointcloudViewer {
+        height: 22rem;
     }
 
     .protocol-table {

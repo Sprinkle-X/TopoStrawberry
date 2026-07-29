@@ -511,7 +511,12 @@ def resolve_legacy_calibration(collection: Path, stem: str) -> tuple[dict, str]:
     raise FileNotFoundError(f"No calibration found for {collection.name}/{stem}")
 
 
-def render_pointcloud(dataset_root: Path, candidate: dict, output_path: Path) -> dict:
+def render_pointcloud(
+    dataset_root: Path,
+    candidate: dict,
+    output_path: Path,
+    interactive_output_path: Path | None = None,
+) -> dict:
     stem = candidate["stem"]
     rgb = np.asarray(Image.open(candidate["rgb_path"]).convert("RGB"))
     depth = np.asarray(Image.open(candidate["depth_pp_path"]))
@@ -539,6 +544,24 @@ def render_pointcloud(dataset_root: Path, candidate: dict, output_path: Path) ->
     points = np.column_stack((x, y, z))
     center = np.median(points, axis=0)
     centered = points - center
+    if interactive_output_path is not None:
+        target_count = min(14000, len(centered))
+        sample_indexes = np.linspace(0, len(centered) - 1, target_count, dtype=np.int32)
+        interactive_points = centered[sample_indexes]
+        extent = max(float(np.max(np.ptp(interactive_points, axis=0))), 1e-6)
+        interactive_points = interactive_points / extent
+        interactive_colors = color[sample_indexes]
+        interactive_payload = {
+            "version": 1,
+            "sample": f"{candidate['partition']}/{stem}",
+            "point_count": int(target_count),
+            "positions": np.round(interactive_points.astype(np.float64), 5).reshape(-1).tolist(),
+            "colors": interactive_colors.astype(np.uint8).reshape(-1).tolist(),
+        }
+        interactive_output_path.write_text(
+            json.dumps(interactive_payload, separators=(",", ":")),
+            encoding="utf-8",
+        )
     yaw = math.radians(-34)
     pitch = math.radians(14)
     rotation_y = np.array(
@@ -768,8 +791,14 @@ def main() -> None:
     annotation_path = output_dir / "dataset-annotation-overview.webp"
     distribution_path = output_dir / "dataset-distributions.webp"
     pointcloud_path = output_dir / "dataset-pointcloud.webp"
+    interactive_pointcloud_path = output_dir / "dataset-pointcloud-data.json"
     render_annotation(dataset_root, candidate, annotation_path)
-    summary["representative_sample"]["depth"] = render_pointcloud(dataset_root, candidate, pointcloud_path)
+    summary["representative_sample"]["depth"] = render_pointcloud(
+        dataset_root,
+        candidate,
+        pointcloud_path,
+        interactive_pointcloud_path,
+    )
     render_distributions(summary, distribution_path)
 
     summary_path = output_dir / "dataset-summary.json"
@@ -780,6 +809,7 @@ def main() -> None:
     print(f"Wrote: {annotation_path}")
     print(f"Wrote: {distribution_path}")
     print(f"Wrote: {pointcloud_path}")
+    print(f"Wrote: {interactive_pointcloud_path}")
 
 
 if __name__ == "__main__":

@@ -246,11 +246,31 @@ html(lang='en')
                                 span.figure-number Figure 3a.
                                 |  Twelve labeled instances with bounding boxes, category IDs, and five anatomical landmark types. Filled points denote visibility 2; outlined points denote visibility 1.
                         figure.research-figure.visual-figure
-                            .figure-frame.figure-frame--clean.figure-frame--dark
-                                img(src='assets/dataset-pointcloud.webp', alt='RGB-colored 3D point cloud reconstructed from aligned post-processed depth for training sample 0210', width='1800', height='1120', loading='lazy')
+                            .figure-frame.figure-frame--clean.figure-frame--dark.pointcloud-viewer
+                                .pointcloud-toolbar
+                                    div
+                                        span.pointcloud-eyebrow Interactive RGB-D reconstruction
+                                        strong train / 0210 · 14,000 rendered points
+                                    button#pointcloudReset.pointcloud-reset(type='button') Reset view
+                                .pointcloud-stage
+                                    canvas#pointcloudViewer(
+                                        tabindex='0',
+                                        role='img',
+                                        aria-label='Interactive RGB-colored strawberry point cloud. Drag to rotate, shift-drag to pan, and use the wheel to zoom.',
+                                        data-source='assets/dataset-pointcloud-data.json'
+                                    )
+                                    #pointcloudLoading.pointcloud-loading(role='status') Loading real point-cloud data…
+                                    img#pointcloudFallback.pointcloud-fallback(src='assets/dataset-pointcloud.webp', alt='Static RGB-colored 3D point cloud fallback for training sample 0210', width='1800', height='1120', hidden)
+                                .pointcloud-help
+                                    span Drag to rotate
+                                    span Shift/right-drag to pan
+                                    span Wheel or pinch to zoom
+                                    span Arrow keys · +/− · R
+                                noscript
+                                    img(src='assets/dataset-pointcloud.webp', alt='Static RGB-colored 3D point cloud for training sample 0210', width='1800', height='1120', loading='lazy')
                             figcaption
                                 span.figure-number Figure 3b.
-                                |  RGB-colored point cloud reconstructed with its mapped color-camera intrinsics. This frame has 99.96% valid depth pixels and a median depth of 0.413 m.
+                                |  Interactive RGB-colored point cloud reconstructed with mapped color-camera intrinsics. Rotate, pan, and zoom freely; this frame has 99.96% valid depth pixels and a median depth of 0.413 m.
 
             section#resources.paper-section
                 .container.px-4.px-lg-5
