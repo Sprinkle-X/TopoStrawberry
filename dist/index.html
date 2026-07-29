@@ -325,7 +325,7 @@
                             <h2>Annotation and depth visualization</h2>
                         </div>
                     </div>
-                    <p class="section-summary">Both views below use the same representative sample. The first shows the complete instance-level label overlay; the second reconstructs aligned post-processed depth into a colorized 3D point cloud.</p>
+                    <p class="section-summary">Both views below use the same representative sample. The first shows the complete instance-level label overlay; the second uses the labels and subject depth to retain strawberries, foliage, and nearby background in a colorized 3D point cloud.</p>
                     <div class="visual-stack">
                         <figure class="research-figure visual-figure">
                             <div class="figure-frame figure-frame--clean"><img src="assets/dataset-annotation-overview.webp" alt="Complete instance annotation overlay for representative training sample 0238" width="1800" height="1080" loading="lazy" /></div>
@@ -338,7 +338,7 @@
                             <div class="figure-frame figure-frame--clean figure-frame--dark pointcloud-viewer">
                                 <div class="pointcloud-toolbar">
                                     <div>
-                                        <span class="pointcloud-eyebrow">Interactive RGB-D reconstruction</span>
+                                        <span class="pointcloud-eyebrow">Interactive foreground reconstruction</span>
                                         <strong>
                                             train / 0238 ·
                                             <span id="pointcloudPointCount">Preparing dense cloud…</span>
@@ -361,7 +361,7 @@
                             </div>
                             <figcaption>
                                 <span class="figure-number">Figure 3b.</span>
-                                Interactive RGB-colored point cloud reconstructed with mapped color-camera intrinsics. Rotate, pan, and zoom freely; this frame has 99.87% valid depth pixels and a median depth of 0.364 m.
+                                Interactive foreground-filtered point cloud reconstructed with mapped color-camera intrinsics. Rotate, pan, and zoom freely; a label-aware crop and 0.220–0.668 m subject-depth window retain strawberries, foliage, and nearby background while excluding distant artifacts.
                             </figcaption>
                         </figure>
                     </div>

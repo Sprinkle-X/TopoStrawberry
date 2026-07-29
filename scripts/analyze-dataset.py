@@ -552,7 +552,63 @@ def render_pointcloud(
     sampled_depth = depth[::step, ::step].astype(np.float32) * scale
     sampled_rgb = rgb[::step, ::step]
     vv, uu = np.mgrid[0 : depth.shape[0] : step, 0 : depth.shape[1] : step]
-    valid = np.isfinite(sampled_depth) & (sampled_depth > 0.15) & (sampled_depth < 2.5)
+    base_valid = np.isfinite(sampled_depth) & (sampled_depth > 0.15) & (sampled_depth < 2.5)
+
+    boxes = [
+        shape["points"]
+        for shape in candidate["record"].get("shapes", [])
+        if (shape.get("shape_type") == "rectangle" or shape.get("label") == "strawberry")
+        and len(shape.get("points", [])) == 2
+    ]
+    depth_min, depth_max = 0.15, 2.5
+    roi_left, roi_top, roi_right, roi_bottom = 0, 0, depth.shape[1] - 1, depth.shape[0] - 1
+    if boxes:
+        x_values = [float(point[0]) for box in boxes for point in box]
+        y_values = [float(point[1]) for box in boxes for point in box]
+        subject_left, subject_right = min(x_values), max(x_values)
+        subject_top, subject_bottom = min(y_values), max(y_values)
+        subject_width = max(subject_right - subject_left, 1.0)
+        subject_height = max(subject_bottom - subject_top, 1.0)
+        roi_left = max(0, int(math.floor(subject_left - max(48.0, subject_width * 0.12))))
+        roi_right = min(
+            depth.shape[1] - 1,
+            int(math.ceil(subject_right + max(48.0, subject_width * 0.12))),
+        )
+        roi_top = max(0, int(math.floor(subject_top - max(64.0, subject_height * 0.25))))
+        roi_bottom = min(
+            depth.shape[0] - 1,
+            int(math.ceil(subject_bottom + max(56.0, subject_height * 0.18))),
+        )
+
+        subject_depth_values: list[np.ndarray] = []
+        for box in boxes:
+            (x1, y1), (x2, y2) = box
+            left = max(0, int(math.floor(min(x1, x2))))
+            right = min(depth.shape[1], int(math.ceil(max(x1, x2))) + 1)
+            top = max(0, int(math.floor(min(y1, y2))))
+            bottom = min(depth.shape[0], int(math.ceil(max(y1, y2))) + 1)
+            box_depth = depth[top:bottom, left:right].astype(np.float32) * scale
+            subject_depth_values.append(
+                box_depth[np.isfinite(box_depth) & (box_depth > 0.15) & (box_depth < 2.5)]
+            )
+        usable_subject_depth = [values for values in subject_depth_values if values.size]
+        if usable_subject_depth:
+            subject_depth = np.concatenate(usable_subject_depth)
+            subject_near, subject_far = np.percentile(subject_depth, [2, 98])
+            depth_min = max(0.15, float(subject_near) - 0.08)
+            depth_max = min(2.5, float(subject_far) + 0.22)
+
+    foreground_roi = (
+        (uu >= roi_left)
+        & (uu <= roi_right)
+        & (vv >= roi_top)
+        & (vv <= roi_bottom)
+        & (sampled_depth >= depth_min)
+        & (sampled_depth <= depth_max)
+    )
+    valid = base_valid & foreground_roi
+    if not np.any(valid):
+        raise RuntimeError(f"Foreground filtering removed every point for {candidate['partition']}/{stem}.")
     z = sampled_depth[valid]
     u = uu[valid].astype(np.float32)
     v = vv[valid].astype(np.float32)
@@ -663,7 +719,7 @@ def render_pointcloud(
         y += 106
 
     draw.text((panel_left, 812), "Projection", font=font(17, bold=True, mono=True), fill="#82a0b2")
-    draw.text((panel_left, 847), "Aligned post-processed depth", font=font(19), fill="#dbe7ed")
+    draw.text((panel_left, 847), "Label-aware foreground crop", font=font(19), fill="#dbe7ed")
     draw.text((panel_left, 882), "Color-camera intrinsics", font=font(19), fill="#dbe7ed")
     draw.text((panel_left, 917), calibration_name, font=font(16, mono=True), fill="#82a0b2")
 
@@ -682,6 +738,10 @@ def render_pointcloud(
         "median_depth_m": round(float(p50), 3),
         "p90_depth_m": round(float(p90), 3),
         "rendered_points": int(len(order)),
+        "foreground_depth_min_m": round(depth_min, 3),
+        "foreground_depth_max_m": round(depth_max, 3),
+        "foreground_roi": [roi_left, roi_top, roi_right, roi_bottom],
+        "kept_sampled_pixels_percent": percent(int(valid.sum()), int(base_valid.sum())),
         "calibration_file": calibration_name,
     }
 

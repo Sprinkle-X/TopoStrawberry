@@ -237,7 +237,7 @@ html(lang='en')
                             p.section-type Qualitative inspection
                             h2 Annotation and depth visualization
                     p.section-summary
-                        | Both views below use the same representative sample. The first shows the complete instance-level label overlay; the second reconstructs aligned post-processed depth into a colorized 3D point cloud.
+                        | Both views below use the same representative sample. The first shows the complete instance-level label overlay; the second uses the labels and subject depth to retain strawberries, foliage, and nearby background in a colorized 3D point cloud.
                     .visual-stack
                         figure.research-figure.visual-figure
                             .figure-frame.figure-frame--clean
@@ -249,7 +249,7 @@ html(lang='en')
                             .figure-frame.figure-frame--clean.figure-frame--dark.pointcloud-viewer
                                 .pointcloud-toolbar
                                     div
-                                        span.pointcloud-eyebrow Interactive RGB-D reconstruction
+                                        span.pointcloud-eyebrow Interactive foreground reconstruction
                                         strong
                                             | train / 0238 ·
                                             span#pointcloudPointCount Preparing dense cloud…
@@ -272,7 +272,7 @@ html(lang='en')
                                     img(src='assets/dataset-pointcloud.webp', alt='Static RGB-colored 3D point cloud for training sample 0238', width='1800', height='1120', loading='lazy')
                             figcaption
                                 span.figure-number Figure 3b.
-                                |  Interactive RGB-colored point cloud reconstructed with mapped color-camera intrinsics. Rotate, pan, and zoom freely; this frame has 99.87% valid depth pixels and a median depth of 0.364 m.
+                                |  Interactive foreground-filtered point cloud reconstructed with mapped color-camera intrinsics. Rotate, pan, and zoom freely; a label-aware crop and 0.220–0.668 m subject-depth window retain strawberries, foliage, and nearby background while excluding distant artifacts.
 
             section#resources.paper-section
                 .container.px-4.px-lg-5
