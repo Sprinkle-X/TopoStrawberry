@@ -44,7 +44,7 @@
         <main id="main-content">
             <header class="research-hero" id="overview">
                 <div class="container px-4 px-lg-5">
-                    <div class="project-label">Dataset release · July 2026</div>
+                    <div class="project-label">Train/validation release · July 2026</div>
                     <div class="row g-5 align-items-center">
                         <div class="col-lg-6">
                             <h1>A synchronized RGB-D strawberry dataset for real greenhouse perception</h1>
@@ -70,6 +70,10 @@
                                     <dt>Image resolution</dt>
                                     <dd>1280 × 720 pixels</dd>
                                 </div>
+                                <div class="metadata-row">
+                                    <dt>Dataset split</dt>
+                                    <dd>Train 3,006 frames · Validation 752 frames</dd>
+                                </div>
                             </dl>
                         </div>
                         <div class="col-lg-6">
@@ -77,7 +81,7 @@
                                 <div class="figure-frame figure-frame--clean"><img src="assets/dataset-annotation-overview.webp" alt="Representative greenhouse RGB frame with strawberry bounding boxes, five landmark types, ripeness categories, and occlusion categories" width="1800" height="1080" fetchpriority="high" /></div>
                                 <figcaption>
                                     <span class="figure-number">Figure 1.</span>
-                                    Real annotation overlay from data_collection1/270495; category IDs are shown exactly as stored.
+                                    Real annotation overlay from train/0210; category IDs are shown exactly as stored.
                                 </figcaption>
                             </figure>
                         </div>
@@ -93,7 +97,7 @@
                             <h2>Dataset snapshot</h2>
                         </div>
                     </div>
-                    <p class="section-summary">Statistics were computed directly from the current data directory. Counts cover all nine collections and all synchronized modalities in this release.</p>
+                    <p class="section-summary">Statistics were recomputed from the reorganized train/validation release. Counts cover every synchronized modality and the per-image camera calibration mapping.</p>
                     <div class="dataset-stat-grid">
                         <article class="dataset-stat">
                             <span class="stat-kicker">Frames</span>
@@ -113,7 +117,7 @@
                         <article class="dataset-stat">
                             <span class="stat-kicker">Storage</span>
                             <strong>7.11 GB</strong>
-                            <p>18,805 files in total</p>
+                            <p>18,795 files in total</p>
                         </article>
                     </div>
                     <div class="integrity-grid">
@@ -132,10 +136,10 @@
                             </div>
                         </article>
                         <article class="integrity-item">
-                            <span class="integrity-value">0</span>
+                            <span class="integrity-value">100%</span>
                             <div>
-                                <h3>Structural errors</h3>
-                                <p>No invalid bounding boxes or unmatched keypoint groups were found by the release audit.</p>
+                                <h3>Calibration mapping</h3>
+                                <p>All 3,758 image records map to one of four RealSense camera calibration files.</p>
                             </div>
                         </article>
                     </div>
@@ -157,9 +161,9 @@
                             <h2>Composition and label balance</h2>
                         </div>
                     </div>
-                    <p class="section-summary">The collection-level distribution is heterogeneous: later collections contribute more instances per frame, while category labels remain binary for ripeness and occlusion.</p>
+                    <p class="section-summary">The release now uses a fixed train/validation split. Training contains 3,006 frames and validation contains 752 frames, preserving the full set of synchronized RGB-D records.</p>
                     <figure class="research-figure data-figure">
-                        <div class="figure-frame figure-frame--clean"><img src="assets/dataset-distributions.webp" alt="Charts showing frame and strawberry instance counts by collection, plus ripeness, occlusion, and keypoint visibility distributions" width="1800" height="1250" loading="lazy" /></div>
+                        <div class="figure-frame figure-frame--clean"><img src="assets/dataset-distributions.webp" alt="Charts showing frame and strawberry instance counts by train and validation split, plus ripeness, occlusion, and keypoint visibility distributions" width="1800" height="1250" loading="lazy" /></div>
                         <figcaption>
                             <span class="figure-number">Figure 2.</span>
                             Release-wide counts. Ripeness and occlusion use their stored numeric IDs; semantic class names are not inferred without a finalized codebook.
@@ -168,75 +172,37 @@
                     <div class="composition-grid">
                         <div class="table-responsive collection-table-wrap">
                             <table class="collection-table">
-                                <caption>Collection-level sample and instance counts</caption>
+                                <caption>Train/validation sample and instance counts</caption>
                                 <thead>
                                     <tr>
-                                        <th scope="col">Collection</th>
+                                        <th scope="col">Split</th>
                                         <th scope="col">Frames</th>
+                                        <th scope="col">Share</th>
                                         <th scope="col">Instances</th>
                                         <th scope="col">Inst./frame</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <th scope="row">C1</th>
-                                        <td>186</td>
-                                        <td>687</td>
-                                        <td>3.69</td>
+                                        <th scope="row">Train</th>
+                                        <td>3,006</td>
+                                        <td>80.0%</td>
+                                        <td>11,502</td>
+                                        <td>3.83</td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">C2</th>
-                                        <td>776</td>
-                                        <td>1,615</td>
-                                        <td>2.08</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">C3</th>
-                                        <td>435</td>
-                                        <td>1,053</td>
-                                        <td>2.42</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">C4</th>
-                                        <td>385</td>
-                                        <td>887</td>
-                                        <td>2.30</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">C5</th>
-                                        <td>506</td>
-                                        <td>1,295</td>
-                                        <td>2.56</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">C6</th>
-                                        <td>65</td>
-                                        <td>203</td>
-                                        <td>3.12</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">C7</th>
-                                        <td>96</td>
-                                        <td>327</td>
-                                        <td>3.41</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">C8</th>
-                                        <td>483</td>
-                                        <td>3,441</td>
-                                        <td>7.12</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">C9</th>
-                                        <td>826</td>
-                                        <td>4,778</td>
-                                        <td>5.78</td>
+                                        <th scope="row">Validation</th>
+                                        <td>752</td>
+                                        <td>20.0%</td>
+                                        <td>2,784</td>
+                                        <td>3.70</td>
                                     </tr>
                                 </tbody>
                                 <tfoot>
                                     <tr>
                                         <th scope="row">Total</th>
                                         <td>3,758</td>
+                                        <td>100%</td>
                                         <td>14,286</td>
                                         <td>3.80</td>
                                     </tr>
@@ -290,7 +256,7 @@
                             <h2>Modalities and annotation protocol</h2>
                         </div>
                     </div>
-                    <p class="section-summary">Every sample stem identifies one synchronized record across five folders. Post-processed aligned depth is used for the 3D visualization below, with per-camera calibration selected from the collection metadata.</p>
+                    <p class="section-summary">Every four-digit sample ID identifies one synchronized record inside either train or validation. Post-processed aligned depth is used for the 3D visualization below, with calibration selected from the release-wide image-to-camera mapping.</p>
                     <div class="table-responsive protocol-table-wrap">
                         <table class="protocol-table">
                             <thead>
@@ -332,6 +298,12 @@
                                     <td>3,758</td>
                                     <td>Boxes, five keypoints, ripeness, and occlusion</td>
                                 </tr>
+                                <tr>
+                                    <th scope="row">Calibration map</th>
+                                    <td>Per-image XLSX mapping plus four camera JSON files</td>
+                                    <td>3,758</td>
+                                    <td>Select the correct camera intrinsics for metric reconstruction</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -356,17 +328,17 @@
                     <p class="section-summary">Both views below use the same representative sample. The first shows the complete instance-level label overlay; the second reconstructs aligned post-processed depth into a colorized 3D point cloud.</p>
                     <div class="visual-stack">
                         <figure class="research-figure visual-figure">
-                            <div class="figure-frame figure-frame--clean"><img src="assets/dataset-annotation-overview.webp" alt="Complete instance annotation overlay for representative sample data_collection1 270495" width="1800" height="1080" loading="lazy" /></div>
+                            <div class="figure-frame figure-frame--clean"><img src="assets/dataset-annotation-overview.webp" alt="Complete instance annotation overlay for representative training sample 0210" width="1800" height="1080" loading="lazy" /></div>
                             <figcaption>
                                 <span class="figure-number">Figure 3a.</span>
                                 Twelve labeled instances with bounding boxes, category IDs, and five anatomical landmark types. Filled points denote visibility 2; outlined points denote visibility 1.
                             </figcaption>
                         </figure>
                         <figure class="research-figure visual-figure">
-                            <div class="figure-frame figure-frame--clean figure-frame--dark"><img src="assets/dataset-pointcloud.webp" alt="RGB-colored 3D point cloud reconstructed from aligned post-processed depth for sample data_collection1 270495" width="1800" height="1120" loading="lazy" /></div>
+                            <div class="figure-frame figure-frame--clean figure-frame--dark"><img src="assets/dataset-pointcloud.webp" alt="RGB-colored 3D point cloud reconstructed from aligned post-processed depth for training sample 0210" width="1800" height="1120" loading="lazy" /></div>
                             <figcaption>
                                 <span class="figure-number">Figure 3b.</span>
-                                RGB-colored point cloud reconstructed with color-camera intrinsics. This frame has 99.96% valid depth pixels and a median depth of 0.377 m.
+                                RGB-colored point cloud reconstructed with its mapped color-camera intrinsics. This frame has 99.96% valid depth pixels and a median depth of 0.413 m.
                             </figcaption>
                         </figure>
                     </div>
@@ -388,7 +360,7 @@
                                 Dataset available
                             </div>
                             <h3>Strawberry RGB-D dataset package</h3>
-                            <p>The current release is distributed through Baidu Netdisk and contains all nine audited collections.</p>
+                            <p>The current release is distributed through Baidu Netdisk with train/validation partitions, synchronized depth variants, and per-image camera calibration mapping.</p>
                             <a class="btn btn-research" href="https://pan.baidu.com/s/1ul6L7jNT5VSTEdgTZroezA?pwd=pgna" target="_blank" rel="noopener noreferrer">Open dataset download</a>
                             <p class="access-code">
                                 Access code:

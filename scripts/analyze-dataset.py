@@ -15,6 +15,7 @@ from pathlib import Path
 from statistics import median
 
 import numpy as np
+from openpyxl import load_workbook
 from PIL import Image, ImageDraw, ImageFont
 
 
@@ -87,40 +88,83 @@ def percent(part: int, whole: int) -> float:
     return round(100.0 * part / whole, 2) if whole else 0.0
 
 
-def scan_dataset(dataset_root: Path) -> tuple[dict, dict]:
+def discover_partitions(dataset_root: Path) -> tuple[str, list[dict]]:
     collections = sorted(
         [path for path in dataset_root.glob("data_collection*") if path.is_dir()],
         key=collection_sort_key,
     )
-    if not collections:
-        raise FileNotFoundError(f"No data_collection* folders found under {dataset_root}")
+    if collections:
+        return "collections", [
+            {
+                "name": collection.name,
+                "label": collection.name.replace("data_collection", "C"),
+                "label_dir": collection / "label",
+                "rgb_dir": collection / "rgb",
+                "depth_aligned_dir": collection / "depth_aligned",
+                "depth_aligned_pp_dir": collection / "depth_aligned_pp",
+                "depth_raw_dir": collection / "depth_raw",
+                "calibration_root": collection,
+            }
+            for collection in collections
+        ]
 
+    split_names = [name for name in ("train", "val", "test") if (dataset_root / name).is_dir()]
+    if split_names:
+        return "train_val", [
+            {
+                "name": split_name,
+                "label": split_name.capitalize(),
+                "label_dir": dataset_root / split_name / "label",
+                "rgb_dir": dataset_root / split_name / "image" / "rgb",
+                "depth_aligned_dir": dataset_root / split_name / "image" / "depth_aligned",
+                "depth_aligned_pp_dir": dataset_root / split_name / "image" / "depth_aligned_pp",
+                "depth_raw_dir": dataset_root / split_name / "image" / "depth_raw",
+                "calibration_root": dataset_root / "camera_calibration",
+            }
+            for split_name in split_names
+        ]
+    raise FileNotFoundError(f"No supported collection or train/val layout found under {dataset_root}")
+
+
+def load_calibration_mapping(dataset_root: Path) -> dict[tuple[str, str], Path]:
+    workbook_path = dataset_root / "image_camera_calibration_mapping.xlsx"
+    if not workbook_path.exists():
+        return {}
+    workbook = load_workbook(workbook_path, read_only=True, data_only=True)
+    sheet = workbook[workbook.sheetnames[0]]
+    rows = sheet.iter_rows(values_only=True)
+    headers = [str(value) for value in next(rows)]
+    indexes = {header: index for index, header in enumerate(headers)}
+    required = {"split", "image_name", "calibration_file"}
+    if not required.issubset(indexes):
+        raise ValueError(f"Calibration mapping is missing required columns: {sorted(required - set(indexes))}")
+    mapping: dict[tuple[str, str], Path] = {}
+    for row in rows:
+        split = str(row[indexes["split"]] or "").strip()
+        image_name = str(row[indexes["image_name"]] or "").strip()
+        calibration_file = str(row[indexes["calibration_file"]] or "").strip()
+        if split and image_name and calibration_file:
+            mapping[(split, Path(image_name).stem)] = dataset_root / Path(calibration_file)
+    workbook.close()
+    return mapping
+
+
+def scan_dataset(dataset_root: Path) -> tuple[dict, dict]:
+    layout, partitions = discover_partitions(dataset_root)
+    calibration_mapping = load_calibration_mapping(dataset_root)
     overall = Counter()
     ripeness = Counter()
     occlusion = Counter()
     visibility = Counter()
     image_sizes = Counter()
-    collection_rows: list[dict] = []
+    partition_rows: list[dict] = []
     candidate: dict | None = None
     camera_serials: set[str] = set()
     device_names: set[str] = set()
 
-    for collection in collections:
-        modality_stems = {
-            "rgb": stems_in(collection / "rgb", ".png"),
-            "label": stems_in(collection / "label", ".json"),
-            "depth_aligned": stems_in(collection / "depth_aligned", ".png"),
-            "depth_aligned_pp": stems_in(collection / "depth_aligned_pp", ".png"),
-            "depth_raw": stems_in(collection / "depth_raw", ".png"),
-        }
-        paired = set.intersection(*(modality_stems[name] for name in MODALITIES))
-        collection_instances = 0
-        collection_keypoints = 0
-        collection_complete_groups = 0
-        collection_invalid_boxes = 0
-        collection_unmatched_points = 0
-
-        for calibration_path in collection.glob("camera_calibration*.json"):
+    calibration_roots = {partition["calibration_root"] for partition in partitions}
+    for calibration_root in calibration_roots:
+        for calibration_path in calibration_root.glob("camera_calibration*.json"):
             if calibration_path.name == "camera_calibration_mapping.json":
                 continue
             try:
@@ -135,7 +179,21 @@ def scan_dataset(dataset_root: Path) -> tuple[dict, dict]:
             if name:
                 device_names.add(name)
 
-        for label_path in sorted((collection / "label").glob("*.json")):
+    for partition in partitions:
+        modality_stems = {
+            "rgb": stems_in(partition["rgb_dir"], ".png"),
+            "label": stems_in(partition["label_dir"], ".json"),
+            "depth_aligned": stems_in(partition["depth_aligned_dir"], ".png"),
+            "depth_aligned_pp": stems_in(partition["depth_aligned_pp_dir"], ".png"),
+            "depth_raw": stems_in(partition["depth_raw_dir"], ".png"),
+        }
+        paired = set.intersection(*(modality_stems[name] for name in MODALITIES))
+        partition_counts = Counter()
+        partition_ripeness = Counter()
+        partition_occlusion = Counter()
+        partition_visibility = Counter()
+
+        for label_path in sorted(partition["label_dir"].glob("*.json")):
             record = read_json(label_path)
             width = int(record.get("imageWidth") or 0)
             height = int(record.get("imageHeight") or 0)
@@ -149,11 +207,15 @@ def scan_dataset(dataset_root: Path) -> tuple[dict, dict]:
                 label = shape.get("label")
                 group_id = shape.get("group_id")
                 if shape_type == "rectangle" or label == "strawberry":
-                    collection_instances += 1
+                    partition_counts["instances"] += 1
                     overall["instances"] += 1
                     boxes[group_id] = shape
-                    ripeness[str(shape.get("ripeness", "missing"))] += 1
-                    occlusion[str(shape.get("occlusion", "missing"))] += 1
+                    ripeness_value = str(shape.get("ripeness", "missing"))
+                    occlusion_value = str(shape.get("occlusion", "missing"))
+                    ripeness[ripeness_value] += 1
+                    occlusion[occlusion_value] += 1
+                    partition_ripeness[ripeness_value] += 1
+                    partition_occlusion[occlusion_value] += 1
                     coordinates = shape.get("points", [])
                     valid_box = False
                     if len(coordinates) == 2:
@@ -162,12 +224,14 @@ def scan_dataset(dataset_root: Path) -> tuple[dict, dict]:
                         if all(isinstance(value, (int, float)) and math.isfinite(value) for value in values):
                             valid_box = abs(x2 - x1) > 0 and abs(y2 - y1) > 0
                     if not valid_box:
-                        collection_invalid_boxes += 1
+                        partition_counts["invalid_boxes"] += 1
                         overall["invalid_boxes"] += 1
                 elif shape_type == "point" or label in KEYPOINTS:
-                    collection_keypoints += 1
+                    partition_counts["keypoints"] += 1
                     overall["keypoints"] += 1
-                    visibility[str(shape.get("visibility", "missing"))] += 1
+                    visibility_value = str(shape.get("visibility", "missing"))
+                    visibility[visibility_value] += 1
+                    partition_visibility[visibility_value] += 1
                     points_by_group[group_id].append(shape)
 
             complete_groups = 0
@@ -178,8 +242,8 @@ def scan_dataset(dataset_root: Path) -> tuple[dict, dict]:
             unmatched_points = sum(
                 len(group_points) for group_id, group_points in points_by_group.items() if group_id not in boxes
             )
-            collection_complete_groups += complete_groups
-            collection_unmatched_points += unmatched_points
+            partition_counts["complete_groups"] += complete_groups
+            partition_counts["unmatched_points"] += unmatched_points
             overall["complete_groups"] += complete_groups
             overall["unmatched_points"] += unmatched_points
 
@@ -188,37 +252,49 @@ def scan_dataset(dataset_root: Path) -> tuple[dict, dict]:
             record_occlusion = {str(shape.get("occlusion", "missing")) for shape in boxes.values()}
             complete = n_boxes > 0 and complete_groups == n_boxes
             has_all_modalities = label_path.stem in paired
+            calibration_path = calibration_mapping.get((partition["name"], label_path.stem))
+            if calibration_path and calibration_path.exists():
+                overall["calibration_mapped_samples"] += 1
             score = (
                 (40 if 5 <= n_boxes <= 12 else max(0, 20 - abs(n_boxes - 8)))
                 + (18 if len(record_ripeness) > 1 else 0)
                 + (18 if len(record_occlusion) > 1 else 0)
                 + (18 if complete else 0)
                 + (12 if has_all_modalities else 0)
+                + (10 if calibration_path and calibration_path.exists() else 0)
                 + min(n_boxes, 12)
             )
             if candidate is None or score > candidate["score"]:
                 candidate = {
                     "score": score,
-                    "collection": collection.name,
+                    "partition": partition["name"],
+                    "partition_label": partition["label"],
                     "stem": label_path.stem,
-                    "label_path": label_path,
                     "record": record,
                     "instances": n_boxes,
                     "complete": complete,
+                    "rgb_path": partition["rgb_dir"] / f"{label_path.stem}.png",
+                    "depth_pp_path": partition["depth_aligned_pp_dir"] / f"{label_path.stem}.png",
+                    "calibration_path": calibration_path,
+                    "legacy_calibration_root": partition["calibration_root"],
                 }
 
         row = {
-            "collection": collection.name,
+            "partition": partition["name"],
+            "label": partition["label"],
             "samples": len(modality_stems["label"]),
-            "instances": collection_instances,
-            "keypoints": collection_keypoints,
-            "schema_complete_instances": collection_complete_groups,
-            "invalid_boxes": collection_invalid_boxes,
-            "unmatched_keypoints": collection_unmatched_points,
+            "instances": partition_counts["instances"],
+            "keypoints": partition_counts["keypoints"],
+            "schema_complete_instances": partition_counts["complete_groups"],
+            "invalid_boxes": partition_counts["invalid_boxes"],
+            "unmatched_keypoints": partition_counts["unmatched_points"],
+            "ripeness": dict(sorted(partition_ripeness.items(), key=value_sort_key)),
+            "occlusion": dict(sorted(partition_occlusion.items(), key=value_sort_key)),
+            "keypoint_visibility": dict(sorted(partition_visibility.items(), key=value_sort_key)),
             "modalities": {name: len(modality_stems[name]) for name in MODALITIES},
             "fully_paired_samples": len(paired),
         }
-        collection_rows.append(row)
+        partition_rows.append(row)
         overall["fully_paired_samples"] += len(paired)
         for name in MODALITIES:
             overall[f"{name}_files"] += len(modality_stems[name])
@@ -239,9 +315,10 @@ def scan_dataset(dataset_root: Path) -> tuple[dict, dict]:
     summary = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "dataset_root": dataset_root.name,
-        "collections": collection_rows,
+        "layout": layout,
+        "partitions": partition_rows,
         "overall": {
-            "collections": len(collection_rows),
+            "partitions": len(partition_rows),
             "samples": total_samples,
             "instances": overall["instances"],
             "keypoints": overall["keypoints"],
@@ -261,6 +338,10 @@ def scan_dataset(dataset_root: Path) -> tuple[dict, dict]:
             "depth_raw_files": overall["depth_raw_files"],
             "camera_units": len(camera_serials),
             "device_names": sorted(device_names),
+            "calibration_mapping_records": len(calibration_mapping),
+            "calibration_mapping_percent": percent(overall["calibration_mapped_samples"], total_samples)
+            if calibration_mapping
+            else None,
             "total_files": total_files,
             "total_bytes": total_bytes,
             "total_gb_decimal": round(total_bytes / 1_000_000_000, 2),
@@ -282,7 +363,7 @@ def scan_dataset(dataset_root: Path) -> tuple[dict, dict]:
             "note": "Ripeness and occlusion are reported as stored numeric categories; no undocumented semantic names are inferred.",
         },
         "representative_sample": {
-            "collection": candidate["collection"] if candidate else None,
+            "partition": candidate["partition"] if candidate else None,
             "stem": candidate["stem"] if candidate else None,
             "instances": candidate["instances"] if candidate else 0,
         },
@@ -312,9 +393,8 @@ def badge(draw: ImageDraw.ImageDraw, xy: tuple[int, int], text: str, fill: str, 
 
 
 def render_annotation(dataset_root: Path, candidate: dict, output_path: Path) -> None:
-    collection = dataset_root / candidate["collection"]
     stem = candidate["stem"]
-    rgb = Image.open(collection / "rgb" / f"{stem}.png").convert("RGB")
+    rgb = Image.open(candidate["rgb_path"]).convert("RGB")
     record = candidate["record"]
 
     canvas = Image.new("RGB", (1800, 1080), COLORS["paper"])
@@ -323,7 +403,7 @@ def render_annotation(dataset_root: Path, candidate: dict, output_path: Path) ->
     draw.text((56, 23), "INSTANCE ANNOTATION VIEW", font=font(21, bold=True, mono=True), fill="#c9d9e2")
     draw.text(
         (56, 116),
-        f"{candidate['collection']} / {stem}",
+        f"{candidate['partition']} / {stem}",
         font=font(44, bold=True),
         fill=COLORS["navy"],
     )
@@ -414,7 +494,7 @@ def render_annotation(dataset_root: Path, candidate: dict, output_path: Path) ->
     canvas.save(output_path, "WEBP", quality=91, method=6)
 
 
-def resolve_calibration(collection: Path, stem: str) -> tuple[dict, str]:
+def resolve_legacy_calibration(collection: Path, stem: str) -> tuple[dict, str]:
     mapping_path = collection / "camera_calibration_mapping.json"
     if mapping_path.exists():
         mapping = read_json(mapping_path)
@@ -432,11 +512,15 @@ def resolve_calibration(collection: Path, stem: str) -> tuple[dict, str]:
 
 
 def render_pointcloud(dataset_root: Path, candidate: dict, output_path: Path) -> dict:
-    collection = dataset_root / candidate["collection"]
     stem = candidate["stem"]
-    rgb = np.asarray(Image.open(collection / "rgb" / f"{stem}.png").convert("RGB"))
-    depth = np.asarray(Image.open(collection / "depth_aligned_pp" / f"{stem}.png"))
-    calibration, calibration_name = resolve_calibration(collection, stem)
+    rgb = np.asarray(Image.open(candidate["rgb_path"]).convert("RGB"))
+    depth = np.asarray(Image.open(candidate["depth_pp_path"]))
+    if candidate.get("calibration_path"):
+        calibration_path = Path(candidate["calibration_path"])
+        calibration = read_json(calibration_path)
+        calibration_name = calibration_path.name
+    else:
+        calibration, calibration_name = resolve_legacy_calibration(candidate["legacy_calibration_root"], stem)
     intrinsics = calibration["intrinsics"]["color"]
     scale = float(calibration["depth_scale_m"])
 
@@ -499,7 +583,7 @@ def render_pointcloud(dataset_root: Path, candidate: dict, output_path: Path) ->
     draw = ImageDraw.Draw(canvas)
     draw.rectangle((0, 0, width, 104), fill="#0d2332")
     draw.text((54, 26), "RGB-COLORED 3D POINT CLOUD", font=font(24, bold=True, mono=True), fill="#bcd0db")
-    draw.text((54, 118), f"{candidate['collection']} / {stem}", font=font(32, bold=True), fill="#f2f6f8")
+    draw.text((54, 118), f"{candidate['partition']} / {stem}", font=font(32, bold=True), fill="#f2f6f8")
 
     for gx in range(plot_left, plot_right + 1, 128):
         draw.line((gx, plot_top, gx, plot_bottom), fill="#163142", width=1)
@@ -651,14 +735,15 @@ def render_distributions(summary: dict, output_path: Path) -> None:
         "occlusion": (628, 776, 1192, 1198),
         "visibility": (1212, 776, 1756, 1198),
     }
-    panel(draw, boxes["samples"], "A", "Frames by collection")
-    panel(draw, boxes["instances"], "B", "Instances by collection")
+    grouping = "split" if summary["layout"] == "train_val" else "collection"
+    panel(draw, boxes["samples"], "A", f"Frames by {grouping}")
+    panel(draw, boxes["instances"], "B", f"Instances by {grouping}")
     panel(draw, boxes["ripeness"], "C", "Ripeness categories")
     panel(draw, boxes["occlusion"], "D", "Occlusion categories")
     panel(draw, boxes["visibility"], "E", "Keypoint visibility")
 
-    rows = summary["collections"]
-    labels = [row["collection"].replace("data_collection", "C") for row in rows]
+    rows = summary["partitions"]
+    labels = [row["label"] for row in rows]
     draw_horizontal_bars(draw, boxes["samples"], labels, [row["samples"] for row in rows], COLORS["blue"])
     draw_horizontal_bars(draw, boxes["instances"], labels, [row["instances"] for row in rows], COLORS["red"])
     draw_category_bars(draw, boxes["ripeness"], summary["distributions"]["ripeness"], COLORS["green"])
@@ -690,7 +775,7 @@ def main() -> None:
     summary_path = output_dir / "dataset-summary.json"
     summary_path.write_text(json.dumps(summary, indent=2, ensure_ascii=False), encoding="utf-8")
     print(json.dumps(summary["overall"], indent=2, ensure_ascii=False))
-    print(f"Representative sample: {candidate['collection']}/{candidate['stem']}")
+    print(f"Representative sample: {candidate['partition']}/{candidate['stem']}")
     print(f"Wrote: {summary_path}")
     print(f"Wrote: {annotation_path}")
     print(f"Wrote: {distribution_path}")

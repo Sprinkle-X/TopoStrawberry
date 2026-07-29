@@ -26,7 +26,7 @@ html(lang='en')
         main#main-content
             header#overview.research-hero
                 .container.px-4.px-lg-5
-                    .project-label Dataset release · July 2026
+                    .project-label Train/validation release · July 2026
                     .row.g-5.align-items-center
                         .col-lg-6
                             h1 A synchronized RGB-D strawberry dataset for real greenhouse perception
@@ -48,13 +48,16 @@ html(lang='en')
                                 .metadata-row
                                     dt Image resolution
                                     dd 1280 × 720 pixels
+                                .metadata-row
+                                    dt Dataset split
+                                    dd Train 3,006 frames · Validation 752 frames
                         .col-lg-6
                             figure.research-figure.hero-figure
                                 .figure-frame.figure-frame--clean
                                     img(src='assets/dataset-annotation-overview.webp', alt='Representative greenhouse RGB frame with strawberry bounding boxes, five landmark types, ripeness categories, and occlusion categories', width='1800', height='1080', fetchpriority='high')
                                 figcaption
                                     span.figure-number Figure 1.
-                                    |  Real annotation overlay from data_collection1/270495; category IDs are shown exactly as stored.
+                                    |  Real annotation overlay from train/0210; category IDs are shown exactly as stored.
 
             section#statistics.paper-section
                 .container.px-4.px-lg-5
@@ -64,7 +67,7 @@ html(lang='en')
                             p.section-type Release audit
                             h2 Dataset snapshot
                     p.section-summary
-                        | Statistics were computed directly from the current data directory. Counts cover all nine collections and all synchronized modalities in this release.
+                        | Statistics were recomputed from the reorganized train/validation release. Counts cover every synchronized modality and the per-image camera calibration mapping.
                     .dataset-stat-grid
                         article.dataset-stat
                             span.stat-kicker Frames
@@ -81,7 +84,7 @@ html(lang='en')
                         article.dataset-stat
                             span.stat-kicker Storage
                             strong 7.11 GB
-                            p 18,805 files in total
+                            p 18,795 files in total
                     .integrity-grid
                         article.integrity-item
                             span.integrity-value 100%
@@ -94,10 +97,10 @@ html(lang='en')
                                 h3 Annotation structure
                                 p All 14,286 instances contain one each of Cut, Top, Bottom, Left, and Right.
                         article.integrity-item
-                            span.integrity-value 0
+                            span.integrity-value 100%
                             div
-                                h3 Structural errors
-                                p No invalid bounding boxes or unmatched keypoint groups were found by the release audit.
+                                h3 Calibration mapping
+                                p All 3,758 image records map to one of four RealSense camera calibration files.
                     .audit-note
                         div
                             strong Reproducible release summary
@@ -112,73 +115,42 @@ html(lang='en')
                             p.section-type Dataset analysis
                             h2 Composition and label balance
                     p.section-summary
-                        | The collection-level distribution is heterogeneous: later collections contribute more instances per frame, while category labels remain binary for ripeness and occlusion.
+                        | The release now uses a fixed train/validation split. Training contains 3,006 frames and validation contains 752 frames, preserving the full set of synchronized RGB-D records.
                     figure.research-figure.data-figure
                         .figure-frame.figure-frame--clean
-                            img(src='assets/dataset-distributions.webp', alt='Charts showing frame and strawberry instance counts by collection, plus ripeness, occlusion, and keypoint visibility distributions', width='1800', height='1250', loading='lazy')
+                            img(src='assets/dataset-distributions.webp', alt='Charts showing frame and strawberry instance counts by train and validation split, plus ripeness, occlusion, and keypoint visibility distributions', width='1800', height='1250', loading='lazy')
                         figcaption
                             span.figure-number Figure 2.
                             |  Release-wide counts. Ripeness and occlusion use their stored numeric IDs; semantic class names are not inferred without a finalized codebook.
                     .composition-grid
                         .table-responsive.collection-table-wrap
                             table.collection-table
-                                caption Collection-level sample and instance counts
+                                caption Train/validation sample and instance counts
                                 thead
                                     tr
-                                        th(scope='col') Collection
+                                        th(scope='col') Split
                                         th(scope='col') Frames
+                                        th(scope='col') Share
                                         th(scope='col') Instances
                                         th(scope='col') Inst./frame
                                 tbody
                                     tr
-                                        th(scope='row') C1
-                                        td 186
-                                        td 687
-                                        td 3.69
+                                        th(scope='row') Train
+                                        td 3,006
+                                        td 80.0%
+                                        td 11,502
+                                        td 3.83
                                     tr
-                                        th(scope='row') C2
-                                        td 776
-                                        td 1,615
-                                        td 2.08
-                                    tr
-                                        th(scope='row') C3
-                                        td 435
-                                        td 1,053
-                                        td 2.42
-                                    tr
-                                        th(scope='row') C4
-                                        td 385
-                                        td 887
-                                        td 2.30
-                                    tr
-                                        th(scope='row') C5
-                                        td 506
-                                        td 1,295
-                                        td 2.56
-                                    tr
-                                        th(scope='row') C6
-                                        td 65
-                                        td 203
-                                        td 3.12
-                                    tr
-                                        th(scope='row') C7
-                                        td 96
-                                        td 327
-                                        td 3.41
-                                    tr
-                                        th(scope='row') C8
-                                        td 483
-                                        td 3,441
-                                        td 7.12
-                                    tr
-                                        th(scope='row') C9
-                                        td 826
-                                        td 4,778
-                                        td 5.78
+                                        th(scope='row') Validation
+                                        td 752
+                                        td 20.0%
+                                        td 2,784
+                                        td 3.70
                                 tfoot
                                     tr
                                         th(scope='row') Total
                                         td 3,758
+                                        td 100%
                                         td 14,286
                                         td 3.80
                         aside.label-summary
@@ -211,7 +183,7 @@ html(lang='en')
                             p.section-type Data specification
                             h2 Modalities and annotation protocol
                     p.section-summary
-                        | Every sample stem identifies one synchronized record across five folders. Post-processed aligned depth is used for the 3D visualization below, with per-camera calibration selected from the collection metadata.
+                        | Every four-digit sample ID identifies one synchronized record inside either train or validation. Post-processed aligned depth is used for the 3D visualization below, with calibration selected from the release-wide image-to-camera mapping.
                     .table-responsive.protocol-table-wrap
                         table.protocol-table
                             thead
@@ -246,6 +218,11 @@ html(lang='en')
                                     td LabelMe JSON
                                     td 3,758
                                     td Boxes, five keypoints, ripeness, and occlusion
+                                tr
+                                    th(scope='row') Calibration map
+                                    td Per-image XLSX mapping plus four camera JSON files
+                                    td 3,758
+                                    td Select the correct camera intrinsics for metric reconstruction
                     .protocol-record
                         .protocol-code
                             span.protocol-note-label Instance record
@@ -264,16 +241,16 @@ html(lang='en')
                     .visual-stack
                         figure.research-figure.visual-figure
                             .figure-frame.figure-frame--clean
-                                img(src='assets/dataset-annotation-overview.webp', alt='Complete instance annotation overlay for representative sample data_collection1 270495', width='1800', height='1080', loading='lazy')
+                                img(src='assets/dataset-annotation-overview.webp', alt='Complete instance annotation overlay for representative training sample 0210', width='1800', height='1080', loading='lazy')
                             figcaption
                                 span.figure-number Figure 3a.
                                 |  Twelve labeled instances with bounding boxes, category IDs, and five anatomical landmark types. Filled points denote visibility 2; outlined points denote visibility 1.
                         figure.research-figure.visual-figure
                             .figure-frame.figure-frame--clean.figure-frame--dark
-                                img(src='assets/dataset-pointcloud.webp', alt='RGB-colored 3D point cloud reconstructed from aligned post-processed depth for sample data_collection1 270495', width='1800', height='1120', loading='lazy')
+                                img(src='assets/dataset-pointcloud.webp', alt='RGB-colored 3D point cloud reconstructed from aligned post-processed depth for training sample 0210', width='1800', height='1120', loading='lazy')
                             figcaption
                                 span.figure-number Figure 3b.
-                                |  RGB-colored point cloud reconstructed with color-camera intrinsics. This frame has 99.96% valid depth pixels and a median depth of 0.377 m.
+                                |  RGB-colored point cloud reconstructed with its mapped color-camera intrinsics. This frame has 99.96% valid depth pixels and a median depth of 0.413 m.
 
             section#resources.paper-section
                 .container.px-4.px-lg-5
@@ -288,7 +265,7 @@ html(lang='en')
                                 span.status-indicator(aria-hidden='true')
                                 | Dataset available
                             h3 Strawberry RGB-D dataset package
-                            p The current release is distributed through Baidu Netdisk and contains all nine audited collections.
+                            p The current release is distributed through Baidu Netdisk with train/validation partitions, synchronized depth variants, and per-image camera calibration mapping.
                             a.btn.btn-research(href='https://pan.baidu.com/s/1ul6L7jNT5VSTEdgTZroezA?pwd=pgna', target='_blank', rel='noopener noreferrer') Open dataset download
                             p.access-code Access code:
                                 code pgna
