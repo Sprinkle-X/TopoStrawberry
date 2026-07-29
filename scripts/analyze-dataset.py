@@ -640,8 +640,8 @@ def render_pointcloud(
             json.dumps(interactive_payload, separators=(",", ":")),
             encoding="utf-8",
         )
-    yaw = math.radians(-34)
-    pitch = math.radians(14)
+    yaw = math.radians(0)
+    pitch = math.radians(0)
     rotation_y = np.array(
         [[math.cos(yaw), 0, math.sin(yaw)], [0, 1, 0], [-math.sin(yaw), 0, math.cos(yaw)]],
         dtype=np.float32,

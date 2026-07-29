@@ -32,8 +32,8 @@
     const resetButton = document.getElementById('pointcloudReset');
     const pointCountLabel = document.getElementById('pointcloudPointCount');
     const state = {
-        yaw: -0.58,
-        pitch: 0.22,
+        yaw: 0,
+        pitch: 0,
         zoom: 2.6,
         panX: 0,
         panY: 0,
