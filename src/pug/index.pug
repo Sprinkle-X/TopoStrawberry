@@ -230,10 +230,136 @@ html(lang='en')
                             code { bbox, Cut, Top, Bottom, Left, Right, ripeness, occlusion }
                         p Visibility is stored per keypoint as 0, 1, or 2. Ripeness and occlusion use observed values 0 and 1.
 
-            section#visualizations.paper-section.paper-section--alt
+            section#benchmark.paper-section.paper-section--alt
                 .container.px-4.px-lg-5
                     .section-heading
                         span.section-number 04
+                        div
+                            p.section-type Baseline evaluation
+                            h2 Keypoint benchmark results
+                    p.section-summary
+                        | Eleven representative pose-estimation configurations were evaluated without external ground-truth boxes on the same 685-record validation set. Results are grouped by publication year, with configurations from each model family kept together.
+                    .table-responsive.benchmark-table-wrap
+                        table.benchmark-table
+                            caption.visually-hidden Strawberry keypoint benchmark results ordered by publication year and model family
+                            thead
+                                tr
+                                    th(scope='col') Model
+                                    th.numeric(scope='col') AP
+                                    th.numeric(scope='col') AP50
+                                    th.numeric(scope='col') AP75
+                                    th.numeric(scope='col') AR
+                                    th.numeric(scope='col') GFLOPs
+                                    th.numeric(scope='col') Publication year
+                            tbody
+                                tr.benchmark-group-start
+                                    th(scope='row') CID-HRNet-W32
+                                    td.numeric 74.84%
+                                    td.numeric 96.76%
+                                    td.numeric 86.33%
+                                    td.numeric 80.30%
+                                    td.numeric 43.17
+                                    td.numeric 2022
+                                tr
+                                    th(scope='row') CID-HRNet-W48
+                                    td.numeric 74.44%
+                                    td.numeric 96.71%
+                                    td.numeric 84.95%
+                                    td.numeric 80.00%
+                                    td.numeric 85.38
+                                    td.numeric 2022
+                                tr.benchmark-group-start
+                                    th(scope='row') YOLOX-Pose-S
+                                    td.numeric 72.24%
+                                    td.numeric 96.60%
+                                    td.numeric 81.43%
+                                    td.numeric 78.04%
+                                    td.numeric 31.55
+                                    td.numeric 2022
+                                tr
+                                    th(scope='row') YOLOX-Pose-M
+                                    td.numeric 74.33%
+                                    td.numeric 96.67%
+                                    td.numeric 83.75%
+                                    td.numeric 79.57%
+                                    td.numeric 84.53
+                                    td.numeric 2022
+                                tr
+                                    th(scope='row') YOLOX-Pose-L
+                                    td.numeric 76.64%
+                                    td.numeric 96.68%
+                                    td.numeric 86.62%
+                                    td.numeric 81.47%
+                                    td.numeric 174.73
+                                    td.numeric 2022
+                                tr.benchmark-group-start
+                                    th(scope='row') EDPose-R50
+                                    td.numeric 77.37%
+                                    td.numeric 97.64%
+                                    td.numeric 88.52%
+                                    td.numeric 83.83%
+                                    td.numeric 276.51
+                                    td.numeric 2023
+                                tr
+                                    th(scope='row') EDPose-Swin-L
+                                    td.numeric.benchmark-best 78.49%
+                                    td.numeric 97.31%
+                                    td.numeric 88.67%
+                                    td.numeric 84.83%
+                                    td.numeric 422.60
+                                    td.numeric 2023
+                                tr
+                                    th(scope='row') EDPose-Swin-L-5scale
+                                    td.numeric 77.21%
+                                    td.numeric 97.27%
+                                    td.numeric 87.28%
+                                    td.numeric 83.79%
+                                    td.numeric 681.92
+                                    td.numeric 2023
+                                tr.benchmark-group-start
+                                    th(scope='row') RTMO-S
+                                    td.numeric 71.73%
+                                    td.numeric 96.15%
+                                    td.numeric 80.86%
+                                    td.numeric 77.63%
+                                    td.numeric 42.60
+                                    td.numeric 2024
+                                tr
+                                    th(scope='row') RTMO-M
+                                    td.numeric 71.07%
+                                    td.numeric 96.43%
+                                    td.numeric 80.26%
+                                    td.numeric 77.24%
+                                    td.numeric 69.00
+                                    td.numeric 2024
+                                tr
+                                    th(scope='row') RTMO-L
+                                    td.numeric 74.76%
+                                    td.numeric 96.50%
+                                    td.numeric 84.55%
+                                    td.numeric 80.41%
+                                    td.numeric 136.70
+                                    td.numeric 2024
+                                tr.benchmark-group-start.benchmark-row--ours
+                                    th(scope='row') Ours
+                                    td.numeric
+                                    td.numeric
+                                    td.numeric
+                                    td.numeric
+                                    td.numeric
+                                    td.numeric
+                    .benchmark-notes
+                        p
+                            strong Metric definition.
+                            |  AP is COCO keypoint AP averaged over OKS 0.50:0.95; AP, AP50, AP75, and AR are reported as percentages. GFLOPs denotes the estimated cost of one forward pass.
+                        p
+                            strong Compute note.
+                            |  EDPose GFLOPs are literature-reference or estimated values; the actual five-keypoint configuration may be slightly lower.
+
+            section#visualizations.paper-section
+                .container.px-4.px-lg-5
+                    .section-heading
+                        span.section-number 05
                         div
                             p.section-type Qualitative inspection
                             h2 Annotation and depth visualization
@@ -275,10 +401,10 @@ html(lang='en')
                                 span.figure-number Figure 3b.
                                 |  Interactive foreground-filtered point cloud reconstructed with mapped color-camera intrinsics. Rotate, pan, and zoom freely; a label-aware crop and 0.220–0.400 m subject-depth window retain strawberries, foliage, and nearby background while excluding distant artifacts.
 
-            section#resources.paper-section
+            section#resources.paper-section.paper-section--alt
                 .container.px-4.px-lg-5
                     .section-heading
-                        span.section-number 05
+                        span.section-number 06
                         div
                             p.section-type Availability
                             h2 Resources

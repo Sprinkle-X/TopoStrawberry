@@ -551,7 +551,7 @@ def render_pointcloud(
     intrinsics = calibration["intrinsics"]["color"]
     scale = float(calibration["depth_scale_m"])
 
-    step = 4
+    step = 2
     sampled_depth = depth[::step, ::step].astype(np.float32) * scale
     sampled_rgb = rgb[::step, ::step]
     vv, uu = np.mgrid[0 : depth.shape[0] : step, 0 : depth.shape[1] : step]
@@ -623,7 +623,7 @@ def render_pointcloud(
     center = np.median(points, axis=0)
     centered = points - center
     if interactive_output_path is not None:
-        target_count = min(60000, len(centered))
+        target_count = min(120000, len(centered))
         sample_indexes = np.linspace(0, len(centered) - 1, target_count, dtype=np.int32)
         interactive_points = centered[sample_indexes]
         extent = max(float(np.max(np.ptp(interactive_points, axis=0))), 1e-6)

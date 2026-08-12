@@ -35,6 +35,7 @@
                         <li class="nav-item"><a class="nav-link" href="#statistics">Statistics</a></li>
                         <li class="nav-item"><a class="nav-link" href="#composition">Composition</a></li>
                         <li class="nav-item"><a class="nav-link" href="#protocol">Protocol</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#benchmark">Benchmark</a></li>
                         <li class="nav-item"><a class="nav-link" href="#visualizations">Visualizations</a></li>
                         <li class="nav-item"><a class="nav-link" href="#resources">Resources</a></li>
                         <li class="nav-item nav-download"><a class="btn btn-research btn-sm" href="#resources">Download</a></li>
@@ -317,10 +318,158 @@
                     </div>
                 </div>
             </section>
-            <section class="paper-section paper-section--alt" id="visualizations">
+            <section class="paper-section paper-section--alt" id="benchmark">
                 <div class="container px-4 px-lg-5">
                     <div class="section-heading">
                         <span class="section-number">04</span>
+                        <div>
+                            <p class="section-type">Baseline evaluation</p>
+                            <h2>Keypoint benchmark results</h2>
+                        </div>
+                    </div>
+                    <p class="section-summary">Eleven representative pose-estimation configurations were evaluated without external ground-truth boxes on the same 685-record validation set. Results are grouped by publication year, with configurations from each model family kept together.</p>
+                    <div class="table-responsive benchmark-table-wrap">
+                        <table class="benchmark-table">
+                            <caption class="visually-hidden">Strawberry keypoint benchmark results ordered by publication year and model family</caption>
+                            <thead>
+                                <tr>
+                                    <th scope="col">Model</th>
+                                    <th class="numeric" scope="col">AP</th>
+                                    <th class="numeric" scope="col">AP50</th>
+                                    <th class="numeric" scope="col">AP75</th>
+                                    <th class="numeric" scope="col">AR</th>
+                                    <th class="numeric" scope="col">GFLOPs</th>
+                                    <th class="numeric" scope="col">Publication year</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="benchmark-group-start">
+                                    <th scope="row">CID-HRNet-W32</th>
+                                    <td class="numeric">74.84%</td>
+                                    <td class="numeric">96.76%</td>
+                                    <td class="numeric">86.33%</td>
+                                    <td class="numeric">80.30%</td>
+                                    <td class="numeric">43.17</td>
+                                    <td class="numeric">2022</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">CID-HRNet-W48</th>
+                                    <td class="numeric">74.44%</td>
+                                    <td class="numeric">96.71%</td>
+                                    <td class="numeric">84.95%</td>
+                                    <td class="numeric">80.00%</td>
+                                    <td class="numeric">85.38</td>
+                                    <td class="numeric">2022</td>
+                                </tr>
+                                <tr class="benchmark-group-start">
+                                    <th scope="row">YOLOX-Pose-S</th>
+                                    <td class="numeric">72.24%</td>
+                                    <td class="numeric">96.60%</td>
+                                    <td class="numeric">81.43%</td>
+                                    <td class="numeric">78.04%</td>
+                                    <td class="numeric">31.55</td>
+                                    <td class="numeric">2022</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">YOLOX-Pose-M</th>
+                                    <td class="numeric">74.33%</td>
+                                    <td class="numeric">96.67%</td>
+                                    <td class="numeric">83.75%</td>
+                                    <td class="numeric">79.57%</td>
+                                    <td class="numeric">84.53</td>
+                                    <td class="numeric">2022</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">YOLOX-Pose-L</th>
+                                    <td class="numeric">76.64%</td>
+                                    <td class="numeric">96.68%</td>
+                                    <td class="numeric">86.62%</td>
+                                    <td class="numeric">81.47%</td>
+                                    <td class="numeric">174.73</td>
+                                    <td class="numeric">2022</td>
+                                </tr>
+                                <tr class="benchmark-group-start">
+                                    <th scope="row">EDPose-R50</th>
+                                    <td class="numeric">77.37%</td>
+                                    <td class="numeric">97.64%</td>
+                                    <td class="numeric">88.52%</td>
+                                    <td class="numeric">83.83%</td>
+                                    <td class="numeric">276.51</td>
+                                    <td class="numeric">2023</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">EDPose-Swin-L</th>
+                                    <td class="numeric benchmark-best">78.49%</td>
+                                    <td class="numeric">97.31%</td>
+                                    <td class="numeric">88.67%</td>
+                                    <td class="numeric">84.83%</td>
+                                    <td class="numeric">422.60</td>
+                                    <td class="numeric">2023</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">EDPose-Swin-L-5scale</th>
+                                    <td class="numeric">77.21%</td>
+                                    <td class="numeric">97.27%</td>
+                                    <td class="numeric">87.28%</td>
+                                    <td class="numeric">83.79%</td>
+                                    <td class="numeric">681.92</td>
+                                    <td class="numeric">2023</td>
+                                </tr>
+                                <tr class="benchmark-group-start">
+                                    <th scope="row">RTMO-S</th>
+                                    <td class="numeric">71.73%</td>
+                                    <td class="numeric">96.15%</td>
+                                    <td class="numeric">80.86%</td>
+                                    <td class="numeric">77.63%</td>
+                                    <td class="numeric">42.60</td>
+                                    <td class="numeric">2024</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">RTMO-M</th>
+                                    <td class="numeric">71.07%</td>
+                                    <td class="numeric">96.43%</td>
+                                    <td class="numeric">80.26%</td>
+                                    <td class="numeric">77.24%</td>
+                                    <td class="numeric">69.00</td>
+                                    <td class="numeric">2024</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">RTMO-L</th>
+                                    <td class="numeric">74.76%</td>
+                                    <td class="numeric">96.50%</td>
+                                    <td class="numeric">84.55%</td>
+                                    <td class="numeric">80.41%</td>
+                                    <td class="numeric">136.70</td>
+                                    <td class="numeric">2024</td>
+                                </tr>
+                                <tr class="benchmark-group-start benchmark-row--ours">
+                                    <th scope="row">Ours</th>
+                                    <td class="numeric"></td>
+                                    <td class="numeric"></td>
+                                    <td class="numeric"></td>
+                                    <td class="numeric"></td>
+                                    <td class="numeric"></td>
+                                    <td class="numeric"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="benchmark-notes">
+                        <p>
+                            <strong>Metric definition.</strong>
+                            AP is COCO keypoint AP averaged over OKS 0.50:0.95; AP, AP50, AP75, and AR are reported as percentages. GFLOPs denotes the estimated cost of one forward pass.
+                        </p>
+                        <p>
+                            <strong>Compute note.</strong>
+                            EDPose GFLOPs are literature-reference or estimated values; the actual five-keypoint configuration may be slightly lower.
+                        </p>
+                    </div>
+                </div>
+            </section>
+            <section class="paper-section" id="visualizations">
+                <div class="container px-4 px-lg-5">
+                    <div class="section-heading">
+                        <span class="section-number">05</span>
                         <div>
                             <p class="section-type">Qualitative inspection</p>
                             <h2>Annotation and depth visualization</h2>
@@ -368,10 +517,10 @@
                     </div>
                 </div>
             </section>
-            <section class="paper-section" id="resources">
+            <section class="paper-section paper-section--alt" id="resources">
                 <div class="container px-4 px-lg-5">
                     <div class="section-heading">
-                        <span class="section-number">05</span>
+                        <span class="section-number">06</span>
                         <div>
                             <p class="section-type">Availability</p>
                             <h2>Resources</h2>
