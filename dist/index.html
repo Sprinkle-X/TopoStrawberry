@@ -46,27 +46,31 @@
         <main id="main-content">
             <header class="research-hero" id="overview">
                 <div class="container px-4 px-lg-5">
-                    <div class="project-label">Train/validation release · July 2026</div>
+                    <div class="project-label">Train/validation release | July 2026</div>
+                    <h1>A synchronized RGB-D strawberry dataset for greenhouse perception</h1>
                     <div class="row g-5 align-items-center">
-                        <div class="col-lg-6">
-                            <h1>A synchronized RGB-D strawberry dataset for real greenhouse perception</h1>
-                            <p class="hero-abstract">The current release contains 3,758 paired frames and 14,286 annotated strawberry instances. Every instance combines a bounding box, five anatomical keypoints, a ripeness category, and an occlusion category.</p>
-                            <div class="hero-actions">
+                        <div class="col-lg-5">
+                            <p class="hero-abstract">The dataset contains 3,758 paired frames and 14,286 annotated strawberry instances. Each annotated strawberry includes a bounding box, five anatomical keypoints, a ripeness label, and an occlusion label.</p>
+                            <div class="d-flex flex-wrap gap-2 mt-3 mb-4">
                                 <a class="btn btn-research" href="https://pan.baidu.com/s/1ul6L7jNT5VSTEdgTZroezA?pwd=pgna" target="_blank" rel="noopener noreferrer">Download dataset</a>
-                                <a class="btn btn-outline-research" href="#statistics">Explore release statistics</a>
+                                <a class="btn btn-outline-research" href="#statistics">View dataset statistics</a>
                             </div>
                             <dl class="project-metadata">
                                 <div class="metadata-row">
                                     <dt>Modalities</dt>
-                                    <dd>RGB · aligned depth · post-processed depth · raw depth · LabelMe JSON</dd>
+                                    <dd>RGB images, aligned depth maps, post-processed depth maps, and raw depth maps</dd>
+                                </div>
+                                <div class="metadata-row">
+                                    <dt>Annotations</dt>
+                                    <dd>Bounding boxes, keypoints, ripeness labels, and occlusion labels in LabelMe JSON format</dd>
                                 </div>
                                 <div class="metadata-row">
                                     <dt>Research tasks</dt>
-                                    <dd>Object detection · keypoint estimation · attribute recognition · RGB-D perception</dd>
+                                    <dd>Object detection, keypoint estimation, ripeness recognition, and occlusion recognition</dd>
                                 </div>
                                 <div class="metadata-row">
                                     <dt>Capture system</dt>
-                                    <dd>Four Intel RealSense D435I camera units</dd>
+                                    <dd>Four Intel RealSense D435i cameras</dd>
                                 </div>
                                 <div class="metadata-row">
                                     <dt>Image resolution</dt>
@@ -74,11 +78,11 @@
                                 </div>
                                 <div class="metadata-row">
                                     <dt>Dataset split</dt>
-                                    <dd>Train 3,006 frames · Validation 752 frames</dd>
+                                    <dd>Train 3,006 frames, Validation 752 frames</dd>
                                 </div>
                             </dl>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-7">
                             <figure class="research-figure hero-figure">
                                 <div class="figure-frame figure-frame--clean"><img src="assets/dataset-annotation-overview.webp" alt="Representative greenhouse RGB frame with strawberry bounding boxes, five landmark types, ripeness categories, and occlusion categories" width="1800" height="1080" fetchpriority="high" /></div>
                                 <figcaption>
@@ -95,11 +99,11 @@
                     <div class="section-heading">
                         <span class="section-number">01</span>
                         <div>
-                            <p class="section-type">Release audit</p>
+                            <p class="section-type">Dataset statistics</p>
                             <h2>Dataset snapshot</h2>
                         </div>
                     </div>
-                    <p class="section-summary">Statistics were recomputed from the reorganized train/validation release. Counts cover every synchronized modality and the per-image camera calibration mapping.</p>
+                    <p class="section-summary">Statistics were recomputed from the reorganized train/validation split. Counts cover every synchronized modality and the per-image camera calibration mapping.</p>
                     <div class="dataset-stat-grid">
                         <article class="dataset-stat">
                             <span class="stat-kicker">Frames</span>
@@ -112,7 +116,7 @@
                             <p>Strawberry bounding boxes</p>
                         </article>
                         <article class="dataset-stat">
-                            <span class="stat-kicker">Landmarks</span>
+                            <span class="stat-kicker">Keypoints</span>
                             <strong>71,430</strong>
                             <p>Five keypoints per instance</p>
                         </article>
@@ -124,33 +128,55 @@
                     </div>
                     <div class="integrity-grid">
                         <article class="integrity-item">
-                            <span class="integrity-value">100%</span>
                             <div>
                                 <h3>Cross-modal pairing</h3>
-                                <p>3,758 complete RGB, label, aligned-depth, post-processed-depth, and raw-depth sets.</p>
+                                <p>All 3,758 frames include complete RGB, label, aligned-depth, post-processed-depth, and raw-depth data.</p>
                             </div>
                         </article>
                         <article class="integrity-item">
-                            <span class="integrity-value">100%</span>
                             <div>
                                 <h3>Annotation structure</h3>
-                                <p>All 14,286 instances contain one each of Cut, Top, Bottom, Left, and Right.</p>
+                                <p>Each strawberry instance is annotated with five keypoints representing its Cut, Top, Bottom, Left, and Right positions.</p>
                             </div>
                         </article>
                         <article class="integrity-item">
-                            <span class="integrity-value">100%</span>
                             <div>
                                 <h3>Calibration mapping</h3>
-                                <p>All 3,758 image records map to one of four RealSense camera calibration files.</p>
+                                <p>Each image record is mapped to one of four RealSense camera calibration files.</p>
                             </div>
                         </article>
                     </div>
+                    <div class="directory-structure-slot" aria-labelledby="directory-structure-title">
+                        <div class="directory-slot-copy">
+                            <span class="directory-slot-index"></span>
+                            <div>
+                                <p class="annotation-eyebrow">Dataset organization</p>
+                                <h3 id="directory-structure-title">Dataset directory structure</h3>
+                                <p>The directory structure describes how modalities, dataset splits, annotations, and calibration files are organized.</p>
+                            </div>
+                        </div>
+                        <div class="directory-slot-canvas" aria-label="Reserved area for the final dataset directory tree">
+                            <div class="directory-slot-label"><span>Dataset directory structure</span></div>
+                            <div class="directory-placeholder" aria-hidden="true">
+                                <span class="placeholder-root"></span>
+                                <div class="placeholder-branch">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                                <div class="placeholder-branch placeholder-branch--short">
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="audit-note">
                         <div>
-                            <strong>Reproducible release summary</strong>
+                            <strong>Reproducible datasaet summary</strong>
                             <p>The complete machine-readable count table and observed category values are included with the site.</p>
                         </div>
-                        <a class="text-link" href="assets/dataset-summary.json" target="_blank">Open statistics JSON</a>
+                        <a class="text-link" href="assets/dataset-summary.json" target="_blank">View machine-readable statistics</a>
                     </div>
                 </div>
             </section>
@@ -163,14 +189,7 @@
                             <h2>Composition and label balance</h2>
                         </div>
                     </div>
-                    <p class="section-summary">The release now uses a fixed train/validation split. Training contains 3,006 frames and validation contains 752 frames, preserving the full set of synchronized RGB-D records.</p>
-                    <figure class="research-figure data-figure">
-                        <div class="figure-frame figure-frame--clean"><img src="assets/dataset-distributions.webp" alt="Charts showing frame and strawberry instance counts by train and validation split, plus ripeness, occlusion, and keypoint visibility distributions" width="1800" height="1250" loading="lazy" /></div>
-                        <figcaption>
-                            <span class="figure-number">Figure 2.</span>
-                            Release-wide counts. Ripeness and occlusion use their stored numeric IDs; semantic class names are not inferred without a finalized codebook.
-                        </figcaption>
-                    </figure>
+                    <p class="section-summary">The dataset uses a fixed train/validation split. Training contains 3,006 frames and validation contains 752 frames, preserving the full set of synchronized RGB-D records.</p>
                     <div class="composition-grid">
                         <div class="table-responsive collection-table-wrap">
                             <table class="collection-table">
@@ -211,42 +230,67 @@
                                 </tfoot>
                             </table>
                         </div>
-                        <aside class="label-summary">
-                            <p class="section-type">Observed labels</p>
-                            <h3>Attribute distribution</h3>
-                            <dl>
-                                <div class="label-row">
-                                    <dt>Ripeness 0</dt>
-                                    <dd>
-                                        4,957
-                                        <span>34.7%</span>
-                                    </dd>
+                        <div class="label-summary">
+                            <h3>Label encoding</h3>
+                            <div class="label-group-row">
+                                <p class="label-group-title">Instance attributes</p>
+                                <p class="label-group-title">Keypoint attributes</p>
+                            </div>
+                            <div class="label-definition-grid">
+                                <div class="label-definition-item label-definition-item--ripeness">
+                                    <h4>Ripeness</h4>
+                                    <div class="label-row">
+                                        <span>0</span>
+                                        <span>Immature</span>
+                                        <span>4,957 (34.7%)</span>
+                                    </div>
+                                    <div class="label-row">
+                                        <span>1</span>
+                                        <span>Mature</span>
+                                        <span>9,329 (65.3%)</span>
+                                    </div>
                                 </div>
-                                <div class="label-row">
-                                    <dt>Ripeness 1</dt>
-                                    <dd>
-                                        9,329
-                                        <span>65.3%</span>
-                                    </dd>
+                                <div class="label-definition-item label-definition-item--occlusion">
+                                    <h4>Occlusion</h4>
+                                    <div class="label-row">
+                                        <span>0</span>
+                                        <span>Non-occluded</span>
+                                        <span>9,278 (64.9%)</span>
+                                    </div>
+                                    <div class="label-row">
+                                        <span>1</span>
+                                        <span>Occluded</span>
+                                        <span>5,008 (35.1%)</span>
+                                    </div>
                                 </div>
-                                <div class="label-row">
-                                    <dt>Occlusion 0</dt>
-                                    <dd>
-                                        9,278
-                                        <span>64.9%</span>
-                                    </dd>
+                                <div class="label-definition-item label-definition-item--keypoint">
+                                    <h4>Keypoint visibility</h4>
+                                    <div class="label-row">
+                                        <span>0</span>
+                                        <span>Outside image</span>
+                                        <span>774 (1.1%)</span>
+                                    </div>
+                                    <div class="label-row">
+                                        <span>1</span>
+                                        <span>Occluded but inferable</span>
+                                        <span>10,062 (14.1%)</span>
+                                    </div>
+                                    <div class="label-row">
+                                        <span>2</span>
+                                        <span>Visible</span>
+                                        <span>60,594 (84.8%)</span>
+                                    </div>
                                 </div>
-                                <div class="label-row">
-                                    <dt>Occlusion 1</dt>
-                                    <dd>
-                                        5,008
-                                        <span>35.1%</span>
-                                    </dd>
-                                </div>
-                            </dl>
-                            <p class="label-footnote">Keypoint visibility: v0 = 774, v1 = 10,062, v2 = 60,594.</p>
-                        </aside>
+                            </div>
+                        </div>
                     </div>
+                    <figure class="research-figure data-figure">
+                        <div class="figure-frame figure-frame--clean"><img src="assets/dataset-distributions.webp" alt="Charts showing frame and strawberry instance counts by train and validation split, plus ripeness, occlusion, and keypoint visibility distributions" width="1800" height="1250" loading="lazy" /></div>
+                        <figcaption>
+                            <span class="figure-number">Figure 2.</span>
+                            Dataset-wide counts. Ripeness labels: 0 = immature, 1 = mature; occlusion labels: 0 = non-occluded, 1 = occluded. Keypoint visibility states: 0 = outside the image, 1 = occluded but inferable, and 2 = visible.
+                        </figcaption>
+                    </figure>
                 </div>
             </section>
             <section class="paper-section" id="protocol">
@@ -258,15 +302,15 @@
                             <h2>Modalities and annotation protocol</h2>
                         </div>
                     </div>
-                    <p class="section-summary">Every four-digit sample ID identifies one synchronized record inside either train or validation. Post-processed aligned depth is used for the 3D visualization below, with calibration selected from the release-wide image-to-camera mapping.</p>
+                    <p class="section-summary">Every four-digit sample ID identifies one synchronized record inside either train or validation. Post-processed aligned depth is used for the 3D visualization below, with calibration selected from the dataset-wide image-to-camera mapping.</p>
                     <div class="table-responsive protocol-table-wrap">
                         <table class="protocol-table">
                             <thead>
                                 <tr>
-                                    <th scope="col">Signal</th>
-                                    <th scope="col">Representation</th>
-                                    <th scope="col">Release count</th>
-                                    <th scope="col">Intended use</th>
+                                    <th scope="col">Data modality</th>
+                                    <th scope="col">File format</th>
+                                    <th scope="col">Count</th>
+                                    <th scope="col">Purpose</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -309,12 +353,125 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="protocol-record">
-                        <div class="protocol-code">
-                            <span class="protocol-note-label">Instance record</span>
-                            <code>{ bbox, Cut, Top, Bottom, Left, Right, ripeness, occlusion }</code>
+                    <div class="annotation-schema" aria-labelledby="annotation-schema-title">
+                        <div class="annotation-json">
+                            <div class="annotation-json-header">
+                                <div>
+                                    <p class="annotation-eyebrow">Annotation hierarchy</p>
+                                    <h3 id="annotation-schema-title">LabelMe JSON schema</h3>
+                                </div>
+                                <span class="annotation-format">3 levels</span>
+                            </div>
+                            <div class="json-tree" role="tree" aria-label="JSON annotation field hierarchy">
+                                <div class="json-tree-root" role="treeitem" aria-expanded="true">
+                                    <span class="tree-bracket">{</span>
+                                    <span class="tree-label">Root</span>
+                                </div>
+                                <div class="json-tree-branch">
+                                    <div class="json-tree-item" role="treeitem">
+                                        <code>version</code>
+                                        <span class="tree-type">5.5.0</span>
+                                    </div>
+                                    <div class="json-tree-item" role="treeitem">
+                                        <code>flags</code>
+                                        <span class="tree-type">object</span>
+                                    </div>
+                                    <div class="json-tree-item json-tree-item--group" role="treeitem" aria-expanded="true">
+                                        <code>shapes[]</code>
+                                        <span class="tree-type">ordered annotation objects</span>
+                                    </div>
+                                    <div class="json-tree-branch json-tree-branch--nested" role="group">
+                                        <div class="json-tree-node" role="treeitem" aria-expanded="true">
+                                            <div class="json-tree-node-title">
+                                                <span class="tree-node-kind">Instance</span>
+                                                <code>shape_type: rectangle</code>
+                                            </div>
+                                            <div class="tree-field-list">
+                                                <span>label</span>
+                                                <span>points: 2 bbox corners</span>
+                                                <span>group_id</span>
+                                                <span>occlusion</span>
+                                                <span>ripeness</span>
+                                            </div>
+                                        </div>
+                                        <div class="json-tree-node" role="treeitem" aria-expanded="true">
+                                            <div class="json-tree-node-title">
+                                                <span class="tree-node-kind">Keypoints</span>
+                                                <code>shape_type: point</code>
+                                            </div>
+                                            <div class="tree-field-list">
+                                                <span>label</span>
+                                                <span>points: (x, y)</span>
+                                                <span>group_id</span>
+                                                <span>visibility</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="json-tree-more" role="treeitem"><span class="tree-ellipsis">… repeat for each instance</span></div>
+                                    <div class="json-tree-item json-tree-item--close" role="treeitem">
+                                        <code>imagePath · imageData</code>
+                                        <span class="tree-type">image metadata</span>
+                                    </div>
+                                    <div class="json-tree-item" role="treeitem">
+                                        <code>imageHeight · imageWidth</code>
+                                        <span class="tree-type">integer</span>
+                                    </div>
+                                </div>
+                                <div class="json-tree-close" aria-hidden="true">}</div>
+                            </div>
                         </div>
-                        <p>Visibility is stored per keypoint as 0, 1, or 2. Ripeness and occlusion use observed values 0 and 1.</p>
+                        <div class="annotation-guide">
+                            <article class="schema-group">
+                                <span class="schema-index">01</span>
+                                <div class="schema-copy">
+                                    <h3>Structure</h3>
+                                    <p>
+                                        The JSON file stores image metadata and annotations. All labels are organized in
+                                        <code>shapes[]</code>
+                                        .
+                                    </p>
+                                </div>
+                            </article>
+                            <article class="schema-group">
+                                <span class="schema-index">02</span>
+                                <div class="schema-copy">
+                                    <h3>Instance</h3>
+                                    <p>
+                                        Each strawberry instance is represented by one bounding box.
+                                        <code>points</code>
+                                        defines the bounding box, while
+                                        <code>group_id</code>
+                                        links the instance with its attributes and keypoints.
+                                    </p>
+                                    <div class="schema-fields">
+                                        <code>label: strawberry</code>
+                                        <code>points: 2 × [x, y] (top-left & bottom-right corners)</code>
+                                        <code>group_id: instance id</code>
+                                        <code>ripeness: 0 | 1</code>
+                                        <code>occlusion: 0 | 1</code>
+                                    </div>
+                                </div>
+                            </article>
+                            <article class="schema-group">
+                                <span class="schema-index">03</span>
+                                <div class="schema-copy">
+                                    <h3>Keypoints</h3>
+                                    <p>
+                                        Each strawberry contains five anatomical keypoints: Cut, Top, Bottom, Left, and Right.
+                                        <code>group_id</code>
+                                        associates each point with its instance, and
+                                        <code>visibility</code>
+                                        records keypoint visibility.
+                                    </p>
+                                    <div class="schema-fields">
+                                        <code>label: Cut | Top | Bottom | Left | Right</code>
+                                        <code>points: [x, y] (location)</code>
+                                        <code>group_id: instance id</code>
+                                        <code>visibility: 0 | 1 | 2</code>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -334,113 +491,113 @@
                             <thead>
                                 <tr>
                                     <th scope="col">Model</th>
+                                    <th class="numeric" scope="col">Year</th>
                                     <th class="numeric" scope="col">AP</th>
                                     <th class="numeric" scope="col">AP50</th>
                                     <th class="numeric" scope="col">AP75</th>
                                     <th class="numeric" scope="col">AR</th>
                                     <th class="numeric" scope="col">GFLOPs</th>
-                                    <th class="numeric" scope="col">Publication year</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr class="benchmark-group-start">
                                     <th scope="row">CID-HRNet-W32</th>
+                                    <td class="numeric">2022</td>
                                     <td class="numeric">74.84%</td>
                                     <td class="numeric">96.76%</td>
                                     <td class="numeric">86.33%</td>
                                     <td class="numeric">80.30%</td>
                                     <td class="numeric">43.17</td>
-                                    <td class="numeric">2022</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">CID-HRNet-W48</th>
+                                    <td class="numeric">2022</td>
                                     <td class="numeric">74.44%</td>
                                     <td class="numeric">96.71%</td>
                                     <td class="numeric">84.95%</td>
                                     <td class="numeric">80.00%</td>
                                     <td class="numeric">85.38</td>
-                                    <td class="numeric">2022</td>
                                 </tr>
                                 <tr class="benchmark-group-start">
                                     <th scope="row">YOLOX-Pose-S</th>
+                                    <td class="numeric">2022</td>
                                     <td class="numeric">72.24%</td>
                                     <td class="numeric">96.60%</td>
                                     <td class="numeric">81.43%</td>
                                     <td class="numeric">78.04%</td>
                                     <td class="numeric">31.55</td>
-                                    <td class="numeric">2022</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">YOLOX-Pose-M</th>
+                                    <td class="numeric">2022</td>
                                     <td class="numeric">74.33%</td>
                                     <td class="numeric">96.67%</td>
                                     <td class="numeric">83.75%</td>
                                     <td class="numeric">79.57%</td>
                                     <td class="numeric">84.53</td>
-                                    <td class="numeric">2022</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">YOLOX-Pose-L</th>
+                                    <td class="numeric">2022</td>
                                     <td class="numeric">76.64%</td>
                                     <td class="numeric">96.68%</td>
                                     <td class="numeric">86.62%</td>
                                     <td class="numeric">81.47%</td>
                                     <td class="numeric">174.73</td>
-                                    <td class="numeric">2022</td>
                                 </tr>
                                 <tr class="benchmark-group-start">
                                     <th scope="row">EDPose-R50</th>
+                                    <td class="numeric">2023</td>
                                     <td class="numeric">77.37%</td>
                                     <td class="numeric">97.64%</td>
                                     <td class="numeric">88.52%</td>
                                     <td class="numeric">83.83%</td>
                                     <td class="numeric">276.51</td>
-                                    <td class="numeric">2023</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">EDPose-Swin-L</th>
+                                    <td class="numeric">2023</td>
                                     <td class="numeric benchmark-best">78.49%</td>
                                     <td class="numeric">97.31%</td>
                                     <td class="numeric">88.67%</td>
                                     <td class="numeric">84.83%</td>
                                     <td class="numeric">422.60</td>
-                                    <td class="numeric">2023</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">EDPose-Swin-L-5scale</th>
+                                    <td class="numeric">2023</td>
                                     <td class="numeric">77.21%</td>
                                     <td class="numeric">97.27%</td>
                                     <td class="numeric">87.28%</td>
                                     <td class="numeric">83.79%</td>
                                     <td class="numeric">681.92</td>
-                                    <td class="numeric">2023</td>
                                 </tr>
                                 <tr class="benchmark-group-start">
                                     <th scope="row">RTMO-S</th>
+                                    <td class="numeric">2024</td>
                                     <td class="numeric">71.73%</td>
                                     <td class="numeric">96.15%</td>
                                     <td class="numeric">80.86%</td>
                                     <td class="numeric">77.63%</td>
                                     <td class="numeric">42.60</td>
-                                    <td class="numeric">2024</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">RTMO-M</th>
+                                    <td class="numeric">2024</td>
                                     <td class="numeric">71.07%</td>
                                     <td class="numeric">96.43%</td>
                                     <td class="numeric">80.26%</td>
                                     <td class="numeric">77.24%</td>
                                     <td class="numeric">69.00</td>
-                                    <td class="numeric">2024</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">RTMO-L</th>
+                                    <td class="numeric">2024</td>
                                     <td class="numeric">74.76%</td>
                                     <td class="numeric">96.50%</td>
                                     <td class="numeric">84.55%</td>
                                     <td class="numeric">80.41%</td>
                                     <td class="numeric">136.70</td>
-                                    <td class="numeric">2024</td>
                                 </tr>
                                 <tr class="benchmark-group-start benchmark-row--ours">
                                     <th scope="row">Ours</th>
@@ -472,7 +629,7 @@
                         <span class="section-number">05</span>
                         <div>
                             <p class="section-type">Qualitative inspection</p>
-                            <h2>Annotation and depth visualization</h2>
+                            <h2>Annotation and depth visualizations</h2>
                         </div>
                     </div>
                     <p class="section-summary">Both views below use the same representative sample. The first shows the complete instance-level label overlay; the second uses the labels and subject depth to retain strawberries, foliage, and nearby background in a colorized 3D point cloud.</p>
@@ -522,8 +679,8 @@
                     <div class="section-heading">
                         <span class="section-number">06</span>
                         <div>
-                            <p class="section-type">Availability</p>
-                            <h2>Resources</h2>
+                            <p class="section-type">Dataset access</p>
+                            <h2>Downloads and resources</h2>
                         </div>
                     </div>
                     <div class="resources-layout">
@@ -547,20 +704,12 @@
                                     <dd><span class="resource-available">Available</span></dd>
                                 </div>
                                 <div class="resource-row">
-                                    <dt>Statistics</dt>
-                                    <dd><a href="assets/dataset-summary.json" target="_blank">Release summary JSON</a></dd>
-                                </div>
-                                <div class="resource-row">
-                                    <dt>Associated paper</dt>
-                                    <dd>To be added</dd>
-                                </div>
-                                <div class="resource-row">
                                     <dt>Source code</dt>
                                     <dd>To be added</dd>
                                 </div>
                                 <div class="resource-row">
                                     <dt>Dataset license</dt>
-                                    <dd>To be specified</dd>
+                                    <dd><a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC 4.0</a></dd>
                                 </div>
                                 <div class="resource-row">
                                     <dt>Citation</dt>

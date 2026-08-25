@@ -42,6 +42,8 @@ KEYPOINT_COLORS = {
     "Left": COLORS["violet"],
     "Right": COLORS["red"],
 }
+ANNOTATION_KEYPOINT_RADIUS = 4
+ANNOTATION_BOX_WIDTH = 2
 
 
 def collection_sort_key(path: Path) -> int:
@@ -457,7 +459,11 @@ def render_annotation(dataset_root: Path, candidate: dict, output_path: Path) ->
         top = image_y + int(min(y1, y2) * sy)
         right = image_x + int(max(x1, x2) * sx)
         bottom = image_y + int(max(y1, y2) * sy)
-        draw.rectangle((left, top, right, bottom), outline=COLORS["red"], width=4)
+        draw.rectangle(
+            (left, top, right, bottom),
+            outline=COLORS["red"],
+            width=ANNOTATION_BOX_WIDTH,
+        )
         code = f"#{group_id}  R{shape.get('ripeness')} · O{shape.get('occlusion')}"
         label_font = font(17, bold=True, mono=True)
         text_box = draw.textbbox((0, 0), code, font=label_font)
@@ -477,17 +483,21 @@ def render_annotation(dataset_root: Path, candidate: dict, output_path: Path) ->
         px = image_x + int(x * sx)
         py = image_y + int(y * sy)
         color = KEYPOINT_COLORS.get(shape.get("label"), COLORS["blue"])
-        radius = 7
+        radius = ANNOTATION_KEYPOINT_RADIUS
         draw.ellipse((px - radius - 2, py - radius - 2, px + radius + 2, py + radius + 2), fill="#ffffff")
         if visibility == 1:
-            draw.ellipse((px - radius, py - radius, px + radius, py + radius), outline=color, width=4)
+            draw.ellipse((px - radius, py - radius, px + radius, py + radius), outline=color, width=2)
         else:
             draw.ellipse((px - radius, py - radius, px + radius, py + radius), fill=color)
 
     panel_x = 1370
     draw.text((panel_x, 240), "Annotation key", font=font(29, bold=True), fill=COLORS["navy"])
     draw.line((panel_x, 285, 1744, 285), fill=COLORS["line"], width=2)
-    draw.rectangle((panel_x, 320, panel_x + 46, 350), outline=COLORS["red"], width=4)
+    draw.rectangle(
+        (panel_x, 320, panel_x + 46, 350),
+        outline=COLORS["red"],
+        width=ANNOTATION_BOX_WIDTH,
+    )
     draw.text((panel_x + 66, 317), "strawberry bbox", font=font(21), fill=COLORS["ink"])
     draw.text((panel_x, 382), "Landmarks", font=font(17, bold=True, mono=True), fill=COLORS["muted"])
     y = 425

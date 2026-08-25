@@ -27,35 +27,53 @@ html(lang='en')
         main#main-content
             header#overview.research-hero
                 .container.px-4.px-lg-5
-                    .project-label Train/validation release · July 2026
+                    .project-label Train/validation release | July 2026
+
+                    h1 A synchronized RGB-D strawberry dataset for greenhouse perception
+
                     .row.g-5.align-items-center
-                        .col-lg-6
-                            h1 A synchronized RGB-D strawberry dataset for real greenhouse perception
+                        .col-lg-5
                             p.hero-abstract
-                                | The current release contains 3,758 paired frames and 14,286 annotated strawberry instances. Every instance combines a bounding box, five anatomical keypoints, a ripeness category, and an occlusion category.
-                            .hero-actions
-                                a.btn.btn-research(href='https://pan.baidu.com/s/1ul6L7jNT5VSTEdgTZroezA?pwd=pgna', target='_blank', rel='noopener noreferrer') Download dataset
-                                a.btn.btn-outline-research(href='#statistics') Explore release statistics
+                                | The dataset contains 3,758 paired frames and 14,286 annotated strawberry instances. Each annotated strawberry includes a bounding box, five anatomical keypoints, a ripeness label, and an occlusion label.
+
+                            .d-flex.flex-wrap.gap-2.mt-3.mb-4
+                                a.btn.btn-research(
+                                    href='https://pan.baidu.com/s/1ul6L7jNT5VSTEdgTZroezA?pwd=pgna',
+                                    target='_blank',
+                                    rel='noopener noreferrer'
+                                ) Download dataset
+                                a.btn.btn-outline-research(href='#statistics') View dataset statistics
+
                             dl.project-metadata
                                 .metadata-row
                                     dt Modalities
-                                    dd RGB · aligned depth · post-processed depth · raw depth · LabelMe JSON
+                                    dd RGB images, aligned depth maps, post-processed depth maps, and raw depth maps
+                                .metadata-row
+                                    dt Annotations
+                                    dd Bounding boxes, keypoints, ripeness labels, and occlusion labels in LabelMe JSON format
                                 .metadata-row
                                     dt Research tasks
-                                    dd Object detection · keypoint estimation · attribute recognition · RGB-D perception
+                                    dd Object detection, keypoint estimation, ripeness recognition, and occlusion recognition
                                 .metadata-row
                                     dt Capture system
-                                    dd Four Intel RealSense D435I camera units
+                                    dd Four Intel RealSense D435i cameras
                                 .metadata-row
                                     dt Image resolution
                                     dd 1280 × 720 pixels
                                 .metadata-row
                                     dt Dataset split
-                                    dd Train 3,006 frames · Validation 752 frames
-                        .col-lg-6
+                                    dd Train 3,006 frames, Validation 752 frames
+
+                        .col-lg-7
                             figure.research-figure.hero-figure
                                 .figure-frame.figure-frame--clean
-                                    img(src='assets/dataset-annotation-overview.webp', alt='Representative greenhouse RGB frame with strawberry bounding boxes, five landmark types, ripeness categories, and occlusion categories', width='1800', height='1080', fetchpriority='high')
+                                    img(
+                                        src='assets/dataset-annotation-overview.webp',
+                                        alt='Representative greenhouse RGB frame with strawberry bounding boxes, five landmark types, ripeness categories, and occlusion categories',
+                                        width='1800',
+                                        height='1080',
+                                        fetchpriority='high'
+                                    )
                                 figcaption
                                     span.figure-number Figure 1.
                                     |  Real annotation overlay from train/0238; category IDs are shown exactly as stored.
@@ -65,10 +83,10 @@ html(lang='en')
                     .section-heading
                         span.section-number 01
                         div
-                            p.section-type Release audit
+                            p.section-type Dataset statistics
                             h2 Dataset snapshot
                     p.section-summary
-                        | Statistics were recomputed from the reorganized train/validation release. Counts cover every synchronized modality and the per-image camera calibration mapping.
+                        | Statistics were recomputed from the reorganized train/validation split. Counts cover every synchronized modality and the per-image camera calibration mapping.
                     .dataset-stat-grid
                         article.dataset-stat
                             span.stat-kicker Frames
@@ -79,7 +97,7 @@ html(lang='en')
                             strong 14,286
                             p Strawberry bounding boxes
                         article.dataset-stat
-                            span.stat-kicker Landmarks
+                            span.stat-kicker Keypoints
                             strong 71,430
                             p Five keypoints per instance
                         article.dataset-stat
@@ -88,26 +106,41 @@ html(lang='en')
                             p 18,795 files in total
                     .integrity-grid
                         article.integrity-item
-                            span.integrity-value 100%
                             div
                                 h3 Cross-modal pairing
-                                p 3,758 complete RGB, label, aligned-depth, post-processed-depth, and raw-depth sets.
+                                p All 3,758 frames include complete RGB, label, aligned-depth, post-processed-depth, and raw-depth data.
                         article.integrity-item
-                            span.integrity-value 100%
                             div
                                 h3 Annotation structure
-                                p All 14,286 instances contain one each of Cut, Top, Bottom, Left, and Right.
+                                p Each strawberry instance is annotated with five keypoints representing its Cut, Top, Bottom, Left, and Right positions.
                         article.integrity-item
-                            span.integrity-value 100%
                             div
                                 h3 Calibration mapping
-                                p All 3,758 image records map to one of four RealSense camera calibration files.
+                                p Each image record is mapped to one of four RealSense camera calibration files.
+                    .directory-structure-slot(aria-labelledby='directory-structure-title')
+                        .directory-slot-copy
+                            span.directory-slot-index
+                            div
+                                p.annotation-eyebrow Dataset organization
+                                h3#directory-structure-title Dataset directory structure
+                                p The directory structure describes how modalities, dataset splits, annotations, and calibration files are organized.
+                        .directory-slot-canvas(aria-label='Reserved area for the final dataset directory tree')
+                            .directory-slot-label
+                                span Dataset directory structure
+                            .directory-placeholder(aria-hidden='true')
+                                span.placeholder-root
+                                .placeholder-branch
+                                    span
+                                    span
+                                    span
+                                .placeholder-branch.placeholder-branch--short
+                                    span
+                                    span
                     .audit-note
                         div
-                            strong Reproducible release summary
+                            strong Reproducible datasaet summary
                             p The complete machine-readable count table and observed category values are included with the site.
-                        a.text-link(href='assets/dataset-summary.json', target='_blank') Open statistics JSON
-
+                        a.text-link(href='assets/dataset-summary.json', target='_blank') View machine-readable statistics
             section#composition.paper-section.paper-section--alt
                 .container.px-4.px-lg-5
                     .section-heading
@@ -116,13 +149,7 @@ html(lang='en')
                             p.section-type Dataset analysis
                             h2 Composition and label balance
                     p.section-summary
-                        | The release now uses a fixed train/validation split. Training contains 3,006 frames and validation contains 752 frames, preserving the full set of synchronized RGB-D records.
-                    figure.research-figure.data-figure
-                        .figure-frame.figure-frame--clean
-                            img(src='assets/dataset-distributions.webp', alt='Charts showing frame and strawberry instance counts by train and validation split, plus ripeness, occlusion, and keypoint visibility distributions', width='1800', height='1250', loading='lazy')
-                        figcaption
-                            span.figure-number Figure 2.
-                            |  Release-wide counts. Ripeness and occlusion use their stored numeric IDs; semantic class names are not inferred without a finalized codebook.
+                        | The dataset uses a fixed train/validation split. Training contains 3,006 frames and validation contains 752 frames, preserving the full set of synchronized RGB-D records.
                     .composition-grid
                         .table-responsive.collection-table-wrap
                             table.collection-table
@@ -154,28 +181,58 @@ html(lang='en')
                                         td 100%
                                         td 14,286
                                         td 3.80
-                        aside.label-summary
-                            p.section-type Observed labels
-                            h3 Attribute distribution
-                            dl
-                                .label-row
-                                    dt Ripeness 0
-                                    dd 4,957
-                                        span 34.7%
-                                .label-row
-                                    dt Ripeness 1
-                                    dd 9,329
-                                        span 65.3%
-                                .label-row
-                                    dt Occlusion 0
-                                    dd 9,278
-                                        span 64.9%
-                                .label-row
-                                    dt Occlusion 1
-                                    dd 5,008
-                                        span 35.1%
-                            p.label-footnote Keypoint visibility: v0 = 774, v1 = 10,062, v2 = 60,594.
+                        .label-summary
+                            h3 Label encoding
 
+                            .label-group-row 
+                                p.label-group-title Instance attributes
+                                p.label-group-title Keypoint attributes
+
+                            .label-definition-grid
+
+                                .label-definition-item.label-definition-item--ripeness
+                                    h4 Ripeness
+                                    .label-row
+                                        span 0
+                                        span Immature
+                                        span 4,957 (34.7%)
+                                    .label-row
+                                        span 1
+                                        span Mature
+                                        span 9,329 (65.3%)
+
+                                .label-definition-item.label-definition-item--occlusion
+                                    h4 Occlusion
+                                    .label-row
+                                        span 0
+                                        span Non-occluded
+                                        span 9,278 (64.9%)
+                                    .label-row
+                                        span 1
+                                        span Occluded
+                                        span 5,008 (35.1%)
+
+                                .label-definition-item.label-definition-item--keypoint
+                                    h4 Keypoint visibility
+                                    .label-row
+                                        span 0
+                                        span Outside image
+                                        span 774 (1.1%)
+                                    .label-row
+                                        span 1
+                                        span Occluded but inferable
+                                        span 10,062 (14.1%)
+                                    .label-row
+                                        span 2
+                                        span Visible
+                                        span 60,594 (84.8%)
+
+                    figure.research-figure.data-figure
+                        .figure-frame.figure-frame--clean
+                            img(src='assets/dataset-distributions.webp', alt='Charts showing frame and strawberry instance counts by train and validation split, plus ripeness, occlusion, and keypoint visibility distributions', width='1800', height='1250', loading='lazy')
+                        figcaption
+                            span.figure-number Figure 2.
+                            |  Dataset-wide counts. Ripeness labels: 0 = immature, 1 = mature; occlusion labels: 0 = non-occluded, 1 = occluded. Keypoint visibility states: 0 = outside the image, 1 = occluded but inferable, and 2 = visible.
             section#protocol.paper-section
                 .container.px-4.px-lg-5
                     .section-heading
@@ -184,15 +241,15 @@ html(lang='en')
                             p.section-type Data specification
                             h2 Modalities and annotation protocol
                     p.section-summary
-                        | Every four-digit sample ID identifies one synchronized record inside either train or validation. Post-processed aligned depth is used for the 3D visualization below, with calibration selected from the release-wide image-to-camera mapping.
+                        | Every four-digit sample ID identifies one synchronized record inside either train or validation. Post-processed aligned depth is used for the 3D visualization below, with calibration selected from the dataset-wide image-to-camera mapping.
                     .table-responsive.protocol-table-wrap
                         table.protocol-table
                             thead
                                 tr
-                                    th(scope='col') Signal
-                                    th(scope='col') Representation
-                                    th(scope='col') Release count
-                                    th(scope='col') Intended use
+                                    th(scope='col') Data modality
+                                    th(scope='col') File format
+                                    th(scope='col') Count
+                                    th(scope='col') Purpose
                             tbody
                                 tr
                                     th(scope='row') RGB
@@ -224,11 +281,93 @@ html(lang='en')
                                     td Per-image XLSX mapping plus four camera JSON files
                                     td 3,758
                                     td Select the correct camera intrinsics for metric reconstruction
-                    .protocol-record
-                        .protocol-code
-                            span.protocol-note-label Instance record
-                            code { bbox, Cut, Top, Bottom, Left, Right, ripeness, occlusion }
-                        p Visibility is stored per keypoint as 0, 1, or 2. Ripeness and occlusion use observed values 0 and 1.
+                    .annotation-schema(aria-labelledby='annotation-schema-title')
+                        .annotation-json
+                            .annotation-json-header
+                                div
+                                    p.annotation-eyebrow Annotation hierarchy
+                                    h3#annotation-schema-title LabelMe JSON schema
+                                span.annotation-format 3 levels
+                            .json-tree(role='tree', aria-label='JSON annotation field hierarchy')
+                                .json-tree-root(role='treeitem', aria-expanded='true')
+                                    span.tree-bracket {
+                                    span.tree-label Root
+                                .json-tree-branch
+                                    .json-tree-item(role='treeitem')
+                                        code version
+                                        span.tree-type 5.5.0
+                                    .json-tree-item(role='treeitem')
+                                        code flags
+                                        span.tree-type object
+                                    .json-tree-item.json-tree-item--group(role='treeitem', aria-expanded='true')
+                                        code shapes[]
+                                        span.tree-type ordered annotation objects
+                                    .json-tree-branch.json-tree-branch--nested(role='group')
+                                        .json-tree-node(role='treeitem', aria-expanded='true')
+                                            .json-tree-node-title
+                                                span.tree-node-kind Instance
+                                                code shape_type: rectangle
+                                            .tree-field-list
+                                                span label
+                                                span points: 2 bbox corners
+                                                span group_id
+                                                span occlusion
+                                                span ripeness
+                                        .json-tree-node(role='treeitem', aria-expanded='true')
+                                            .json-tree-node-title
+                                                span.tree-node-kind Keypoints
+                                                code shape_type: point
+                                            .tree-field-list
+                                                span label
+                                                span points: (x, y)
+                                                span group_id
+                                                span visibility
+                                    .json-tree-more(role='treeitem')
+                                        span.tree-ellipsis … repeat for each instance
+                                    .json-tree-item.json-tree-item--close(role='treeitem')
+                                        code imagePath · imageData
+                                        span.tree-type image metadata
+                                    .json-tree-item(role='treeitem')
+                                        code imageHeight · imageWidth
+                                        span.tree-type integer
+                                .json-tree-close(aria-hidden='true') }
+                        .annotation-guide
+                            article.schema-group
+                                span.schema-index 01
+                                .schema-copy
+                                    h3 Structure
+                                    p The JSON file stores image metadata and annotations. All labels are organized in 
+                                        code shapes[]
+                                        | .
+                            article.schema-group
+                                span.schema-index 02
+                                .schema-copy
+                                    h3 Instance
+                                    p Each strawberry instance is represented by one bounding box. 
+                                        code points 
+                                        | defines the bounding box, while 
+                                        code group_id 
+                                        | links the instance with its attributes and keypoints.
+                                    .schema-fields
+                                        code label: strawberry
+                                        code points: 2 × [x, y] (top-left & bottom-right corners)
+                                        code group_id: instance id
+                                        code ripeness: 0 | 1
+                                        code occlusion: 0 | 1
+                            article.schema-group
+                                span.schema-index 03
+                                .schema-copy
+                                    h3 Keypoints
+                                    p Each strawberry contains five anatomical keypoints: Cut, Top, Bottom, Left, and Right. 
+                                        code group_id
+                                        | associates each point with its instance, and 
+                                        code visibility 
+                                        | records keypoint visibility.
+                                    .schema-fields
+                                        code label: Cut | Top | Bottom | Left | Right
+                                        code points: [x, y] (location)
+                                        code group_id: instance id
+                                        code visibility: 0 | 1 | 2
 
             section#benchmark.paper-section.paper-section--alt
                 .container.px-4.px-lg-5
@@ -245,101 +384,101 @@ html(lang='en')
                             thead
                                 tr
                                     th(scope='col') Model
+                                    th.numeric(scope='col') Year
                                     th.numeric(scope='col') AP
                                     th.numeric(scope='col') AP50
                                     th.numeric(scope='col') AP75
                                     th.numeric(scope='col') AR
                                     th.numeric(scope='col') GFLOPs
-                                    th.numeric(scope='col') Publication year
                             tbody
                                 tr.benchmark-group-start
                                     th(scope='row') CID-HRNet-W32
+                                    td.numeric 2022
                                     td.numeric 74.84%
                                     td.numeric 96.76%
                                     td.numeric 86.33%
                                     td.numeric 80.30%
                                     td.numeric 43.17
-                                    td.numeric 2022
                                 tr
                                     th(scope='row') CID-HRNet-W48
+                                    td.numeric 2022
                                     td.numeric 74.44%
                                     td.numeric 96.71%
                                     td.numeric 84.95%
                                     td.numeric 80.00%
                                     td.numeric 85.38
-                                    td.numeric 2022
                                 tr.benchmark-group-start
                                     th(scope='row') YOLOX-Pose-S
+                                    td.numeric 2022
                                     td.numeric 72.24%
                                     td.numeric 96.60%
                                     td.numeric 81.43%
                                     td.numeric 78.04%
                                     td.numeric 31.55
-                                    td.numeric 2022
                                 tr
                                     th(scope='row') YOLOX-Pose-M
+                                    td.numeric 2022
                                     td.numeric 74.33%
                                     td.numeric 96.67%
                                     td.numeric 83.75%
                                     td.numeric 79.57%
                                     td.numeric 84.53
-                                    td.numeric 2022
                                 tr
                                     th(scope='row') YOLOX-Pose-L
+                                    td.numeric 2022
                                     td.numeric 76.64%
                                     td.numeric 96.68%
                                     td.numeric 86.62%
                                     td.numeric 81.47%
                                     td.numeric 174.73
-                                    td.numeric 2022
                                 tr.benchmark-group-start
                                     th(scope='row') EDPose-R50
+                                    td.numeric 2023
                                     td.numeric 77.37%
                                     td.numeric 97.64%
                                     td.numeric 88.52%
                                     td.numeric 83.83%
                                     td.numeric 276.51
-                                    td.numeric 2023
                                 tr
                                     th(scope='row') EDPose-Swin-L
+                                    td.numeric 2023
                                     td.numeric.benchmark-best 78.49%
                                     td.numeric 97.31%
                                     td.numeric 88.67%
                                     td.numeric 84.83%
                                     td.numeric 422.60
-                                    td.numeric 2023
                                 tr
                                     th(scope='row') EDPose-Swin-L-5scale
+                                    td.numeric 2023
                                     td.numeric 77.21%
                                     td.numeric 97.27%
                                     td.numeric 87.28%
                                     td.numeric 83.79%
                                     td.numeric 681.92
-                                    td.numeric 2023
                                 tr.benchmark-group-start
                                     th(scope='row') RTMO-S
+                                    td.numeric 2024
                                     td.numeric 71.73%
                                     td.numeric 96.15%
                                     td.numeric 80.86%
                                     td.numeric 77.63%
                                     td.numeric 42.60
-                                    td.numeric 2024
                                 tr
                                     th(scope='row') RTMO-M
+                                    td.numeric 2024
                                     td.numeric 71.07%
                                     td.numeric 96.43%
                                     td.numeric 80.26%
                                     td.numeric 77.24%
                                     td.numeric 69.00
-                                    td.numeric 2024
                                 tr
                                     th(scope='row') RTMO-L
+                                    td.numeric 2024
                                     td.numeric 74.76%
                                     td.numeric 96.50%
                                     td.numeric 84.55%
                                     td.numeric 80.41%
                                     td.numeric 136.70
-                                    td.numeric 2024
                                 tr.benchmark-group-start.benchmark-row--ours
                                     th(scope='row') Ours
                                     td.numeric
@@ -362,7 +501,7 @@ html(lang='en')
                         span.section-number 05
                         div
                             p.section-type Qualitative inspection
-                            h2 Annotation and depth visualization
+                            h2 Annotation and depth visualizations
                     p.section-summary
                         | Both views below use the same representative sample. The first shows the complete instance-level label overlay; the second uses the labels and subject depth to retain strawberries, foliage, and nearby background in a colorized 3D point cloud.
                     .visual-stack
@@ -406,8 +545,8 @@ html(lang='en')
                     .section-heading
                         span.section-number 06
                         div
-                            p.section-type Availability
-                            h2 Resources
+                            p.section-type Dataset access
+                            h2 Downloads and resources
                     .resources-layout
                         .download-record
                             .resource-status
@@ -425,18 +564,12 @@ html(lang='en')
                                     dd
                                         span.resource-available Available
                                 .resource-row
-                                    dt Statistics
-                                    dd
-                                        a(href='assets/dataset-summary.json', target='_blank') Release summary JSON
-                                .resource-row
-                                    dt Associated paper
-                                    dd To be added
-                                .resource-row
                                     dt Source code
                                     dd To be added
                                 .resource-row
                                     dt Dataset license
-                                    dd To be specified
+                                    dd
+                                        a(href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreferrer") CC BY-NC 4.0
                                 .resource-row
                                     dt Citation
                                     dd To be added with publication details
