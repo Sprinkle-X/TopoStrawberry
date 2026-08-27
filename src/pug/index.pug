@@ -7,12 +7,12 @@ html(lang='en')
         meta(name='description', content='A synchronized greenhouse RGB-D strawberry dataset with 3,758 frames, 14,286 instances, bounding boxes, five keypoints, ripeness, and occlusion annotations.')
         meta(name='theme-color', content='#17364d')
         meta(property='og:type', content='website')
-        meta(property='og:title', content='Strawberry RGB-D Dataset')
+        meta(property='og:title', content='StrawberryHarvest-RGBD')
         meta(property='og:description', content='3,758 synchronized RGB-D frames with 14,286 instance annotations and 71,430 anatomical keypoints.')
         meta(property='og:url', content='https://strawberry-vision-dataset.yuhao-jin.chatgpt.site/')
         meta(property='og:image', content='https://strawberry-vision-dataset.yuhao-jin.chatgpt.site/assets/og-strawberry-dataset.jpg')
         meta(name='twitter:card', content='summary_large_image')
-        title Strawberry RGB-D Dataset | Agricultural Computer Vision
+        title StrawberryHarvest-RGBD | Agricultural Computer Vision
 
         link(rel='canonical', href='https://strawberry-vision-dataset.yuhao-jin.chatgpt.site/')
         link(rel='icon', type='image/png', sizes='64x64', href='assets/strawberry-favicon.png?v=pink')
@@ -27,7 +27,7 @@ html(lang='en')
         main#main-content
             header#overview.research-hero
                 .container.px-4.px-lg-5
-                    .project-label Train/validation release | July 2026
+                    .project-label Controlled-access dataset | July 2026
 
                     h1 A synchronized RGB-D strawberry dataset for greenhouse perception
 
@@ -37,11 +37,7 @@ html(lang='en')
                                 | The dataset contains 3,758 paired frames and 14,286 annotated strawberry instances. Each annotated strawberry includes a bounding box, five anatomical keypoints, a ripeness label, and an occlusion label.
 
                             .d-flex.flex-wrap.gap-2.mt-3.mb-4
-                                a.btn.btn-research(
-                                    href='https://pan.baidu.com/s/1ul6L7jNT5VSTEdgTZroezA?pwd=pgna',
-                                    target='_blank',
-                                    rel='noopener noreferrer'
-                                ) Download dataset
+                                a.btn.btn-research(href='#resources') Download dataset
                                 a.btn.btn-outline-research(href='#statistics') View dataset statistics
 
                             dl.project-metadata
@@ -553,10 +549,11 @@ html(lang='en')
                                 span.status-indicator(aria-hidden='true')
                                 | Dataset available
                             h3 Strawberry RGB-D dataset package
-                            p The current release is distributed through Baidu Netdisk with train/validation partitions, synchronized depth variants, and per-image camera calibration mapping.
-                            a.btn.btn-research(href='https://pan.baidu.com/s/1ul6L7jNT5VSTEdgTZroezA?pwd=pgna', target='_blank', rel='noopener noreferrer') Open dataset download
-                            p.access-code Access code:
-                                code pgna
+                            p Access to the dataset is available for approved non-commercial research purposes. To request access, please download and complete the application form, then submit it to the email address provided in the form. Applications will be reviewed individually.
+                            a.btn.btn-research(
+                                href='assets/StrawberryHarvest_RGBD_Data_Access_Application.docx'
+                                download
+                            ) Download Application Form
                         .resource-index
                             dl
                                 .resource-row
@@ -567,9 +564,8 @@ html(lang='en')
                                     dt Source code
                                     dd To be added
                                 .resource-row
-                                    dt Dataset license
-                                    dd
-                                        a(href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreferrer") CC BY-NC 4.0
+                                    dt Dataset access
+                                    dd Controlled access
                                 .resource-row
                                     dt Citation
                                     dd To be added with publication details
