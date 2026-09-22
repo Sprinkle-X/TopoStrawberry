@@ -3,15 +3,15 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="description" content="A synchronized greenhouse RGB-D strawberry dataset with 3,758 frames, 14,286 instances, bounding boxes, five keypoints, ripeness, and occlusion annotations." />
+        <meta name="description" content="TopoStrawberry-RGBD is a synchronized greenhouse RGB-D strawberry dataset with 3,758 frames, 14,286 instances, bounding boxes, five keypoints, ripeness, and occlusion annotations." />
         <meta name="theme-color" content="#17364d" />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="StrawberryHarvest-RGBD" />
-        <meta property="og:description" content="3,758 synchronized RGB-D frames with 14,286 instance annotations and 71,430 anatomical keypoints." />
+        <meta property="og:title" content="TopoStrawberry" />
+        <meta property="og:description" content="TopoStrawberry-RGBD: 3,758 synchronized RGB-D frames with 14,286 instance annotations and 71,430 anatomical keypoints." />
         <meta property="og:url" content="https://strawberry-vision-dataset.yuhao-jin.chatgpt.site/" />
         <meta property="og:image" content="https://strawberry-vision-dataset.yuhao-jin.chatgpt.site/assets/og-strawberry-dataset.jpg" />
         <meta name="twitter:card" content="summary_large_image" />
-        <title>StrawberryHarvest-RGBD | Agricultural Computer Vision</title>
+        <title>TopoStrawberry | TopoStrawberry-RGBD</title>
         <link rel="canonical" href="https://strawberry-vision-dataset.yuhao-jin.chatgpt.site/" />
         <link rel="icon" type="image/png" sizes="64x64" href="assets/strawberry-favicon.png?v=pink" />
         <link rel="apple-touch-icon" href="assets/strawberry-mascot.png?v=pink" />
@@ -22,10 +22,10 @@
         <a class="skip-link" href="#main-content">Skip to content</a>
         <nav class="navbar navbar-expand-lg navbar-light site-navbar" id="site-navigation">
             <div class="container px-4 px-lg-5">
-                <a class="navbar-brand research-brand" href="#overview" aria-label="Strawberry Dataset home">
+                <a class="navbar-brand research-brand" href="#overview" aria-label="TopoStrawberry home">
                     <img class="brand-mascot" src="assets/strawberry-mascot.png" alt="" width="42" height="42" aria-hidden="true" />
                     <span class="brand-copy">
-                        <strong>StrawberryHarvest-RGBD</strong>
+                        <strong>TopoStrawberry</strong>
                         <small>Agricultural Computer Vision</small>
                     </span>
                 </a>
@@ -47,10 +47,10 @@
             <header class="research-hero" id="overview">
                 <div class="container px-4 px-lg-5">
                     <div class="project-label">Controlled-access dataset | July 2026</div>
-                    <h1>A synchronized RGB-D strawberry dataset for greenhouse perception</h1>
+                    <h1>TopoStrawberry: A Large-Scale Harvest-Oriented RGB-D Dataset with Topological Keypoint Refinement and Keypoint-Anchored Harvest-State Recognition</h1>
                     <div class="row g-5 align-items-center">
                         <div class="col-lg-5">
-                            <p class="hero-abstract">The dataset contains 3,758 paired frames and 14,286 annotated strawberry instances. Each annotated strawberry includes a bounding box, five anatomical keypoints, a ripeness label, and an occlusion label.</p>
+                            <p class="hero-abstract">TopoStrawberry-RGBD contains 3,758 paired frames and 14,286 annotated strawberry instances. Each annotated strawberry includes a bounding box, five anatomical keypoints, a ripeness label, and an occlusion label.</p>
                             <div class="d-flex flex-wrap gap-2 mt-3 mb-4">
                                 <a class="btn btn-research" href="#resources">Download dataset</a>
                                 <a class="btn btn-outline-research" href="#statistics">View dataset statistics</a>
@@ -78,7 +78,7 @@
                                 </div>
                                 <div class="metadata-row">
                                     <dt>Dataset split</dt>
-                                    <dd>Train 3,006 frames, Validation 752 frames</dd>
+                                    <dd>Train 2,630 / Validation 564 / Test 564 frames (70% / 15% / 15%)</dd>
                                 </div>
                             </dl>
                         </div>
@@ -103,7 +103,7 @@
                             <h2>Dataset snapshot</h2>
                         </div>
                     </div>
-                    <p class="section-summary">Statistics were recomputed from the reorganized train/validation split. Counts cover every synchronized modality and the per-image camera calibration mapping.</p>
+                    <p class="section-summary">The dataset contains 3,758 frames organized into training, validation, and test sets. Dataset-wide counts cover synchronized modalities and the per-image camera calibration mapping.</p>
                     <div class="dataset-stat-grid">
                         <article class="dataset-stat">
                             <span class="stat-kicker">Frames</span>
@@ -171,13 +171,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="audit-note">
-                        <div>
-                            <strong>Reproducible datasaet summary</strong>
-                            <p>The complete machine-readable count table and observed category values are included with the site.</p>
-                        </div>
-                        <a class="text-link" href="assets/dataset-summary.json" target="_blank">View machine-readable statistics</a>
-                    </div>
                 </div>
             </section>
             <section class="paper-section paper-section--alt" id="composition">
@@ -189,11 +182,11 @@
                             <h2>Composition and label balance</h2>
                         </div>
                     </div>
-                    <p class="section-summary">The dataset uses a fixed train/validation split. Training contains 3,006 frames and validation contains 752 frames, preserving the full set of synchronized RGB-D records.</p>
+                    <p class="section-summary">The dataset uses a 70% / 15% / 15% train/validation/test split: 2,630 training frames, 564 validation frames, and 564 test frames. All 3,758 synchronized RGB-D records are retained. Per-split instance statistics are pending; blank cells indicate values not yet reported.</p>
                     <div class="composition-grid">
                         <div class="table-responsive collection-table-wrap">
                             <table class="collection-table">
-                                <caption>Train/validation sample and instance counts</caption>
+                                <caption>Train/validation/test sample counts and available instance statistics</caption>
                                 <thead>
                                     <tr>
                                         <th scope="col">Split</th>
@@ -206,17 +199,24 @@
                                 <tbody>
                                     <tr>
                                         <th scope="row">Train</th>
-                                        <td>3,006</td>
-                                        <td>80.0%</td>
-                                        <td>11,502</td>
-                                        <td>3.83</td>
+                                        <td>2,630</td>
+                                        <td>70%</td>
+                                        <td></td>
+                                        <td></td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Validation</th>
-                                        <td>752</td>
-                                        <td>20.0%</td>
-                                        <td>2,784</td>
-                                        <td>3.70</td>
+                                        <td>564</td>
+                                        <td>15%</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Test</th>
+                                        <td>564</td>
+                                        <td>15%</td>
+                                        <td></td>
+                                        <td></td>
                                     </tr>
                                 </tbody>
                                 <tfoot>
@@ -285,7 +285,7 @@
                         </div>
                     </div>
                     <figure class="research-figure data-figure">
-                        <div class="figure-frame figure-frame--clean"><img src="assets/dataset-distributions.webp" alt="Charts showing frame and strawberry instance counts by train and validation split, plus ripeness, occlusion, and keypoint visibility distributions" width="1800" height="1250" loading="lazy" /></div>
+                        <div class="figure-frame figure-frame--clean"><img src="assets/dataset-distributions.webp" alt="Charts showing train, validation, and test frame counts, available per-split instance counts, and ripeness, occlusion, and keypoint visibility distributions" width="1800" height="1250" loading="lazy" /></div>
                         <figcaption>
                             <span class="figure-number">Figure 2.</span>
                             Dataset-wide counts. Ripeness labels: 0 = immature, 1 = mature; occlusion labels: 0 = non-occluded, 1 = occluded. Keypoint visibility states: 0 = outside the image, 1 = occluded but inferable, and 2 = visible.
@@ -302,7 +302,7 @@
                             <h2>Modalities and annotation protocol</h2>
                         </div>
                     </div>
-                    <p class="section-summary">Every four-digit sample ID identifies one synchronized record inside either train or validation. Post-processed aligned depth is used for the 3D visualization below, with calibration selected from the dataset-wide image-to-camera mapping.</p>
+                    <p class="section-summary">Every four-digit sample ID identifies one synchronized record inside train, validation, or test. Post-processed aligned depth is used for the 3D visualization below, with calibration selected from the dataset-wide image-to-camera mapping.</p>
                     <div class="table-responsive protocol-table-wrap">
                         <table class="protocol-table">
                             <thead>
@@ -484,127 +484,170 @@
                             <h2>Keypoint benchmark results</h2>
                         </div>
                     </div>
-                    <p class="section-summary">Eleven representative pose-estimation configurations were evaluated without external ground-truth boxes on the same 685-record validation set. Results are grouped by publication year, with configurations from each model family kept together.</p>
+                    <p class="section-summary">The table compares representative pose-estimation methods on the strawberry keypoint benchmark. Results are grouped by publication year, with configurations from each model family kept together. Blank cells indicate results not reported.</p>
                     <div class="table-responsive benchmark-table-wrap">
                         <table class="benchmark-table">
                             <caption class="visually-hidden">Strawberry keypoint benchmark results ordered by publication year and model family</caption>
                             <thead>
                                 <tr>
-                                    <th scope="col">Model</th>
+                                    <th scope="col">Method</th>
                                     <th class="numeric" scope="col">Year</th>
                                     <th class="numeric" scope="col">AP</th>
                                     <th class="numeric" scope="col">AP50</th>
                                     <th class="numeric" scope="col">AP75</th>
                                     <th class="numeric" scope="col">AR</th>
                                     <th class="numeric" scope="col">GFLOPs</th>
+                                    <th class="numeric" scope="col">FPS</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr class="benchmark-group-start">
+                                    <th scope="row">CenterNet-DLA34</th>
+                                    <td class="numeric">2019</td>
+                                    <td class="numeric">62.70</td>
+                                    <td class="numeric">93.40</td>
+                                    <td class="numeric">69.90</td>
+                                    <td class="numeric">69.70</td>
+                                    <td class="numeric">32.99</td>
+                                    <td class="numeric">25.34</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">CenterNet-Hourglass104</th>
+                                    <td class="numeric">2019</td>
+                                    <td class="numeric">64.60</td>
+                                    <td class="numeric">93.90</td>
+                                    <td class="numeric">74.10</td>
+                                    <td class="numeric">71.70</td>
+                                    <td class="numeric">350.43</td>
+                                    <td class="numeric">15.99</td>
+                                </tr>
+                                <tr class="benchmark-group-start">
                                     <th scope="row">CID-HRNet-W32</th>
                                     <td class="numeric">2022</td>
-                                    <td class="numeric">74.84%</td>
-                                    <td class="numeric">96.76%</td>
-                                    <td class="numeric">86.33%</td>
-                                    <td class="numeric">80.30%</td>
-                                    <td class="numeric">43.17</td>
+                                    <td class="numeric">74.84</td>
+                                    <td class="numeric">96.76</td>
+                                    <td class="numeric">86.33</td>
+                                    <td class="numeric">80.30</td>
+                                    <td class="numeric">42.45</td>
+                                    <td class="numeric">14.21</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">CID-HRNet-W48</th>
                                     <td class="numeric">2022</td>
-                                    <td class="numeric">74.44%</td>
-                                    <td class="numeric">96.71%</td>
-                                    <td class="numeric">84.95%</td>
-                                    <td class="numeric">80.00%</td>
-                                    <td class="numeric">85.38</td>
+                                    <td class="numeric">74.44</td>
+                                    <td class="numeric">96.71</td>
+                                    <td class="numeric">84.95</td>
+                                    <td class="numeric">80.00</td>
+                                    <td class="numeric">85.70</td>
+                                    <td class="numeric">14.54</td>
+                                </tr>
+                                <tr class="benchmark-group-start">
+                                    <th scope="row">PETR-R50</th>
+                                    <td class="numeric">2022</td>
+                                    <td class="numeric">75.60</td>
+                                    <td class="numeric">95.90</td>
+                                    <td class="numeric">87.40</td>
+                                    <td class="numeric">83.00</td>
+                                    <td class="numeric">216.54</td>
+                                    <td class="numeric">8.98</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">PETR-R101</th>
+                                    <td class="numeric">2022</td>
+                                    <td class="numeric">73.40</td>
+                                    <td class="numeric">94.30</td>
+                                    <td class="numeric">84.60</td>
+                                    <td class="numeric">82.50</td>
+                                    <td class="numeric">296.31</td>
+                                    <td class="numeric">8.20</td>
                                 </tr>
                                 <tr class="benchmark-group-start">
                                     <th scope="row">YOLOX-Pose-S</th>
                                     <td class="numeric">2022</td>
-                                    <td class="numeric">72.24%</td>
-                                    <td class="numeric">96.60%</td>
-                                    <td class="numeric">81.43%</td>
-                                    <td class="numeric">78.04%</td>
-                                    <td class="numeric">31.55</td>
+                                    <td class="numeric">72.24</td>
+                                    <td class="numeric">96.60</td>
+                                    <td class="numeric">81.43</td>
+                                    <td class="numeric">78.04</td>
+                                    <td class="numeric">18.30</td>
+                                    <td class="numeric benchmark-best">57.22</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">YOLOX-Pose-M</th>
                                     <td class="numeric">2022</td>
-                                    <td class="numeric">74.33%</td>
-                                    <td class="numeric">96.67%</td>
-                                    <td class="numeric">83.75%</td>
-                                    <td class="numeric">79.57%</td>
-                                    <td class="numeric">84.53</td>
+                                    <td class="numeric">74.33</td>
+                                    <td class="numeric">96.67</td>
+                                    <td class="numeric">83.75</td>
+                                    <td class="numeric">79.57</td>
+                                    <td class="numeric">47.94</td>
+                                    <td class="numeric">48.73</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">YOLOX-Pose-L</th>
                                     <td class="numeric">2022</td>
-                                    <td class="numeric">76.64%</td>
-                                    <td class="numeric">96.68%</td>
-                                    <td class="numeric">86.62%</td>
-                                    <td class="numeric">81.47%</td>
-                                    <td class="numeric">174.73</td>
+                                    <td class="numeric">76.64</td>
+                                    <td class="numeric">96.68</td>
+                                    <td class="numeric">86.62</td>
+                                    <td class="numeric">81.47</td>
+                                    <td class="numeric">97.52</td>
+                                    <td class="numeric">46.98</td>
                                 </tr>
                                 <tr class="benchmark-group-start">
-                                    <th scope="row">EDPose-R50</th>
+                                    <th scope="row">GroupPose-Swin-T</th>
                                     <td class="numeric">2023</td>
-                                    <td class="numeric">77.37%</td>
-                                    <td class="numeric">97.64%</td>
-                                    <td class="numeric">88.52%</td>
-                                    <td class="numeric">83.83%</td>
-                                    <td class="numeric">276.51</td>
+                                    <td class="numeric"></td>
+                                    <td class="numeric"></td>
+                                    <td class="numeric"></td>
+                                    <td class="numeric"></td>
+                                    <td class="numeric"></td>
+                                    <td class="numeric"></td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">EDPose-Swin-L</th>
+                                    <th scope="row">GroupPose-Swin-L</th>
                                     <td class="numeric">2023</td>
-                                    <td class="numeric benchmark-best">78.49%</td>
-                                    <td class="numeric">97.31%</td>
-                                    <td class="numeric">88.67%</td>
-                                    <td class="numeric">84.83%</td>
-                                    <td class="numeric">422.60</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">EDPose-Swin-L-5scale</th>
-                                    <td class="numeric">2023</td>
-                                    <td class="numeric">77.21%</td>
-                                    <td class="numeric">97.27%</td>
-                                    <td class="numeric">87.28%</td>
-                                    <td class="numeric">83.79%</td>
-                                    <td class="numeric">681.92</td>
+                                    <td class="numeric"></td>
+                                    <td class="numeric"></td>
+                                    <td class="numeric"></td>
+                                    <td class="numeric"></td>
+                                    <td class="numeric"></td>
+                                    <td class="numeric"></td>
                                 </tr>
                                 <tr class="benchmark-group-start">
                                     <th scope="row">RTMO-S</th>
                                     <td class="numeric">2024</td>
-                                    <td class="numeric">71.73%</td>
-                                    <td class="numeric">96.15%</td>
-                                    <td class="numeric">80.86%</td>
-                                    <td class="numeric">77.63%</td>
-                                    <td class="numeric">42.60</td>
+                                    <td class="numeric">71.73</td>
+                                    <td class="numeric">96.15</td>
+                                    <td class="numeric">80.86</td>
+                                    <td class="numeric">77.63</td>
+                                    <td class="numeric benchmark-best">12.13</td>
+                                    <td class="numeric">49.44</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">RTMO-M</th>
                                     <td class="numeric">2024</td>
-                                    <td class="numeric">71.07%</td>
-                                    <td class="numeric">96.43%</td>
-                                    <td class="numeric">80.26%</td>
-                                    <td class="numeric">77.24%</td>
-                                    <td class="numeric">69.00</td>
+                                    <td class="numeric">71.07</td>
+                                    <td class="numeric">96.43</td>
+                                    <td class="numeric">80.26</td>
+                                    <td class="numeric">77.24</td>
+                                    <td class="numeric">31.65</td>
+                                    <td class="numeric">50.78</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">RTMO-L</th>
                                     <td class="numeric">2024</td>
-                                    <td class="numeric">74.76%</td>
-                                    <td class="numeric">96.50%</td>
-                                    <td class="numeric">84.55%</td>
-                                    <td class="numeric">80.41%</td>
-                                    <td class="numeric">136.70</td>
+                                    <td class="numeric">74.76</td>
+                                    <td class="numeric">96.50</td>
+                                    <td class="numeric">84.55</td>
+                                    <td class="numeric">80.41</td>
+                                    <td class="numeric">67.54</td>
+                                    <td class="numeric">44.61</td>
                                 </tr>
                                 <tr class="benchmark-group-start benchmark-row--ours">
-                                    <th scope="row">Ours</th>
-                                    <td class="numeric"></td>
-                                    <td class="numeric"></td>
-                                    <td class="numeric"></td>
-                                    <td class="numeric"></td>
+                                    <th scope="row">TopoStrawberry-Net (Ours)</th>
+                                    <td class="numeric">2026</td>
+                                    <td class="numeric">78.19</td>
+                                    <td class="numeric">96.84</td>
+                                    <td class="numeric">89.73</td>
+                                    <td class="numeric">82.39</td>
                                     <td class="numeric"></td>
                                     <td class="numeric"></td>
                                 </tr>
@@ -614,11 +657,7 @@
                     <div class="benchmark-notes">
                         <p>
                             <strong>Metric definition.</strong>
-                            AP is COCO keypoint AP averaged over OKS 0.50:0.95; AP, AP50, AP75, and AR are reported as percentages. GFLOPs denotes the estimated cost of one forward pass.
-                        </p>
-                        <p>
-                            <strong>Compute note.</strong>
-                            EDPose GFLOPs are literature-reference or estimated values; the actual five-keypoint configuration may be slightly lower.
+                            AP is COCO keypoint AP averaged over OKS 0.50:0.95; AP, AP50, AP75, and AR are reported as percentages. GFLOPs denotes the estimated cost of one forward pass; FPS denotes frames per second.
                         </p>
                     </div>
                 </div>
@@ -687,25 +726,25 @@
                         <div class="download-record">
                             <div class="resource-status">
                                 <span class="status-indicator" aria-hidden="true"></span>
-                                Dataset available
+                                Controlled access
                             </div>
-                            <h3>Strawberry RGB-D dataset package</h3>
+                            <h3>TopoStrawberry-RGBD dataset package</h3>
                             <p>Access to the dataset is available for approved non-commercial research purposes. To request access, please download and complete the application form, then submit it to the email address provided in the form. Applications will be reviewed individually.</p>
-                            <a class="btn btn-research" href="assets/StrawberryHarvest_RGBD_Data_Access_Application.docx" download>Download Application Form</a>
+                            <a class="btn btn-research" href="assets/TopoStrawberry_Dataset_Access_Application.docx" download>Download Application Form</a>
                         </div>
                         <div class="resource-index">
                             <dl>
                                 <div class="resource-row">
                                     <dt>Dataset</dt>
-                                    <dd><span class="resource-available">Available</span></dd>
+                                    <dd>Controlled access</dd>
                                 </div>
                                 <div class="resource-row">
                                     <dt>Source code</dt>
                                     <dd>To be added</dd>
                                 </div>
                                 <div class="resource-row">
-                                    <dt>Dataset access</dt>
-                                    <dd>Controlled access</dd>
+                                    <dt>Dataset license</dt>
+                                    <dd>CC BY-NC 4.0</dd>
                                 </div>
                                 <div class="resource-row">
                                     <dt>Citation</dt>
@@ -721,14 +760,14 @@
             <div class="container px-4 px-lg-5">
                 <div class="footer-inner">
                     <div class="footer-project">
-                        <strong>Strawberry RGB-D Dataset</strong>
+                        <strong>TopoStrawberry Dataset</strong>
                         <span>Release statistics and visualizations for agricultural computer vision.</span>
                     </div>
                     <div class="footer-meta">
                         <span>
                             &copy;
                             <span id="currentYear">2026</span>
-                            Strawberry Dataset
+                            TopoStrawberry
                         </span>
                         <a href="#overview">Back to top</a>
                     </div>

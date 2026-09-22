@@ -838,7 +838,9 @@ def render_distributions(summary: dict, output_path: Path) -> None:
     draw.text((52, 132), subtitle, font=font(28, bold=True), fill=COLORS["navy"])
     draw.text(
         (52, 177),
-        "Counts are computed directly from the current data/ directory.",
+        "Split: 70% training / 15% validation / 15% test."
+        if summary.get("split_update")
+        else "Counts are computed directly from the current data/ directory.",
         font=font(20),
         fill=COLORS["muted"],
     )
@@ -850,7 +852,7 @@ def render_distributions(summary: dict, output_path: Path) -> None:
         "occlusion": (628, 776, 1192, 1198),
         "visibility": (1212, 776, 1756, 1198),
     }
-    grouping = "split" if summary["layout"] == "train_val" else "collection"
+    grouping = "split" if summary["layout"] in ("train_val", "train_val_test") else "collection"
     panel(draw, boxes["samples"], "A", f"Frames by {grouping}")
     panel(draw, boxes["instances"], "B", f"Instances by {grouping}")
     panel(draw, boxes["ripeness"], "C", "Ripeness categories")
@@ -860,7 +862,12 @@ def render_distributions(summary: dict, output_path: Path) -> None:
     rows = summary["partitions"]
     labels = [row["label"] for row in rows]
     draw_horizontal_bars(draw, boxes["samples"], labels, [row["samples"] for row in rows], COLORS["blue"])
-    draw_horizontal_bars(draw, boxes["instances"], labels, [row["instances"] for row in rows], COLORS["red"])
+    if all(row.get("instances") is not None for row in rows):
+        draw_horizontal_bars(draw, boxes["instances"], labels, [row["instances"] for row in rows], COLORS["red"])
+    else:
+        x1, y1, _, _ = boxes["instances"]
+        for index, label in enumerate(labels):
+            draw.text((x1 + 30, y1 + 118 + index * 120), label, font=font(16, mono=True), fill=COLORS["muted"])
     draw_category_bars(draw, boxes["ripeness"], summary["distributions"]["ripeness"], COLORS["green"])
     draw_category_bars(draw, boxes["occlusion"], summary["distributions"]["occlusion"], COLORS["gold"])
     draw_category_bars(draw, boxes["visibility"], summary["distributions"]["keypoint_visibility"], COLORS["blue"])

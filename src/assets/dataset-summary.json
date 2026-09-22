@@ -1,85 +1,71 @@
 {
   "generated_at": "2026-08-03T01:50:05.723618+00:00",
   "dataset_root": "data",
-  "layout": "train_val",
+  "layout": "train_val_test",
   "partitions": [
     {
       "partition": "train",
       "label": "Train",
-      "samples": 3006,
-      "instances": 11502,
-      "keypoints": 57510,
-      "schema_complete_instances": 11502,
-      "invalid_boxes": 0,
-      "unmatched_keypoints": 0,
-      "ripeness": {
-        "0": 3957,
-        "1": 7545
-      },
-      "occlusion": {
-        "0": 7474,
-        "1": 4028
-      },
-      "keypoint_visibility": {
-        "0": 633,
-        "1": 8100,
-        "2": 48777
-      },
-      "modalities": {
-        "rgb": 3006,
-        "label": 3006,
-        "depth_aligned": 3006,
-        "depth_aligned_pp": 3006,
-        "depth_raw": 3006
-      },
-      "fully_paired_samples": 3006
+      "samples": 2630,
+      "share_percent": 70,
+      "instances": null,
+      "keypoints": null,
+      "schema_complete_instances": null,
+      "invalid_boxes": null,
+      "unmatched_keypoints": null,
+      "ripeness": null,
+      "occlusion": null,
+      "keypoint_visibility": null,
+      "modalities": null,
+      "fully_paired_samples": null
     },
     {
       "partition": "val",
-      "label": "Val",
-      "samples": 752,
-      "instances": 2784,
-      "keypoints": 13920,
-      "schema_complete_instances": 2784,
-      "invalid_boxes": 0,
-      "unmatched_keypoints": 0,
-      "ripeness": {
-        "0": 1000,
-        "1": 1784
-      },
-      "occlusion": {
-        "0": 1804,
-        "1": 980
-      },
-      "keypoint_visibility": {
-        "0": 141,
-        "1": 1962,
-        "2": 11817
-      },
-      "modalities": {
-        "rgb": 752,
-        "label": 752,
-        "depth_aligned": 752,
-        "depth_aligned_pp": 752,
-        "depth_raw": 752
-      },
-      "fully_paired_samples": 752
+      "label": "Validation",
+      "samples": 564,
+      "share_percent": 15,
+      "instances": null,
+      "keypoints": null,
+      "schema_complete_instances": null,
+      "invalid_boxes": null,
+      "unmatched_keypoints": null,
+      "ripeness": null,
+      "occlusion": null,
+      "keypoint_visibility": null,
+      "modalities": null,
+      "fully_paired_samples": null
+    },
+    {
+      "partition": "test",
+      "label": "Test",
+      "samples": 564,
+      "share_percent": 15,
+      "instances": null,
+      "keypoints": null,
+      "schema_complete_instances": null,
+      "invalid_boxes": null,
+      "unmatched_keypoints": null,
+      "ripeness": null,
+      "occlusion": null,
+      "keypoint_visibility": null,
+      "modalities": null,
+      "fully_paired_samples": null
     }
   ],
   "overall": {
-    "partitions": 2,
+    "partitions": 3,
     "samples": 3758,
     "instances": 14286,
     "keypoints": 71430,
     "expected_keypoints": 71430,
     "mean_instances_per_frame": 3.8,
     "schema_complete_instances": 14286,
-    "schema_completeness_percent": 100.0,
+    "schema_completeness_percent": 100,
     "valid_boxes": 14286,
     "invalid_boxes": 0,
     "unmatched_keypoints": 0,
     "fully_paired_samples": 3758,
-    "pairing_percent": 100.0,
+    "pairing_percent": 100,
     "rgb_files": 3758,
     "label_files": 3758,
     "depth_aligned_files": 3758,
@@ -90,7 +76,7 @@
       "Intel RealSense D435I"
     ],
     "calibration_mapping_records": 3758,
-    "calibration_mapping_percent": 100.0,
+    "calibration_mapping_percent": 100,
     "total_files": 18795,
     "total_bytes": 7113847627,
     "total_gb_decimal": 7.11,
@@ -164,5 +150,14 @@
       "kept_sampled_pixels_percent": 47.96,
       "calibration_file": "camera_calibration_233622079124.json"
     }
+  },
+  "split_update": {
+    "source": "User-provided split counts",
+    "ratio_percent": [
+      70,
+      15,
+      15
+    ],
+    "note": "Per-split annotation and integrity statistics await recomputation. Dataset-wide statistics are retained from the original dataset scan; generated_at records that scan."
   }
 }

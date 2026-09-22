@@ -210,7 +210,7 @@ a {
     margin: 0 0 2rem;
     color: var(--research-navy);
     font-family: Cambria, Georgia, "Times New Roman", serif;
-    font-size: clamp(2.55rem, 4.5vw, 4.2rem);
+    font-size: clamp(2rem, 3vw, 2.8rem);
     font-weight: 700;
     letter-spacing: -0.035em;
     line-height: 1.03;
@@ -677,7 +677,7 @@ a {
 
 .benchmark-notes {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 1fr);
     gap: 2rem;
     margin: 1.25rem 0 0 4rem;
     color: var(--research-muted);
@@ -1657,7 +1657,7 @@ a {
     }
 
     .research-hero h1 {
-        font-size: clamp(2.45rem, 11vw, 3.4rem);
+        font-size: clamp(1.65rem, 6vw, 2.1rem);
     }
 
     .hero-actions {

@@ -4,15 +4,15 @@ html(lang='en')
     head
         meta(charset='utf-8')
         meta(name='viewport', content='width=device-width, initial-scale=1')
-        meta(name='description', content='A synchronized greenhouse RGB-D strawberry dataset with 3,758 frames, 14,286 instances, bounding boxes, five keypoints, ripeness, and occlusion annotations.')
+        meta(name='description', content='TopoStrawberry-RGBD is a synchronized greenhouse RGB-D strawberry dataset with 3,758 frames, 14,286 instances, bounding boxes, five keypoints, ripeness, and occlusion annotations.')
         meta(name='theme-color', content='#17364d')
         meta(property='og:type', content='website')
-        meta(property='og:title', content='StrawberryHarvest-RGBD')
-        meta(property='og:description', content='3,758 synchronized RGB-D frames with 14,286 instance annotations and 71,430 anatomical keypoints.')
+        meta(property='og:title', content='TopoStrawberry')
+        meta(property='og:description', content='TopoStrawberry-RGBD: 3,758 synchronized RGB-D frames with 14,286 instance annotations and 71,430 anatomical keypoints.')
         meta(property='og:url', content='https://strawberry-vision-dataset.yuhao-jin.chatgpt.site/')
         meta(property='og:image', content='https://strawberry-vision-dataset.yuhao-jin.chatgpt.site/assets/og-strawberry-dataset.jpg')
         meta(name='twitter:card', content='summary_large_image')
-        title StrawberryHarvest-RGBD | Agricultural Computer Vision
+        title TopoStrawberry | TopoStrawberry-RGBD
 
         link(rel='canonical', href='https://strawberry-vision-dataset.yuhao-jin.chatgpt.site/')
         link(rel='icon', type='image/png', sizes='64x64', href='assets/strawberry-favicon.png?v=pink')
@@ -29,12 +29,12 @@ html(lang='en')
                 .container.px-4.px-lg-5
                     .project-label Controlled-access dataset | July 2026
 
-                    h1 A synchronized RGB-D strawberry dataset for greenhouse perception
+                    h1 TopoStrawberry: A Large-Scale Harvest-Oriented RGB-D Dataset with Topological Keypoint Refinement and Keypoint-Anchored Harvest-State Recognition
 
                     .row.g-5.align-items-center
                         .col-lg-5
                             p.hero-abstract
-                                | The dataset contains 3,758 paired frames and 14,286 annotated strawberry instances. Each annotated strawberry includes a bounding box, five anatomical keypoints, a ripeness label, and an occlusion label.
+                                | TopoStrawberry-RGBD contains 3,758 paired frames and 14,286 annotated strawberry instances. Each annotated strawberry includes a bounding box, five anatomical keypoints, a ripeness label, and an occlusion label.
 
                             .d-flex.flex-wrap.gap-2.mt-3.mb-4
                                 a.btn.btn-research(href='#resources') Download dataset
@@ -58,7 +58,7 @@ html(lang='en')
                                     dd 1280 × 720 pixels
                                 .metadata-row
                                     dt Dataset split
-                                    dd Train 3,006 frames, Validation 752 frames
+                                    dd Train 2,630 / Validation 564 / Test 564 frames (70% / 15% / 15%)
 
                         .col-lg-7
                             figure.research-figure.hero-figure
@@ -82,7 +82,7 @@ html(lang='en')
                             p.section-type Dataset statistics
                             h2 Dataset snapshot
                     p.section-summary
-                        | Statistics were recomputed from the reorganized train/validation split. Counts cover every synchronized modality and the per-image camera calibration mapping.
+                        | The dataset contains 3,758 frames organized into training, validation, and test sets. Dataset-wide counts cover synchronized modalities and the per-image camera calibration mapping.
                     .dataset-stat-grid
                         article.dataset-stat
                             span.stat-kicker Frames
@@ -132,11 +132,6 @@ html(lang='en')
                                 .placeholder-branch.placeholder-branch--short
                                     span
                                     span
-                    .audit-note
-                        div
-                            strong Reproducible datasaet summary
-                            p The complete machine-readable count table and observed category values are included with the site.
-                        a.text-link(href='assets/dataset-summary.json', target='_blank') View machine-readable statistics
             section#composition.paper-section.paper-section--alt
                 .container.px-4.px-lg-5
                     .section-heading
@@ -145,11 +140,11 @@ html(lang='en')
                             p.section-type Dataset analysis
                             h2 Composition and label balance
                     p.section-summary
-                        | The dataset uses a fixed train/validation split. Training contains 3,006 frames and validation contains 752 frames, preserving the full set of synchronized RGB-D records.
+                        | The dataset uses a 70% / 15% / 15% train/validation/test split: 2,630 training frames, 564 validation frames, and 564 test frames. All 3,758 synchronized RGB-D records are retained. Per-split instance statistics are pending; blank cells indicate values not yet reported.
                     .composition-grid
                         .table-responsive.collection-table-wrap
                             table.collection-table
-                                caption Train/validation sample and instance counts
+                                caption Train/validation/test sample counts and available instance statistics
                                 thead
                                     tr
                                         th(scope='col') Split
@@ -160,16 +155,22 @@ html(lang='en')
                                 tbody
                                     tr
                                         th(scope='row') Train
-                                        td 3,006
-                                        td 80.0%
-                                        td 11,502
-                                        td 3.83
+                                        td 2,630
+                                        td 70%
+                                        td
+                                        td
                                     tr
                                         th(scope='row') Validation
-                                        td 752
-                                        td 20.0%
-                                        td 2,784
-                                        td 3.70
+                                        td 564
+                                        td 15%
+                                        td
+                                        td
+                                    tr
+                                        th(scope='row') Test
+                                        td 564
+                                        td 15%
+                                        td
+                                        td
                                 tfoot
                                     tr
                                         th(scope='row') Total
@@ -225,7 +226,7 @@ html(lang='en')
 
                     figure.research-figure.data-figure
                         .figure-frame.figure-frame--clean
-                            img(src='assets/dataset-distributions.webp', alt='Charts showing frame and strawberry instance counts by train and validation split, plus ripeness, occlusion, and keypoint visibility distributions', width='1800', height='1250', loading='lazy')
+                            img(src='assets/dataset-distributions.webp', alt='Charts showing train, validation, and test frame counts, available per-split instance counts, and ripeness, occlusion, and keypoint visibility distributions', width='1800', height='1250', loading='lazy')
                         figcaption
                             span.figure-number Figure 2.
                             |  Dataset-wide counts. Ripeness labels: 0 = immature, 1 = mature; occlusion labels: 0 = non-occluded, 1 = occluded. Keypoint visibility states: 0 = outside the image, 1 = occluded but inferable, and 2 = visible.
@@ -237,7 +238,7 @@ html(lang='en')
                             p.section-type Data specification
                             h2 Modalities and annotation protocol
                     p.section-summary
-                        | Every four-digit sample ID identifies one synchronized record inside either train or validation. Post-processed aligned depth is used for the 3D visualization below, with calibration selected from the dataset-wide image-to-camera mapping.
+                        | Every four-digit sample ID identifies one synchronized record inside train, validation, or test. Post-processed aligned depth is used for the 3D visualization below, with calibration selected from the dataset-wide image-to-camera mapping.
                     .table-responsive.protocol-table-wrap
                         table.protocol-table
                             thead
@@ -373,123 +374,160 @@ html(lang='en')
                             p.section-type Baseline evaluation
                             h2 Keypoint benchmark results
                     p.section-summary
-                        | Eleven representative pose-estimation configurations were evaluated without external ground-truth boxes on the same 685-record validation set. Results are grouped by publication year, with configurations from each model family kept together.
+                        | The table compares representative pose-estimation methods on the strawberry keypoint benchmark. Results are grouped by publication year, with configurations from each model family kept together. Blank cells indicate results not reported.
                     .table-responsive.benchmark-table-wrap
                         table.benchmark-table
                             caption.visually-hidden Strawberry keypoint benchmark results ordered by publication year and model family
                             thead
                                 tr
-                                    th(scope='col') Model
+                                    th(scope='col') Method
                                     th.numeric(scope='col') Year
                                     th.numeric(scope='col') AP
                                     th.numeric(scope='col') AP50
                                     th.numeric(scope='col') AP75
                                     th.numeric(scope='col') AR
                                     th.numeric(scope='col') GFLOPs
+                                    th.numeric(scope='col') FPS
                             tbody
+                                tr.benchmark-group-start
+                                    th(scope='row') CenterNet-DLA34
+                                    td.numeric 2019
+                                    td.numeric 62.70
+                                    td.numeric 93.40
+                                    td.numeric 69.90
+                                    td.numeric 69.70
+                                    td.numeric 32.99
+                                    td.numeric 25.34
+                                tr
+                                    th(scope='row') CenterNet-Hourglass104
+                                    td.numeric 2019
+                                    td.numeric 64.60
+                                    td.numeric 93.90
+                                    td.numeric 74.10
+                                    td.numeric 71.70
+                                    td.numeric 350.43
+                                    td.numeric 15.99
                                 tr.benchmark-group-start
                                     th(scope='row') CID-HRNet-W32
                                     td.numeric 2022
-                                    td.numeric 74.84%
-                                    td.numeric 96.76%
-                                    td.numeric 86.33%
-                                    td.numeric 80.30%
-                                    td.numeric 43.17
+                                    td.numeric 74.84
+                                    td.numeric 96.76
+                                    td.numeric 86.33
+                                    td.numeric 80.30
+                                    td.numeric 42.45
+                                    td.numeric 14.21
                                 tr
                                     th(scope='row') CID-HRNet-W48
                                     td.numeric 2022
-                                    td.numeric 74.44%
-                                    td.numeric 96.71%
-                                    td.numeric 84.95%
-                                    td.numeric 80.00%
-                                    td.numeric 85.38
+                                    td.numeric 74.44
+                                    td.numeric 96.71
+                                    td.numeric 84.95
+                                    td.numeric 80.00
+                                    td.numeric 85.70
+                                    td.numeric 14.54
+                                tr.benchmark-group-start
+                                    th(scope='row') PETR-R50
+                                    td.numeric 2022
+                                    td.numeric 75.60
+                                    td.numeric 95.90
+                                    td.numeric 87.40
+                                    td.numeric 83.00
+                                    td.numeric 216.54
+                                    td.numeric 8.98
+                                tr
+                                    th(scope='row') PETR-R101
+                                    td.numeric 2022
+                                    td.numeric 73.40
+                                    td.numeric 94.30
+                                    td.numeric 84.60
+                                    td.numeric 82.50
+                                    td.numeric 296.31
+                                    td.numeric 8.20
                                 tr.benchmark-group-start
                                     th(scope='row') YOLOX-Pose-S
                                     td.numeric 2022
-                                    td.numeric 72.24%
-                                    td.numeric 96.60%
-                                    td.numeric 81.43%
-                                    td.numeric 78.04%
-                                    td.numeric 31.55
+                                    td.numeric 72.24
+                                    td.numeric 96.60
+                                    td.numeric 81.43
+                                    td.numeric 78.04
+                                    td.numeric 18.30
+                                    td.numeric.benchmark-best 57.22
                                 tr
                                     th(scope='row') YOLOX-Pose-M
                                     td.numeric 2022
-                                    td.numeric 74.33%
-                                    td.numeric 96.67%
-                                    td.numeric 83.75%
-                                    td.numeric 79.57%
-                                    td.numeric 84.53
+                                    td.numeric 74.33
+                                    td.numeric 96.67
+                                    td.numeric 83.75
+                                    td.numeric 79.57
+                                    td.numeric 47.94
+                                    td.numeric 48.73
                                 tr
                                     th(scope='row') YOLOX-Pose-L
                                     td.numeric 2022
-                                    td.numeric 76.64%
-                                    td.numeric 96.68%
-                                    td.numeric 86.62%
-                                    td.numeric 81.47%
-                                    td.numeric 174.73
+                                    td.numeric 76.64
+                                    td.numeric 96.68
+                                    td.numeric 86.62
+                                    td.numeric 81.47
+                                    td.numeric 97.52
+                                    td.numeric 46.98
                                 tr.benchmark-group-start
-                                    th(scope='row') EDPose-R50
+                                    th(scope='row') GroupPose-Swin-T
                                     td.numeric 2023
-                                    td.numeric 77.37%
-                                    td.numeric 97.64%
-                                    td.numeric 88.52%
-                                    td.numeric 83.83%
-                                    td.numeric 276.51
+                                    td.numeric
+                                    td.numeric
+                                    td.numeric
+                                    td.numeric
+                                    td.numeric
+                                    td.numeric
                                 tr
-                                    th(scope='row') EDPose-Swin-L
+                                    th(scope='row') GroupPose-Swin-L
                                     td.numeric 2023
-                                    td.numeric.benchmark-best 78.49%
-                                    td.numeric 97.31%
-                                    td.numeric 88.67%
-                                    td.numeric 84.83%
-                                    td.numeric 422.60
-                                tr
-                                    th(scope='row') EDPose-Swin-L-5scale
-                                    td.numeric 2023
-                                    td.numeric 77.21%
-                                    td.numeric 97.27%
-                                    td.numeric 87.28%
-                                    td.numeric 83.79%
-                                    td.numeric 681.92
+                                    td.numeric
+                                    td.numeric
+                                    td.numeric
+                                    td.numeric
+                                    td.numeric
+                                    td.numeric
                                 tr.benchmark-group-start
                                     th(scope='row') RTMO-S
                                     td.numeric 2024
-                                    td.numeric 71.73%
-                                    td.numeric 96.15%
-                                    td.numeric 80.86%
-                                    td.numeric 77.63%
-                                    td.numeric 42.60
+                                    td.numeric 71.73
+                                    td.numeric 96.15
+                                    td.numeric 80.86
+                                    td.numeric 77.63
+                                    td.numeric.benchmark-best 12.13
+                                    td.numeric 49.44
                                 tr
                                     th(scope='row') RTMO-M
                                     td.numeric 2024
-                                    td.numeric 71.07%
-                                    td.numeric 96.43%
-                                    td.numeric 80.26%
-                                    td.numeric 77.24%
-                                    td.numeric 69.00
+                                    td.numeric 71.07
+                                    td.numeric 96.43
+                                    td.numeric 80.26
+                                    td.numeric 77.24
+                                    td.numeric 31.65
+                                    td.numeric 50.78
                                 tr
                                     th(scope='row') RTMO-L
                                     td.numeric 2024
-                                    td.numeric 74.76%
-                                    td.numeric 96.50%
-                                    td.numeric 84.55%
-                                    td.numeric 80.41%
-                                    td.numeric 136.70
+                                    td.numeric 74.76
+                                    td.numeric 96.50
+                                    td.numeric 84.55
+                                    td.numeric 80.41
+                                    td.numeric 67.54
+                                    td.numeric 44.61
                                 tr.benchmark-group-start.benchmark-row--ours
-                                    th(scope='row') Ours
-                                    td.numeric
-                                    td.numeric
-                                    td.numeric
-                                    td.numeric
+                                    th(scope='row') TopoStrawberry-Net (Ours)
+                                    td.numeric 2026
+                                    td.numeric 78.19
+                                    td.numeric 96.84
+                                    td.numeric 89.73
+                                    td.numeric 82.39
                                     td.numeric
                                     td.numeric
                     .benchmark-notes
                         p
                             strong Metric definition.
-                            |  AP is COCO keypoint AP averaged over OKS 0.50:0.95; AP, AP50, AP75, and AR are reported as percentages. GFLOPs denotes the estimated cost of one forward pass.
-                        p
-                            strong Compute note.
-                            |  EDPose GFLOPs are literature-reference or estimated values; the actual five-keypoint configuration may be slightly lower.
+                            |  AP is COCO keypoint AP averaged over OKS 0.50:0.95; AP, AP50, AP75, and AR are reported as percentages. GFLOPs denotes the estimated cost of one forward pass; FPS denotes frames per second.
 
             section#visualizations.paper-section
                 .container.px-4.px-lg-5
@@ -547,25 +585,24 @@ html(lang='en')
                         .download-record
                             .resource-status
                                 span.status-indicator(aria-hidden='true')
-                                | Dataset available
-                            h3 Strawberry RGB-D dataset package
+                                | Controlled access
+                            h3 TopoStrawberry-RGBD dataset package
                             p Access to the dataset is available for approved non-commercial research purposes. To request access, please download and complete the application form, then submit it to the email address provided in the form. Applications will be reviewed individually.
                             a.btn.btn-research(
-                                href='assets/StrawberryHarvest_RGBD_Data_Access_Application.docx'
+                                href='assets/TopoStrawberry_Dataset_Access_Application.docx'
                                 download
                             ) Download Application Form
                         .resource-index
                             dl
                                 .resource-row
                                     dt Dataset
-                                    dd
-                                        span.resource-available Available
+                                    dd Controlled access
                                 .resource-row
                                     dt Source code
                                     dd To be added
                                 .resource-row
-                                    dt Dataset access
-                                    dd Controlled access
+                                    dt Dataset license
+                                    dd CC BY-NC 4.0
                                 .resource-row
                                     dt Citation
                                     dd To be added with publication details
