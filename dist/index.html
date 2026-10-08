@@ -3,11 +3,11 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="description" content="TopoStrawberry-RGBD is a synchronized greenhouse RGB-D strawberry dataset with 3,758 frames, 14,286 instances, bounding boxes, five keypoints, ripeness, and occlusion annotations." />
+        <meta name="description" content="TopoStrawberry-RGBD is a synchronized greenhouse RGB-D strawberry dataset with 3,758 frames, 14,286 instances, bounding boxes, five keypoints, ripeness, occlusion, and harvestability annotations." />
         <meta name="theme-color" content="#17364d" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="TopoStrawberry" />
-        <meta property="og:description" content="TopoStrawberry-RGBD: 3,758 synchronized RGB-D frames with 14,286 instance annotations and 71,430 anatomical keypoints." />
+        <meta property="og:description" content="TopoStrawberry-RGBD: 3,758 paired RGB-D frames, 14,286 strawberry instances, and 71,430 keypoints with ripeness, occlusion, and harvestability labels." />
         <meta property="og:url" content="https://strawberry-vision-dataset.yuhao-jin.chatgpt.site/" />
         <meta property="og:image" content="https://strawberry-vision-dataset.yuhao-jin.chatgpt.site/assets/og-strawberry-dataset.jpg" />
         <meta name="twitter:card" content="summary_large_image" />
@@ -33,8 +33,7 @@
                 <div class="collapse navbar-collapse" id="primaryNavigation">
                     <ul class="navbar-nav ms-auto align-items-lg-center">
                         <li class="nav-item"><a class="nav-link" href="#statistics">Statistics</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#composition">Composition</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#protocol">Protocol</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#protocol">Data format</a></li>
                         <li class="nav-item"><a class="nav-link" href="#benchmark">Benchmark</a></li>
                         <li class="nav-item"><a class="nav-link" href="#visualizations">Visualizations</a></li>
                         <li class="nav-item"><a class="nav-link" href="#resources">Resources</a></li>
@@ -46,11 +45,69 @@
         <main id="main-content">
             <header class="research-hero" id="overview">
                 <div class="container px-4 px-lg-5">
-                    <div class="project-label">Controlled-access dataset | July 2026</div>
+                    <div class="project-label">Controlled-access dataset | Updated October 2026</div>
                     <h1>TopoStrawberry: A Large-Scale Harvest-Oriented RGB-D Dataset with Topological Keypoint Refinement and Keypoint-Anchored Harvest-State Recognition</h1>
+                    <div class="paper-authorship" aria-label="Authors and affiliations">
+                        <p class="paper-authors">
+                            <span class="paper-author">
+                                Yuhao Jin
+                                <sup>a,b</sup>
+                            </span>
+                            ,
+                            <span class="paper-author">
+                                Xiaoyu Xia
+                                <sup>b</sup>
+                            </span>
+                            ,
+                            <span class="paper-author">
+                                Qizhong Gao
+                                <sup>a,b</sup>
+                            </span>
+                            ,
+                            <span class="paper-author">
+                                Lingyu Li
+                                <sup>a,b</sup>
+                            </span>
+                            ,
+                            <span class="paper-author">
+                                Yong Yue
+                                <sup>b</sup>
+                            </span>
+                            ,
+                            <span class="paper-author">
+                                Eng Gee Lim
+                                <sup>b</sup>
+                            </span>
+                            ,
+                            <span class="paper-author">
+                                Prudence Wong
+                                <sup>a</sup>
+                            </span>
+                            ,
+                            <span class="paper-author">
+                                Xiaohui Zhu
+                                <sup>b,*</sup>
+                            </span>
+                        </p>
+                        <div class="paper-affiliations">
+                            <p>
+                                <sup>a</sup>
+                                School of Computer Science and Informatics, University of Liverpool, Liverpool, L69 3BX, UK
+                            </p>
+                            <p>
+                                <sup>b</sup>
+                                Academy of Artificial Intelligence and Advanced Technology, Xi’an Jiaotong-Liverpool University, Suzhou, 215123, China
+                            </p>
+                        </div>
+                        <p class="paper-correspondence">
+                            * Corresponding author: Xiaohui Zhu (
+                            <a href="mailto:Xiaohui.Zhu@xjtlu.edu.cn">Xiaohui.Zhu@xjtlu.edu.cn</a>
+                            )
+                        </p>
+                    </div>
                     <div class="row g-5 align-items-center">
                         <div class="col-lg-5">
-                            <p class="hero-abstract">TopoStrawberry-RGBD contains 3,758 paired frames and 14,286 annotated strawberry instances. Each annotated strawberry includes a bounding box, five anatomical keypoints, a ripeness label, and an occlusion label.</p>
+                            <p class="hero-abstract">TopoStrawberry-RGBD contains 3,758 paired frames and 14,286 annotated strawberry instances. Each annotated strawberry includes a bounding box, five anatomical keypoints, and ripeness, occlusion, and harvestability labels in COCO keypoint format with instance attributes.</p>
                             <div class="d-flex flex-wrap gap-2 mt-3 mb-4">
                                 <a class="btn btn-research" href="#resources">Download dataset</a>
                                 <a class="btn btn-outline-research" href="#statistics">View dataset statistics</a>
@@ -58,15 +115,15 @@
                             <dl class="project-metadata">
                                 <div class="metadata-row">
                                     <dt>Modalities</dt>
-                                    <dd>RGB images, aligned depth maps, post-processed depth maps, and raw depth maps</dd>
+                                    <dd>RGB images and corresponding depth maps</dd>
                                 </div>
                                 <div class="metadata-row">
                                     <dt>Annotations</dt>
-                                    <dd>Bounding boxes, keypoints, ripeness labels, and occlusion labels in LabelMe JSON format</dd>
+                                    <dd>Bounding boxes, keypoints, ripeness, occlusion, and harvestability labels in COCO keypoint JSON format</dd>
                                 </div>
                                 <div class="metadata-row">
                                     <dt>Research tasks</dt>
-                                    <dd>Object detection, keypoint estimation, ripeness recognition, and occlusion recognition</dd>
+                                    <dd>Object detection, keypoint estimation, ripeness recognition, occlusion recognition, and harvestability recognition</dd>
                                 </div>
                                 <div class="metadata-row">
                                     <dt>Capture system</dt>
@@ -100,10 +157,10 @@
                         <span class="section-number">01</span>
                         <div>
                             <p class="section-type">Dataset statistics</p>
-                            <h2>Dataset snapshot</h2>
+                            <h2>Dataset statistics and composition</h2>
                         </div>
                     </div>
-                    <p class="section-summary">The dataset contains 3,758 frames organized into training, validation, and test sets. Dataset-wide counts cover synchronized modalities and the per-image camera calibration mapping.</p>
+                    <p class="section-summary">A 70% / 15% / 15% train/validation/test split preserves all paired RGB-D frames. The tables below summarize instance density and label balance.</p>
                     <div class="dataset-stat-grid">
                         <article class="dataset-stat">
                             <span class="stat-kicker">Frames</span>
@@ -122,71 +179,15 @@
                         </article>
                         <article class="dataset-stat">
                             <span class="stat-kicker">Storage</span>
-                            <strong>7.11 GB</strong>
-                            <p>18,795 files in total</p>
+                            <strong>5.70 GB</strong>
+                            <p>7,521 files in total; ZIP archive: 5.23 GB</p>
                         </article>
                     </div>
-                    <div class="integrity-grid">
-                        <article class="integrity-item">
-                            <div>
-                                <h3>Cross-modal pairing</h3>
-                                <p>All 3,758 frames include complete RGB, label, aligned-depth, post-processed-depth, and raw-depth data.</p>
-                            </div>
-                        </article>
-                        <article class="integrity-item">
-                            <div>
-                                <h3>Annotation structure</h3>
-                                <p>Each strawberry instance is annotated with five keypoints representing its Cut, Top, Bottom, Left, and Right positions.</p>
-                            </div>
-                        </article>
-                        <article class="integrity-item">
-                            <div>
-                                <h3>Calibration mapping</h3>
-                                <p>Each image record is mapped to one of four RealSense camera calibration files.</p>
-                            </div>
-                        </article>
-                    </div>
-                    <div class="directory-structure-slot" aria-labelledby="directory-structure-title">
-                        <div class="directory-slot-copy">
-                            <span class="directory-slot-index"></span>
-                            <div>
-                                <p class="annotation-eyebrow">Dataset organization</p>
-                                <h3 id="directory-structure-title">Dataset directory structure</h3>
-                                <p>The directory structure describes how modalities, dataset splits, annotations, and calibration files are organized.</p>
-                            </div>
-                        </div>
-                        <div class="directory-slot-canvas" aria-label="Reserved area for the final dataset directory tree">
-                            <div class="directory-slot-label"><span>Dataset directory structure</span></div>
-                            <div class="directory-placeholder" aria-hidden="true">
-                                <span class="placeholder-root"></span>
-                                <div class="placeholder-branch">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </div>
-                                <div class="placeholder-branch placeholder-branch--short">
-                                    <span></span>
-                                    <span></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <section class="paper-section paper-section--alt" id="composition">
-                <div class="container px-4 px-lg-5">
-                    <div class="section-heading">
-                        <span class="section-number">02</span>
-                        <div>
-                            <p class="section-type">Dataset analysis</p>
-                            <h2>Composition and label balance</h2>
-                        </div>
-                    </div>
-                    <p class="section-summary">The dataset uses a 70% / 15% / 15% train/validation/test split: 2,630 training frames, 564 validation frames, and 564 test frames. All 3,758 synchronized RGB-D records are retained. Per-split instance statistics are pending; blank cells indicate values not yet reported.</p>
+                    <h3 class="dataset-subheading" id="composition">Split and label distributions</h3>
                     <div class="composition-grid">
                         <div class="table-responsive collection-table-wrap">
                             <table class="collection-table">
-                                <caption>Train/validation/test sample counts and available instance statistics</caption>
+                                <caption>Frame counts, instance counts, and mean instance density by split</caption>
                                 <thead>
                                     <tr>
                                         <th scope="col">Split</th>
@@ -201,22 +202,22 @@
                                         <th scope="row">Train</th>
                                         <td>2,630</td>
                                         <td>70%</td>
-                                        <td></td>
-                                        <td></td>
+                                        <td>9,898</td>
+                                        <td>3.76</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Validation</th>
                                         <td>564</td>
                                         <td>15%</td>
-                                        <td></td>
-                                        <td></td>
+                                        <td>2,250</td>
+                                        <td>3.99</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Test</th>
                                         <td>564</td>
                                         <td>15%</td>
-                                        <td></td>
-                                        <td></td>
+                                        <td>2,138</td>
+                                        <td>3.79</td>
                                     </tr>
                                 </tbody>
                                 <tfoot>
@@ -231,11 +232,8 @@
                             </table>
                         </div>
                         <div class="label-summary">
-                            <h3>Label encoding</h3>
-                            <div class="label-group-row">
-                                <p class="label-group-title">Instance attributes</p>
-                                <p class="label-group-title">Keypoint attributes</p>
-                            </div>
+                            <h3>Label distributions</h3>
+                            <p class="label-footnote">Maturity and ripeness share the same label encoding. Counts below cover all splits.</p>
                             <div class="label-definition-grid">
                                 <div class="label-definition-item label-definition-item--ripeness">
                                     <h4>Ripeness</h4>
@@ -263,228 +261,202 @@
                                         <span>5,008 (35.1%)</span>
                                     </div>
                                 </div>
+                                <div class="label-definition-item label-definition-item--harvestability">
+                                    <h4>Harvestability</h4>
+                                    <div class="label-row">
+                                        <span>0</span>
+                                        <span>Not harvestable</span>
+                                        <span>10,393 (72.8%)</span>
+                                    </div>
+                                    <div class="label-row">
+                                        <span>1</span>
+                                        <span>Harvestable</span>
+                                        <span>3,893 (27.2%)</span>
+                                    </div>
+                                </div>
                                 <div class="label-definition-item label-definition-item--keypoint">
                                     <h4>Keypoint visibility</h4>
                                     <div class="label-row">
                                         <span>0</span>
                                         <span>Outside image</span>
-                                        <span>774 (1.1%)</span>
+                                        <span>759 (1.1%)</span>
                                     </div>
                                     <div class="label-row">
                                         <span>1</span>
                                         <span>Occluded but inferable</span>
-                                        <span>10,062 (14.1%)</span>
+                                        <span>10,073 (14.1%)</span>
                                     </div>
                                     <div class="label-row">
                                         <span>2</span>
                                         <span>Visible</span>
-                                        <span>60,594 (84.8%)</span>
+                                        <span>60,598 (84.8%)</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <figure class="research-figure data-figure">
-                        <div class="figure-frame figure-frame--clean"><img src="assets/dataset-distributions.webp" alt="Charts showing train, validation, and test frame counts, available per-split instance counts, and ripeness, occlusion, and keypoint visibility distributions" width="1800" height="1250" loading="lazy" /></div>
+                        <div class="figure-frame figure-frame--clean"><img src="assets/dataset-distributions.svg" alt="Charts showing train, validation, and test frame counts, per-split instance counts, and ripeness, occlusion, harvestability, and keypoint visibility distributions" width="1800" height="1250" loading="lazy" /></div>
                         <figcaption>
                             <span class="figure-number">Figure 2.</span>
-                            Dataset-wide counts. Ripeness labels: 0 = immature, 1 = mature; occlusion labels: 0 = non-occluded, 1 = occluded. Keypoint visibility states: 0 = outside the image, 1 = occluded but inferable, and 2 = visible.
+                            Distribution overview for dataset splits, ripeness, occlusion, harvestability, and keypoint visibility.
                         </figcaption>
                     </figure>
                 </div>
             </section>
-            <section class="paper-section" id="protocol">
+            <section class="paper-section paper-section--alt" id="protocol">
                 <div class="container px-4 px-lg-5">
                     <div class="section-heading">
-                        <span class="section-number">03</span>
+                        <span class="section-number">02</span>
                         <div>
                             <p class="section-type">Data specification</p>
-                            <h2>Modalities and annotation protocol</h2>
+                            <h2>Dataset organization and annotation format</h2>
                         </div>
                     </div>
-                    <p class="section-summary">Every four-digit sample ID identifies one synchronized record inside train, validation, or test. Post-processed aligned depth is used for the 3D visualization below, with calibration selected from the dataset-wide image-to-camera mapping.</p>
-                    <div class="table-responsive protocol-table-wrap">
-                        <table class="protocol-table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Data modality</th>
-                                    <th scope="col">File format</th>
-                                    <th scope="col">Count</th>
-                                    <th scope="col">Purpose</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">RGB</th>
-                                    <td>1280 × 720 PNG</td>
-                                    <td>3,758</td>
-                                    <td>Appearance, localization, and attribute recognition</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Aligned depth</th>
-                                    <td>16-bit depth PNG aligned to color</td>
-                                    <td>3,758</td>
-                                    <td>RGB-D fusion and metric geometry</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Processed depth</th>
-                                    <td>Spatial, temporal, and hole-filled aligned depth</td>
-                                    <td>3,758</td>
-                                    <td>Stable visualization and downstream geometry</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Raw depth</th>
-                                    <td>Original 16-bit depth PNG</td>
-                                    <td>3,758</td>
-                                    <td>Reprocessing and sensor-level studies</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Instance label</th>
-                                    <td>LabelMe JSON</td>
-                                    <td>3,758</td>
-                                    <td>Boxes, five keypoints, ripeness, and occlusion</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Calibration map</th>
-                                    <td>Per-image XLSX mapping plus four camera JSON files</td>
-                                    <td>3,758</td>
-                                    <td>Select the correct camera intrinsics for metric reconstruction</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="annotation-schema" aria-labelledby="annotation-schema-title">
-                        <div class="annotation-json">
-                            <div class="annotation-json-header">
-                                <div>
-                                    <p class="annotation-eyebrow">Annotation hierarchy</p>
-                                    <h3 id="annotation-schema-title">LabelMe JSON schema</h3>
-                                </div>
-                                <span class="annotation-format">3 levels</span>
+                    <p class="section-summary">RGB images and depth maps are organized by split, while train, validation, and test annotations are stored as three COCO-style JSON files under annotations/.</p>
+                    <div class="spec-docs">
+                        <section class="spec-doc-section" aria-labelledby="directory-structure-title">
+                            <h3 id="directory-structure-title">Dataset organization</h3>
+                            <pre class="spec-doc-directory" aria-label="Dataset directory tree"><code>TopoStrawberry-RGBD/
+├── images/
+│   ├── train/
+│   ├── val/
+│   └── test/
+├── depth/
+│   ├── train/
+│   ├── val/
+│   └── test/
+└── annotations/
+    ├── strawberry_keypoints_train.json
+    ├── strawberry_keypoints_val.json
+    └── strawberry_keypoints_test.json</code></pre>
+                            <p class="spec-doc-note">RGB and depth frames share matching filenames within each split.</p>
+                            <p class="spec-doc-note">Depth maps are unsigned 16-bit PNGs (uint16), with values in millimeters (0.001 meters per unit). A value of 0 indicates invalid depth.</p>
+                        </section>
+                        <section class="spec-doc-section" aria-labelledby="annotation-schema-title">
+                            <h3 id="annotation-schema-title">Annotation format</h3>
+                            <div class="spec-doc-file">
+                                <code>strawberry_keypoints_{split}.json</code>
+                                <span>train · val · test</span>
                             </div>
-                            <div class="json-tree" role="tree" aria-label="JSON annotation field hierarchy">
-                                <div class="json-tree-root" role="treeitem" aria-expanded="true">
-                                    <span class="tree-bracket">{</span>
-                                    <span class="tree-label">Root</span>
-                                </div>
-                                <div class="json-tree-branch">
-                                    <div class="json-tree-item" role="treeitem">
-                                        <code>version</code>
-                                        <span class="tree-type">5.5.0</span>
-                                    </div>
-                                    <div class="json-tree-item" role="treeitem">
-                                        <code>flags</code>
-                                        <span class="tree-type">object</span>
-                                    </div>
-                                    <div class="json-tree-item json-tree-item--group" role="treeitem" aria-expanded="true">
-                                        <code>shapes[]</code>
-                                        <span class="tree-type">ordered annotation objects</span>
-                                    </div>
-                                    <div class="json-tree-branch json-tree-branch--nested" role="group">
-                                        <div class="json-tree-node" role="treeitem" aria-expanded="true">
-                                            <div class="json-tree-node-title">
-                                                <span class="tree-node-kind">Instance</span>
-                                                <code>shape_type: rectangle</code>
-                                            </div>
-                                            <div class="tree-field-list">
-                                                <span>label</span>
-                                                <span>points: 2 bbox corners</span>
-                                                <span>group_id</span>
-                                                <span>occlusion</span>
-                                                <span>ripeness</span>
-                                            </div>
-                                        </div>
-                                        <div class="json-tree-node" role="treeitem" aria-expanded="true">
-                                            <div class="json-tree-node-title">
-                                                <span class="tree-node-kind">Keypoints</span>
-                                                <code>shape_type: point</code>
-                                            </div>
-                                            <div class="tree-field-list">
-                                                <span>label</span>
-                                                <span>points: (x, y)</span>
-                                                <span>group_id</span>
-                                                <span>visibility</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="json-tree-more" role="treeitem"><span class="tree-ellipsis">… repeat for each instance</span></div>
-                                    <div class="json-tree-item json-tree-item--close" role="treeitem">
-                                        <code>imagePath · imageData</code>
-                                        <span class="tree-type">image metadata</span>
-                                    </div>
-                                    <div class="json-tree-item" role="treeitem">
-                                        <code>imageHeight · imageWidth</code>
-                                        <span class="tree-type">integer</span>
-                                    </div>
-                                </div>
-                                <div class="json-tree-close" aria-hidden="true">}</div>
+                            <p class="spec-doc-note">Selected records from the training file: image 0238.png and instance 916. Metadata and category fields are abbreviated; instance values are preserved.</p>
+                            <pre class="spec-doc-json" tabindex="0" aria-label="Real COCO annotation example from the training split"><code>{
+  "info": {
+    "version": "1.0"
+  },
+  "licenses": [],
+  "categories": [
+    {
+      "id": 1,
+      "name": "strawberry",
+      "keypoints": ["Cut", "Top", "Bottom", "Left", "Right"]
+    }
+  ],
+  "images": [
+    {
+      "id": 238,
+      "file_name": "0238.png",
+      "width": 1280,
+      "height": 720
+    }
+  ],
+  "annotations": [
+    {
+      "id": 916,
+      "image_id": 238,
+      "category_id": 1,
+      "bbox": [320.07518796992485, 369.02255639097746, 92.48120300751879, 149.62406015037584],
+      "area": 13837.41308157611,
+      "iscrowd": 0,
+      "num_keypoints": 5,
+      "keypoints": [371.203007518797, 373.5338345864662, 2, 368.94736842105266, 408.8721804511278, 2, 359.9248120300752, 514.8872180451127, 2, 323.08270676691734, 441.203007518797, 2, 408.796992481203, 444.9624060150376, 2],
+      "segmentation": [],
+      "maturity": 1,
+      "ripeness": 1,
+      "occlusion": 0,
+      "harvestability": 1
+    }
+  ]
+}</code></pre>
+                            <p class="spec-doc-note">
+                                <code>image_id</code>
+                                links an annotation to
+                                <code>images.id</code>
+                                ;
+                                <code>category_id</code>
+                                links it to
+                                <code>categories.id</code>
+                                .
+                            </p>
+                        </section>
+                        <section class="spec-doc-section" aria-labelledby="instance-fields-title">
+                            <h3 id="instance-fields-title">Instance annotation fields</h3>
+                            <div class="spec-doc-table-wrap" tabindex="0" role="region" aria-label="Instance annotation field descriptions">
+                                <table class="spec-doc-table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Field</th>
+                                            <th scope="col">Description</th>
+                                            <th scope="col">Format</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row"><code>bbox</code></th>
+                                            <td>Bounding box in pixel coordinates</td>
+                                            <td>[x, y, width, height]</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><code>keypoints</code></th>
+                                            <td>Five ordered keypoints: Cut, Top, Bottom, Left, Right</td>
+                                            <td>5 × [x, y, visibility]</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><code>maturity</code></th>
+                                            <td>Maturity state</td>
+                                            <td>binary: 0 = unripe; 1 = ripe</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><code>ripeness</code></th>
+                                            <td>Maturity state (same encoding as maturity)</td>
+                                            <td>binary: 0 = unripe; 1 = ripe</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><code>occlusion</code></th>
+                                            <td>Instance occlusion state</td>
+                                            <td>binary: 0 = unoccluded; 1 = occluded</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><code>harvestability</code></th>
+                                            <td>Harvest suitability</td>
+                                            <td>binary: 0 = not harvestable; 1 = harvestable</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                        </div>
-                        <div class="annotation-guide">
-                            <article class="schema-group">
-                                <span class="schema-index">01</span>
-                                <div class="schema-copy">
-                                    <h3>Structure</h3>
-                                    <p>
-                                        The JSON file stores image metadata and annotations. All labels are organized in
-                                        <code>shapes[]</code>
-                                        .
-                                    </p>
-                                </div>
-                            </article>
-                            <article class="schema-group">
-                                <span class="schema-index">02</span>
-                                <div class="schema-copy">
-                                    <h3>Instance</h3>
-                                    <p>
-                                        Each strawberry instance is represented by one bounding box.
-                                        <code>points</code>
-                                        defines the bounding box, while
-                                        <code>group_id</code>
-                                        links the instance with its attributes and keypoints.
-                                    </p>
-                                    <div class="schema-fields">
-                                        <code>label: strawberry</code>
-                                        <code>points: 2 × [x, y] (top-left & bottom-right corners)</code>
-                                        <code>group_id: instance id</code>
-                                        <code>ripeness: 0 | 1</code>
-                                        <code>occlusion: 0 | 1</code>
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="schema-group">
-                                <span class="schema-index">03</span>
-                                <div class="schema-copy">
-                                    <h3>Keypoints</h3>
-                                    <p>
-                                        Each strawberry contains five anatomical keypoints: Cut, Top, Bottom, Left, and Right.
-                                        <code>group_id</code>
-                                        associates each point with its instance, and
-                                        <code>visibility</code>
-                                        records keypoint visibility.
-                                    </p>
-                                    <div class="schema-fields">
-                                        <code>label: Cut | Top | Bottom | Left | Right</code>
-                                        <code>points: [x, y] (location)</code>
-                                        <code>group_id: instance id</code>
-                                        <code>visibility: 0 | 1 | 2</code>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
+                            <p class="spec-doc-note">Keypoint visibility: 0 = outside the image; 1 = occluded but inferable; 2 = visible.</p>
+                            <p class="spec-doc-field-summary">
+                                <strong>COCO-compatible fields:</strong>
+                                <code>id, image_id, category_id, bbox, area, iscrowd, segmentation, keypoints, num_keypoints</code>
+                            </p>
+                            <p class="spec-doc-field-summary">
+                                <strong>Dataset-specific fields:</strong>
+                                <code>maturity, ripeness, occlusion, harvestability</code>
+                            </p>
+                        </section>
                     </div>
                 </div>
             </section>
             <section class="paper-section paper-section--alt" id="benchmark">
                 <div class="container px-4 px-lg-5">
                     <div class="section-heading">
-                        <span class="section-number">04</span>
+                        <span class="section-number">03</span>
                         <div>
                             <p class="section-type">Baseline evaluation</p>
                             <h2>Keypoint benchmark results</h2>
                         </div>
                     </div>
-                    <p class="section-summary">The table compares representative pose-estimation methods on the strawberry keypoint benchmark. Results are grouped by publication year, with configurations from each model family kept together. Blank cells indicate results not reported.</p>
+                    <p class="section-summary">Keypoint detection results on the TopoStrawberry-RGBD test set. Methods are grouped by publication year and model family; bold values indicate the best result for each metric.</p>
                     <div class="table-responsive benchmark-table-wrap">
                         <table class="benchmark-table">
                             <caption class="visually-hidden">Strawberry keypoint benchmark results ordered by publication year and model family</caption>
@@ -492,164 +464,194 @@
                                 <tr>
                                     <th scope="col">Method</th>
                                     <th class="numeric" scope="col">Year</th>
-                                    <th class="numeric" scope="col">AP</th>
-                                    <th class="numeric" scope="col">AP50</th>
-                                    <th class="numeric" scope="col">AP75</th>
-                                    <th class="numeric" scope="col">AR</th>
-                                    <th class="numeric" scope="col">GFLOPs</th>
-                                    <th class="numeric" scope="col">FPS</th>
+                                    <th class="numeric" scope="col">AP ↑</th>
+                                    <th class="numeric" scope="col">AP50 ↑</th>
+                                    <th class="numeric" scope="col">AP75 ↑</th>
+                                    <th class="numeric" scope="col">AR ↑</th>
+                                    <th class="numeric" scope="col">GFLOPs ↓</th>
+                                    <th class="numeric" scope="col">FPS ↑</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr class="benchmark-group-start">
                                     <th scope="row">CenterNet-DLA34</th>
                                     <td class="numeric">2019</td>
-                                    <td class="numeric">62.70</td>
-                                    <td class="numeric">93.40</td>
-                                    <td class="numeric">69.90</td>
-                                    <td class="numeric">69.70</td>
-                                    <td class="numeric">32.99</td>
-                                    <td class="numeric">25.34</td>
+                                    <td class="numeric">64.70</td>
+                                    <td class="numeric">94.26</td>
+                                    <td class="numeric">73.77</td>
+                                    <td class="numeric">72.45</td>
+                                    <td class="numeric">40.54</td>
+                                    <td class="numeric">87.56</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">CenterNet-Hourglass104</th>
                                     <td class="numeric">2019</td>
-                                    <td class="numeric">64.60</td>
-                                    <td class="numeric">93.90</td>
-                                    <td class="numeric">74.10</td>
-                                    <td class="numeric">71.70</td>
-                                    <td class="numeric">350.43</td>
-                                    <td class="numeric">15.99</td>
+                                    <td class="numeric">67.89</td>
+                                    <td class="numeric">95.35</td>
+                                    <td class="numeric">78.01</td>
+                                    <td class="numeric">75.30</td>
+                                    <td class="numeric">350.49</td>
+                                    <td class="numeric">43.75</td>
                                 </tr>
                                 <tr class="benchmark-group-start">
                                     <th scope="row">CID-HRNet-W32</th>
                                     <td class="numeric">2022</td>
-                                    <td class="numeric">74.84</td>
-                                    <td class="numeric">96.76</td>
-                                    <td class="numeric">86.33</td>
-                                    <td class="numeric">80.30</td>
-                                    <td class="numeric">42.45</td>
-                                    <td class="numeric">14.21</td>
+                                    <td class="numeric">73.56</td>
+                                    <td class="numeric">96.72</td>
+                                    <td class="numeric">85.00</td>
+                                    <td class="numeric">79.81</td>
+                                    <td class="numeric">78.77</td>
+                                    <td class="numeric">34.79</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">CID-HRNet-W48</th>
                                     <td class="numeric">2022</td>
-                                    <td class="numeric">74.44</td>
-                                    <td class="numeric">96.71</td>
-                                    <td class="numeric">84.95</td>
-                                    <td class="numeric">80.00</td>
-                                    <td class="numeric">85.70</td>
-                                    <td class="numeric">14.54</td>
+                                    <td class="numeric">73.46</td>
+                                    <td class="numeric benchmark-best">97.56</td>
+                                    <td class="numeric">84.47</td>
+                                    <td class="numeric">79.74</td>
+                                    <td class="numeric">161.50</td>
+                                    <td class="numeric">35.65</td>
                                 </tr>
                                 <tr class="benchmark-group-start">
                                     <th scope="row">PETR-R50</th>
                                     <td class="numeric">2022</td>
-                                    <td class="numeric">75.60</td>
-                                    <td class="numeric">95.90</td>
-                                    <td class="numeric">87.40</td>
-                                    <td class="numeric">83.00</td>
-                                    <td class="numeric">216.54</td>
-                                    <td class="numeric">8.98</td>
+                                    <td class="numeric">66.50</td>
+                                    <td class="numeric">88.32</td>
+                                    <td class="numeric">77.35</td>
+                                    <td class="numeric">78.10</td>
+                                    <td class="numeric">218.02</td>
+                                    <td class="numeric">12.49</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">PETR-R101</th>
                                     <td class="numeric">2022</td>
-                                    <td class="numeric">73.40</td>
-                                    <td class="numeric">94.30</td>
-                                    <td class="numeric">84.60</td>
-                                    <td class="numeric">82.50</td>
-                                    <td class="numeric">296.31</td>
-                                    <td class="numeric">8.20</td>
+                                    <td class="numeric">67.48</td>
+                                    <td class="numeric">89.17</td>
+                                    <td class="numeric">77.45</td>
+                                    <td class="numeric">79.11</td>
+                                    <td class="numeric">293.07</td>
+                                    <td class="numeric">11.66</td>
                                 </tr>
                                 <tr class="benchmark-group-start">
                                     <th scope="row">YOLOX-Pose-S</th>
                                     <td class="numeric">2022</td>
-                                    <td class="numeric">72.24</td>
-                                    <td class="numeric">96.60</td>
-                                    <td class="numeric">81.43</td>
-                                    <td class="numeric">78.04</td>
-                                    <td class="numeric">18.30</td>
-                                    <td class="numeric benchmark-best">57.22</td>
+                                    <td class="numeric">72.17</td>
+                                    <td class="numeric">96.41</td>
+                                    <td class="numeric">82.34</td>
+                                    <td class="numeric">78.30</td>
+                                    <td class="numeric">18.47</td>
+                                    <td class="numeric benchmark-best">92.63</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">YOLOX-Pose-M</th>
                                     <td class="numeric">2022</td>
-                                    <td class="numeric">74.33</td>
-                                    <td class="numeric">96.67</td>
-                                    <td class="numeric">83.75</td>
-                                    <td class="numeric">79.57</td>
-                                    <td class="numeric">47.94</td>
-                                    <td class="numeric">48.73</td>
+                                    <td class="numeric">72.00</td>
+                                    <td class="numeric">96.40</td>
+                                    <td class="numeric">81.57</td>
+                                    <td class="numeric">78.22</td>
+                                    <td class="numeric">48.26</td>
+                                    <td class="numeric">84.87</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">YOLOX-Pose-L</th>
                                     <td class="numeric">2022</td>
-                                    <td class="numeric">76.64</td>
-                                    <td class="numeric">96.68</td>
-                                    <td class="numeric">86.62</td>
-                                    <td class="numeric">81.47</td>
-                                    <td class="numeric">97.52</td>
-                                    <td class="numeric">46.98</td>
+                                    <td class="numeric">72.57</td>
+                                    <td class="numeric">97.35</td>
+                                    <td class="numeric">82.73</td>
+                                    <td class="numeric">78.92</td>
+                                    <td class="numeric">98.03</td>
+                                    <td class="numeric">70.07</td>
                                 </tr>
                                 <tr class="benchmark-group-start">
-                                    <th scope="row">GroupPose-Swin-T</th>
+                                    <th scope="row">ED-Pose-R50</th>
                                     <td class="numeric">2023</td>
-                                    <td class="numeric"></td>
-                                    <td class="numeric"></td>
-                                    <td class="numeric"></td>
-                                    <td class="numeric"></td>
-                                    <td class="numeric"></td>
-                                    <td class="numeric"></td>
+                                    <td class="numeric">74.21</td>
+                                    <td class="numeric">97.55</td>
+                                    <td class="numeric benchmark-best">85.63</td>
+                                    <td class="numeric benchmark-best">81.60</td>
+                                    <td class="numeric">273.72</td>
+                                    <td class="numeric">17.31</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">GroupPose-Swin-L</th>
+                                    <th scope="row">ED-Pose-R101</th>
                                     <td class="numeric">2023</td>
-                                    <td class="numeric"></td>
-                                    <td class="numeric"></td>
-                                    <td class="numeric"></td>
-                                    <td class="numeric"></td>
-                                    <td class="numeric"></td>
-                                    <td class="numeric"></td>
+                                    <td class="numeric">73.49</td>
+                                    <td class="numeric">97.51</td>
+                                    <td class="numeric">84.65</td>
+                                    <td class="numeric">80.68</td>
+                                    <td class="numeric">348.77</td>
+                                    <td class="numeric">15.84</td>
                                 </tr>
                                 <tr class="benchmark-group-start">
                                     <th scope="row">RTMO-S</th>
                                     <td class="numeric">2024</td>
-                                    <td class="numeric">71.73</td>
-                                    <td class="numeric">96.15</td>
-                                    <td class="numeric">80.86</td>
-                                    <td class="numeric">77.63</td>
-                                    <td class="numeric benchmark-best">12.13</td>
-                                    <td class="numeric">49.44</td>
+                                    <td class="numeric">71.28</td>
+                                    <td class="numeric">96.39</td>
+                                    <td class="numeric">80.67</td>
+                                    <td class="numeric">77.08</td>
+                                    <td class="numeric benchmark-best">12.31</td>
+                                    <td class="numeric">83.68</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">RTMO-M</th>
                                     <td class="numeric">2024</td>
-                                    <td class="numeric">71.07</td>
-                                    <td class="numeric">96.43</td>
-                                    <td class="numeric">80.26</td>
-                                    <td class="numeric">77.24</td>
-                                    <td class="numeric">31.65</td>
-                                    <td class="numeric">50.78</td>
+                                    <td class="numeric">69.39</td>
+                                    <td class="numeric">96.32</td>
+                                    <td class="numeric">78.76</td>
+                                    <td class="numeric">75.83</td>
+                                    <td class="numeric">31.96</td>
+                                    <td class="numeric">74.63</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">RTMO-L</th>
                                     <td class="numeric">2024</td>
-                                    <td class="numeric">74.76</td>
-                                    <td class="numeric">96.50</td>
-                                    <td class="numeric">84.55</td>
-                                    <td class="numeric">80.41</td>
-                                    <td class="numeric">67.54</td>
-                                    <td class="numeric">44.61</td>
+                                    <td class="numeric">71.67</td>
+                                    <td class="numeric">96.28</td>
+                                    <td class="numeric">80.65</td>
+                                    <td class="numeric">78.00</td>
+                                    <td class="numeric">67.99</td>
+                                    <td class="numeric">64.61</td>
+                                </tr>
+                                <tr class="benchmark-group-start">
+                                    <th scope="row">DETRPose-S</th>
+                                    <td class="numeric">2025</td>
+                                    <td class="numeric">70.20</td>
+                                    <td class="numeric">96.69</td>
+                                    <td class="numeric">81.14</td>
+                                    <td class="numeric">77.96</td>
+                                    <td class="numeric">13.26</td>
+                                    <td class="numeric">63.05</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">DETRPose-M</th>
+                                    <td class="numeric">2025</td>
+                                    <td class="numeric">65.13</td>
+                                    <td class="numeric">93.74</td>
+                                    <td class="numeric">74.50</td>
+                                    <td class="numeric">74.84</td>
+                                    <td class="numeric">29.86</td>
+                                    <td class="numeric">46.19</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">DETRPose-L</th>
+                                    <td class="numeric">2025</td>
+                                    <td class="numeric">73.45</td>
+                                    <td class="numeric">96.47</td>
+                                    <td class="numeric">84.91</td>
+                                    <td class="numeric">80.54</td>
+                                    <td class="numeric">47.75</td>
+                                    <td class="numeric">39.59</td>
                                 </tr>
                                 <tr class="benchmark-group-start benchmark-row--ours">
                                     <th scope="row">TopoStrawberry-Net (Ours)</th>
                                     <td class="numeric">2026</td>
-                                    <td class="numeric">78.19</td>
-                                    <td class="numeric">96.84</td>
-                                    <td class="numeric">89.73</td>
-                                    <td class="numeric">82.39</td>
-                                    <td class="numeric"></td>
-                                    <td class="numeric"></td>
+                                    <td class="numeric benchmark-best">75.01</td>
+                                    <td class="numeric">97.48</td>
+                                    <td class="numeric">85.54</td>
+                                    <td class="numeric">80.43</td>
+                                    <td class="numeric">99.21</td>
+                                    <td class="numeric">61.73</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -657,7 +659,7 @@
                     <div class="benchmark-notes">
                         <p>
                             <strong>Metric definition.</strong>
-                            AP is COCO keypoint AP averaged over OKS 0.50:0.95; AP, AP50, AP75, and AR are reported as percentages. GFLOPs denotes the estimated cost of one forward pass; FPS denotes frames per second.
+                            AP is COCO keypoint AP averaged over OKS 0.50:0.95; AP, AP50, AP75, and AR are reported as percentages. GFLOPs counts one fused multiply-add (FMA) as one operation; FPS denotes frames per second.
                         </p>
                     </div>
                 </div>
@@ -665,13 +667,13 @@
             <section class="paper-section" id="visualizations">
                 <div class="container px-4 px-lg-5">
                     <div class="section-heading">
-                        <span class="section-number">05</span>
+                        <span class="section-number">04</span>
                         <div>
                             <p class="section-type">Qualitative inspection</p>
                             <h2>Annotation and depth visualizations</h2>
                         </div>
                     </div>
-                    <p class="section-summary">Both views below use the same representative sample. The first shows the complete instance-level label overlay; the second uses the labels and subject depth to retain strawberries, foliage, and nearby background in a colorized 3D point cloud.</p>
+                    <p class="section-summary">Both views below use the same representative sample. The first shows bounding boxes, five anatomical keypoints, ripeness, and occlusion labels; the second uses the labels and subject depth to retain strawberries, foliage, and nearby background in a colorized 3D point cloud.</p>
                     <div class="visual-stack">
                         <figure class="research-figure visual-figure">
                             <div class="figure-frame figure-frame--clean"><img src="assets/dataset-annotation-overview.webp" alt="Complete instance annotation overlay for representative training sample 0238" width="1800" height="1080" loading="lazy" /></div>
@@ -716,7 +718,7 @@
             <section class="paper-section paper-section--alt" id="resources">
                 <div class="container px-4 px-lg-5">
                     <div class="section-heading">
-                        <span class="section-number">06</span>
+                        <span class="section-number">05</span>
                         <div>
                             <p class="section-type">Dataset access</p>
                             <h2>Downloads and resources</h2>

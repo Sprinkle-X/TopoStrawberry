@@ -1,5 +1,5 @@
 /*!
-* Strawberry Dataset website v1.0.0
+* TopoStrawberry website v1.0.0
 * Project code licensed under MIT
 */
 /*!

@@ -13,10 +13,11 @@ module.exports = function renderAssets() {
         'strawberry-mascot.png',
         'strawberry-field.webp',
         'dataset-annotation-overview.webp',
-        'dataset-distributions.webp',
+        'dataset-distributions.svg',
         'dataset-pointcloud.webp',
         'dataset-pointcloud-data.json',
         'dataset-summary.json',
+        'TopoStrawberry_Dataset_Access_Application.docx',
     ];
 
     sh.mkdir('-p', destPath);

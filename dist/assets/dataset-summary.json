@@ -1,55 +1,105 @@
 {
-  "generated_at": "2026-08-03T01:50:05.723618+00:00",
-  "dataset_root": "data",
+  "updated_on": "2026-10-07",
+  "dataset_name": "TopoStrawberry-RGBD",
+  "dataset_root": "TopoStrawberry-RGBD",
   "layout": "train_val_test",
+  "format": "COCO keypoint with instance attributes",
   "partitions": [
     {
       "partition": "train",
       "label": "Train",
       "samples": 2630,
       "share_percent": 70,
-      "instances": null,
-      "keypoints": null,
-      "schema_complete_instances": null,
-      "invalid_boxes": null,
-      "unmatched_keypoints": null,
-      "ripeness": null,
-      "occlusion": null,
-      "keypoint_visibility": null,
-      "modalities": null,
-      "fully_paired_samples": null
+      "instances": 9898,
+      "keypoints": 49490,
+      "mean_instances_per_frame": 3.76,
+      "fully_paired_samples": 2630,
+      "annotation_files": 1,
+      "ripeness": {
+        "0": 3500,
+        "1": 6398
+      },
+      "maturity": {
+        "0": 3500,
+        "1": 6398
+      },
+      "occlusion": {
+        "0": 6460,
+        "1": 3438
+      },
+      "harvestability": {
+        "0": 7197,
+        "1": 2701
+      },
+      "keypoint_visibility": {
+        "0": 555,
+        "1": 6942,
+        "2": 41993
+      }
     },
     {
       "partition": "val",
       "label": "Validation",
       "samples": 564,
       "share_percent": 15,
-      "instances": null,
-      "keypoints": null,
-      "schema_complete_instances": null,
-      "invalid_boxes": null,
-      "unmatched_keypoints": null,
-      "ripeness": null,
-      "occlusion": null,
-      "keypoint_visibility": null,
-      "modalities": null,
-      "fully_paired_samples": null
+      "instances": 2250,
+      "keypoints": 11250,
+      "mean_instances_per_frame": 3.99,
+      "fully_paired_samples": 564,
+      "annotation_files": 1,
+      "ripeness": {
+        "0": 721,
+        "1": 1529
+      },
+      "maturity": {
+        "0": 721,
+        "1": 1529
+      },
+      "occlusion": {
+        "0": 1430,
+        "1": 820
+      },
+      "harvestability": {
+        "0": 1643,
+        "1": 607
+      },
+      "keypoint_visibility": {
+        "0": 120,
+        "1": 1638,
+        "2": 9492
+      }
     },
     {
       "partition": "test",
       "label": "Test",
       "samples": 564,
       "share_percent": 15,
-      "instances": null,
-      "keypoints": null,
-      "schema_complete_instances": null,
-      "invalid_boxes": null,
-      "unmatched_keypoints": null,
-      "ripeness": null,
-      "occlusion": null,
-      "keypoint_visibility": null,
-      "modalities": null,
-      "fully_paired_samples": null
+      "instances": 2138,
+      "keypoints": 10690,
+      "mean_instances_per_frame": 3.79,
+      "fully_paired_samples": 564,
+      "annotation_files": 1,
+      "ripeness": {
+        "0": 736,
+        "1": 1402
+      },
+      "maturity": {
+        "0": 736,
+        "1": 1402
+      },
+      "occlusion": {
+        "0": 1388,
+        "1": 750
+      },
+      "harvestability": {
+        "0": 1553,
+        "1": 585
+      },
+      "keypoint_visibility": {
+        "0": 84,
+        "1": 1493,
+        "2": 9113
+      }
     }
   ],
   "overall": {
@@ -57,32 +107,23 @@
     "samples": 3758,
     "instances": 14286,
     "keypoints": 71430,
-    "expected_keypoints": 71430,
     "mean_instances_per_frame": 3.8,
-    "schema_complete_instances": 14286,
-    "schema_completeness_percent": 100,
-    "valid_boxes": 14286,
-    "invalid_boxes": 0,
-    "unmatched_keypoints": 0,
     "fully_paired_samples": 3758,
-    "pairing_percent": 100,
     "rgb_files": 3758,
-    "label_files": 3758,
-    "depth_aligned_files": 3758,
-    "depth_aligned_pp_files": 3758,
-    "depth_raw_files": 3758,
-    "camera_units": 4,
-    "device_names": [
-      "Intel RealSense D435I"
-    ],
-    "calibration_mapping_records": 3758,
-    "calibration_mapping_percent": 100,
-    "total_files": 18795,
-    "total_bytes": 7113847627,
-    "total_gb_decimal": 7.11,
-    "total_gib": 6.63
+    "depth_files": 3758,
+    "annotation_files": 3,
+    "total_files": 7521,
+    "total_bytes": 5704511042,
+    "total_gb_decimal": 5.7,
+    "total_gib": 5.31,
+    "zip_bytes": 5234777873,
+    "zip_gb_decimal": 5.23
   },
   "distributions": {
+    "maturity": {
+      "0": 4957,
+      "1": 9329
+    },
     "ripeness": {
       "0": 4957,
       "1": 9329
@@ -91,22 +132,27 @@
       "0": 9278,
       "1": 5008
     },
+    "harvestability": {
+      "0": 10393,
+      "1": 3893
+    },
     "keypoint_visibility": {
-      "0": 774,
-      "1": 10062,
-      "2": 60594
+      "0": 759,
+      "1": 10073,
+      "2": 60598
     },
     "image_size": {
       "1280x720": 3758
     },
     "file_extension": {
-      ".xlsx": 1,
-      ".json": 3762,
-      ".png": 15032
+      ".json": 4,
+      ".png": 7516,
+      ".py": 1
     }
   },
   "annotation_schema": {
     "instance_label": "strawberry",
+    "category_id": 1,
     "keypoints": [
       "Cut",
       "Top",
@@ -114,50 +160,50 @@
       "Left",
       "Right"
     ],
-    "ripeness_values_observed": [
-      "0",
-      "1"
-    ],
-    "occlusion_values_observed": [
-      "0",
-      "1"
-    ],
+    "attribute_labels": {
+      "maturity": {
+        "0": "unripe",
+        "1": "ripe"
+      },
+      "ripeness": {
+        "0": "unripe",
+        "1": "ripe"
+      },
+      "occlusion": {
+        "0": "unoccluded",
+        "1": "occluded"
+      },
+      "harvestability": {
+        "0": "not harvestable",
+        "1": "harvestable"
+      }
+    },
     "visibility_values_observed": [
-      "0",
-      "1",
-      "2"
+      0,
+      1,
+      2
     ],
-    "note": "Ripeness and occlusion are reported as stored numeric categories; no undocumented semantic names are inferred."
+    "annotation_file_pattern": "annotations/strawberry_keypoints_{split}.json"
+  },
+  "depth_encoding": {
+    "dtype": "uint16",
+    "unit": "millimeter",
+    "meters_per_unit": 0.001,
+    "invalid_values": [
+      0
+    ]
   },
   "representative_sample": {
     "partition": "train",
     "stem": "0238",
-    "instances": 7,
-    "depth": {
-      "valid_pixel_percent": 99.87,
-      "p10_depth_m": 0.314,
-      "median_depth_m": 0.339,
-      "p90_depth_m": 0.385,
-      "rendered_points": 104934,
-      "foreground_depth_min_m": 0.22,
-      "foreground_depth_max_m": 0.4,
-      "foreground_roi": [
-        68,
-        68,
-        1018,
-        667
-      ],
-      "kept_sampled_pixels_percent": 47.96,
-      "calibration_file": "camera_calibration_233622079124.json"
-    }
+    "instances": 7
   },
-  "split_update": {
-    "source": "User-provided split counts",
-    "ratio_percent": [
-      70,
-      15,
-      15
-    ],
-    "note": "Per-split annotation and integrity statistics await recomputation. Dataset-wide statistics are retained from the original dataset scan; generated_at records that scan."
+  "provenance": {
+    "source": "Final release annotation JSON files and release directory file inventory",
+    "annotation_sha256": {
+      "train": "766ea251e741456bc7f935ffdd98e7c7990fec59477aae4b52d357aad8b6f902",
+      "val": "ddc79a473d6ea3564291a7a4668ddba0ca11e0978581cf2e210694db6d6aa004",
+      "test": "60b565538a69c7a66b333a0c0828c076f93ef800e20bc8874996e8062285c3bf"
+    }
   }
 }
