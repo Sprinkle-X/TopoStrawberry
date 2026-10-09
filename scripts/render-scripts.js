@@ -22,4 +22,12 @@ module.exports = function renderScripts() {
     const scriptsJS = fs.readFileSync(sourcePathScriptsJS);
     
     fs.writeFileSync(destPathScriptsJS, copyright + scriptsJS);
+    fs.copyFileSync(
+        require.resolve('bootstrap/dist/js/bootstrap.bundle.min.js'),
+        upath.join(destPath, 'js/bootstrap.bundle.min.js')
+    );
+    fs.copyFileSync(
+        require.resolve('bootstrap/dist/js/bootstrap.bundle.min.js.map'),
+        upath.join(destPath, 'js/bootstrap.bundle.min.js.map')
+    );
 };

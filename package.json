@@ -5,6 +5,7 @@
     "private": true,
     "scripts": {
         "build": "node scripts/build.js",
+        "check:site": "node scripts/check-site.js",
         "build:assets": "node scripts/build-assets.js",
         "build:pug": "node scripts/build-pug.js",
         "build:scripts": "node scripts/build-scripts.js",

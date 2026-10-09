@@ -9,12 +9,14 @@ html(lang='en')
         meta(property='og:type', content='website')
         meta(property='og:title', content='TopoStrawberry')
         meta(property='og:description', content='TopoStrawberry-RGBD: 3,758 paired RGB-D frames, 14,286 strawberry instances, and 71,430 keypoints with maturity, occlusion, and harvestability labels.')
-        meta(property='og:url', content='https://strawberry-vision-dataset.yuhao-jin.chatgpt.site/')
-        meta(property='og:image', content='https://strawberry-vision-dataset.yuhao-jin.chatgpt.site/assets/og-strawberry-dataset.jpg')
+        if siteUrl
+            meta(property='og:url', content=siteUrl)
+            meta(property='og:image', content=siteUrl + 'assets/og-strawberry-dataset.jpg')
         meta(name='twitter:card', content='summary_large_image')
         title TopoStrawberry | TopoStrawberry-RGBD
 
-        link(rel='canonical', href='https://strawberry-vision-dataset.yuhao-jin.chatgpt.site/')
+        if siteUrl
+            link(rel='canonical', href=siteUrl)
         link(rel='icon', type='image/png', sizes='64x64', href='assets/strawberry-favicon.png?v=pink')
         link(rel='apple-touch-icon', href='assets/strawberry-mascot.png?v=pink')
         include includes/css.pug
