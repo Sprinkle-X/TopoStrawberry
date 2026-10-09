@@ -3,11 +3,11 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="description" content="TopoStrawberry-RGBD is a synchronized greenhouse RGB-D strawberry dataset with 3,758 frames, 14,286 instances, bounding boxes, five keypoints, ripeness, occlusion, and harvestability annotations." />
+        <meta name="description" content="TopoStrawberry-RGBD is a synchronized greenhouse RGB-D strawberry dataset with 3,758 frames, 14,286 instances, bounding boxes, five keypoints, maturity, occlusion, and harvestability annotations." />
         <meta name="theme-color" content="#17364d" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="TopoStrawberry" />
-        <meta property="og:description" content="TopoStrawberry-RGBD: 3,758 paired RGB-D frames, 14,286 strawberry instances, and 71,430 keypoints with ripeness, occlusion, and harvestability labels." />
+        <meta property="og:description" content="TopoStrawberry-RGBD: 3,758 paired RGB-D frames, 14,286 strawberry instances, and 71,430 keypoints with maturity, occlusion, and harvestability labels." />
         <meta property="og:url" content="https://strawberry-vision-dataset.yuhao-jin.chatgpt.site/" />
         <meta property="og:image" content="https://strawberry-vision-dataset.yuhao-jin.chatgpt.site/assets/og-strawberry-dataset.jpg" />
         <meta name="twitter:card" content="summary_large_image" />
@@ -45,7 +45,7 @@
         <main id="main-content">
             <header class="research-hero" id="overview">
                 <div class="container px-4 px-lg-5">
-                    <div class="project-label">Controlled-access dataset | Updated October 2026</div>
+                    <div class="project-label">October 2026</div>
                     <h1>TopoStrawberry: A Large-Scale Harvest-Oriented RGB-D Dataset with Topological Keypoint Refinement and Keypoint-Anchored Harvest-State Recognition</h1>
                     <div class="paper-authorship" aria-label="Authors and affiliations">
                         <p class="paper-authors">
@@ -86,7 +86,7 @@
                             ,
                             <span class="paper-author">
                                 Xiaohui Zhu
-                                <sup>b,*</sup>
+                                <sup>b</sup>
                             </span>
                         </p>
                         <div class="paper-affiliations">
@@ -99,19 +99,10 @@
                                 Academy of Artificial Intelligence and Advanced Technology, Xi’an Jiaotong-Liverpool University, Suzhou, 215123, China
                             </p>
                         </div>
-                        <p class="paper-correspondence">
-                            * Corresponding author: Xiaohui Zhu (
-                            <a href="mailto:Xiaohui.Zhu@xjtlu.edu.cn">Xiaohui.Zhu@xjtlu.edu.cn</a>
-                            )
-                        </p>
                     </div>
-                    <div class="row g-5 align-items-center">
-                        <div class="col-lg-5">
-                            <p class="hero-abstract">TopoStrawberry-RGBD contains 3,758 paired frames and 14,286 annotated strawberry instances. Each annotated strawberry includes a bounding box, five anatomical keypoints, and ripeness, occlusion, and harvestability labels in COCO keypoint format with instance attributes.</p>
-                            <div class="d-flex flex-wrap gap-2 mt-3 mb-4">
-                                <a class="btn btn-research" href="#resources">Download dataset</a>
-                                <a class="btn btn-outline-research" href="#statistics">View dataset statistics</a>
-                            </div>
+                    <p class="hero-abstract">TopoStrawberry-RGBD contains 3,758 paired frames and 14,286 annotated strawberry instances. Each annotated strawberry includes a bounding box, five anatomical keypoints, and maturity, occlusion, and harvestability labels in COCO keypoint format with instance attributes.</p>
+                    <div class="row g-5 align-items-start hero-content-layout">
+                        <div class="col-12 col-xl-5">
                             <dl class="project-metadata">
                                 <div class="metadata-row">
                                     <dt>Modalities</dt>
@@ -119,11 +110,11 @@
                                 </div>
                                 <div class="metadata-row">
                                     <dt>Annotations</dt>
-                                    <dd>Bounding boxes, keypoints, ripeness, occlusion, and harvestability labels in COCO keypoint JSON format</dd>
+                                    <dd>Bounding boxes, keypoints, maturity, occlusion, and harvestability labels in COCO keypoint JSON format</dd>
                                 </div>
                                 <div class="metadata-row">
                                     <dt>Research tasks</dt>
-                                    <dd>Object detection, keypoint estimation, ripeness recognition, occlusion recognition, and harvestability recognition</dd>
+                                    <dd>Object detection, keypoint estimation, maturity recognition, occlusion recognition, and harvestability recognition</dd>
                                 </div>
                                 <div class="metadata-row">
                                     <dt>Capture system</dt>
@@ -138,13 +129,17 @@
                                     <dd>Train 2,630 / Validation 564 / Test 564 frames (70% / 15% / 15%)</dd>
                                 </div>
                             </dl>
+                            <div class="hero-table-actions mt-4">
+                                <a class="btn btn-research" href="#resources">Download dataset</a>
+                                <a class="btn btn-outline-research" href="#statistics">View dataset statistics</a>
+                            </div>
                         </div>
-                        <div class="col-lg-7">
+                        <div class="col-12 col-xl-7">
                             <figure class="research-figure hero-figure">
-                                <div class="figure-frame figure-frame--clean"><img src="assets/dataset-annotation-overview.webp" alt="Representative greenhouse RGB frame with strawberry bounding boxes, five landmark types, ripeness categories, and occlusion categories" width="1800" height="1080" fetchpriority="high" /></div>
+                                <div class="figure-frame figure-frame--clean"><img src="assets/dataset-annotation-overview.webp" alt="Representative greenhouse RGB frame with strawberry bounding boxes, five landmark types, maturity categories, and occlusion categories" width="1800" height="1080" fetchpriority="high" /></div>
                                 <figcaption>
                                     <span class="figure-number">Figure 1.</span>
-                                    Real annotation overlay from train/0238; category IDs are shown exactly as stored.
+                                    Real annotation overlay from train/0238.
                                 </figcaption>
                             </figure>
                         </div>
@@ -233,10 +228,10 @@
                         </div>
                         <div class="label-summary">
                             <h3>Label distributions</h3>
-                            <p class="label-footnote">Maturity and ripeness share the same label encoding. Counts below cover all splits.</p>
+                            <p class="label-footnote">Counts below cover all splits.</p>
                             <div class="label-definition-grid">
-                                <div class="label-definition-item label-definition-item--ripeness">
-                                    <h4>Ripeness</h4>
+                                <div class="label-definition-item label-definition-item--maturity">
+                                    <h4>Maturity</h4>
                                     <div class="label-row">
                                         <span>0</span>
                                         <span>Immature</span>
@@ -296,10 +291,10 @@
                         </div>
                     </div>
                     <figure class="research-figure data-figure">
-                        <div class="figure-frame figure-frame--clean"><img src="assets/dataset-distributions.svg" alt="Charts showing train, validation, and test frame counts, per-split instance counts, and ripeness, occlusion, harvestability, and keypoint visibility distributions" width="1800" height="1250" loading="lazy" /></div>
+                        <div class="figure-frame figure-frame--clean"><img src="assets/dataset-distributions.svg" alt="Charts showing train, validation, and test frame counts, per-split instance counts, and maturity, occlusion, harvestability, and keypoint visibility distributions" width="1800" height="1250" loading="lazy" /></div>
                         <figcaption>
                             <span class="figure-number">Figure 2.</span>
-                            Distribution overview for dataset splits, ripeness, occlusion, harvestability, and keypoint visibility.
+                            Distribution overview for dataset splits, maturity, occlusion, harvestability, and keypoint visibility.
                         </figcaption>
                     </figure>
                 </div>
@@ -317,7 +312,8 @@
                     <div class="spec-docs">
                         <section class="spec-doc-section" aria-labelledby="directory-structure-title">
                             <h3 id="directory-structure-title">Dataset organization</h3>
-                            <pre class="spec-doc-directory" aria-label="Dataset directory tree"><code>TopoStrawberry-RGBD/
+                            <div class="spec-organization-layout">
+                                <pre class="spec-doc-directory" aria-label="Dataset directory tree"><code>TopoStrawberry-RGBD/
 ├── images/
 │   ├── train/
 │   ├── val/
@@ -330,8 +326,11 @@
     ├── strawberry_keypoints_train.json
     ├── strawberry_keypoints_val.json
     └── strawberry_keypoints_test.json</code></pre>
-                            <p class="spec-doc-note">RGB and depth frames share matching filenames within each split.</p>
-                            <p class="spec-doc-note">Depth maps are unsigned 16-bit PNGs (uint16), with values in millimeters (0.001 meters per unit). A value of 0 indicates invalid depth.</p>
+                                <div class="spec-organization-notes">
+                                    <p class="spec-doc-note">RGB and depth frames share matching filenames within each split.</p>
+                                    <p class="spec-doc-note">Depth maps are unsigned 16-bit PNGs (uint16), with values in millimeters (0.001 meters per unit). A value of 0 indicates invalid depth.</p>
+                                </div>
+                            </div>
                         </section>
                         <section class="spec-doc-section" aria-labelledby="annotation-schema-title">
                             <h3 id="annotation-schema-title">Annotation format</h3>
@@ -372,7 +371,6 @@
       "keypoints": [371.203007518797, 373.5338345864662, 2, 368.94736842105266, 408.8721804511278, 2, 359.9248120300752, 514.8872180451127, 2, 323.08270676691734, 441.203007518797, 2, 408.796992481203, 444.9624060150376, 2],
       "segmentation": [],
       "maturity": 1,
-      "ripeness": 1,
       "occlusion": 0,
       "harvestability": 1
     }
@@ -417,11 +415,6 @@
                                             <td>binary: 0 = unripe; 1 = ripe</td>
                                         </tr>
                                         <tr>
-                                            <th scope="row"><code>ripeness</code></th>
-                                            <td>Maturity state (same encoding as maturity)</td>
-                                            <td>binary: 0 = unripe; 1 = ripe</td>
-                                        </tr>
-                                        <tr>
                                             <th scope="row"><code>occlusion</code></th>
                                             <td>Instance occlusion state</td>
                                             <td>binary: 0 = unoccluded; 1 = occluded</td>
@@ -441,7 +434,7 @@
                             </p>
                             <p class="spec-doc-field-summary">
                                 <strong>Dataset-specific fields:</strong>
-                                <code>maturity, ripeness, occlusion, harvestability</code>
+                                <code>maturity, occlusion, harvestability</code>
                             </p>
                         </section>
                     </div>
@@ -673,7 +666,7 @@
                             <h2>Annotation and depth visualizations</h2>
                         </div>
                     </div>
-                    <p class="section-summary">Both views below use the same representative sample. The first shows bounding boxes, five anatomical keypoints, ripeness, and occlusion labels; the second uses the labels and subject depth to retain strawberries, foliage, and nearby background in a colorized 3D point cloud.</p>
+                    <p class="section-summary">Both views below use the same representative sample. The first shows bounding boxes, five anatomical keypoints, maturity, and occlusion labels; the second uses the labels and subject depth to retain strawberries, foliage, and nearby background in a colorized 3D point cloud.</p>
                     <div class="visual-stack">
                         <figure class="research-figure visual-figure">
                             <div class="figure-frame figure-frame--clean"><img src="assets/dataset-annotation-overview.webp" alt="Complete instance annotation overlay for representative training sample 0238" width="1800" height="1080" loading="lazy" /></div>
@@ -709,7 +702,7 @@
                             </div>
                             <figcaption>
                                 <span class="figure-number">Figure 3b.</span>
-                                Interactive foreground-filtered point cloud reconstructed with mapped color-camera intrinsics. Rotate, pan, and zoom freely; a label-aware crop and 0.220–0.400 m subject-depth window retain strawberries, foliage, and nearby background while excluding distant artifacts.
+                                Interactive foreground-filtered point cloud reconstructed with mapped color-camera intrinsics.
                             </figcaption>
                         </figure>
                     </div>
@@ -741,16 +734,8 @@
                                     <dd>Controlled access</dd>
                                 </div>
                                 <div class="resource-row">
-                                    <dt>Source code</dt>
-                                    <dd>To be added</dd>
-                                </div>
-                                <div class="resource-row">
                                     <dt>Dataset license</dt>
                                     <dd>CC BY-NC 4.0</dd>
-                                </div>
-                                <div class="resource-row">
-                                    <dt>Citation</dt>
-                                    <dd>To be added with publication details</dd>
                                 </div>
                             </dl>
                         </div>

@@ -4,7 +4,7 @@ A responsive project website for a real-world strawberry dataset annotated with:
 
 - one bounding box per fruit instance;
 - five anatomical keypoints;
-- ripeness labels;
+- maturity labels;
 - occlusion labels.
 
 The public build is a focused single-page site. Legacy Start Bootstrap Pug pages are retained under `src/pug` for reference but are intentionally excluded from `dist`.

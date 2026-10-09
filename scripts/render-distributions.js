@@ -14,7 +14,7 @@ const count = values => values.reduce((out, value) => { out[value] = (out[value]
 const n = value => value.toLocaleString('en-US');
 const escape = value => String(value).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
 const colors = { navy: '#17364d', blue: '#2b6172', red: '#b33d4c', green: '#547a63', gold: '#c58b30', violet: '#76578f', muted: '#5f6c76' };
-let svg = '<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1250" viewBox="0 0 1800 1250" role="img" aria-labelledby="title desc"><title id="title">TopoStrawberry dataset composition</title><desc id="desc">Final train, validation and test frame and instance counts, with ripeness, occlusion, harvestability and keypoint visibility distributions.</desc>';
+let svg = '<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1250" viewBox="0 0 1800 1250" role="img" aria-labelledby="title desc"><title id="title">TopoStrawberry dataset composition</title><desc id="desc">Final train, validation and test frame and instance counts, with maturity, occlusion, harvestability and keypoint visibility distributions.</desc>';
 const rect = (x,y,w,h,fill,stroke='none') => { svg += `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="4" fill="${fill}" stroke="${stroke}" stroke-width="2"/>`; };
 const text = (x,y,value,size=22,color=colors.navy,bold=false) => { svg += `<text x="${x}" y="${y}" font-family="Segoe UI, Arial, sans-serif" font-size="${size}" font-weight="${bold ? 600 : 400}" fill="${color}">${escape(value)}</text>`; };
 const panel = (x,y,w,h,letter,title) => { rect(x,y,w,h,'#ffffff','#d5dde3'); text(x+28,y+36,letter,16,colors.blue,true); text(x+28,y+86,title,27,colors.navy,true); };
@@ -35,7 +35,7 @@ function horizontal(x, title, key, color, letter) {
 horizontal(44,'Frames by split','images',colors.blue,'A');
 horizontal(916,'Instances by split','annotations',colors.red,'B');
 const categories = [
-    ['Ripeness categories', count(annotations.map(a=>a.ripeness)), colors.green, '0 = unripe; 1 = ripe'],
+    ['Maturity categories', count(annotations.map(a=>a.maturity)), colors.green, '0 = unripe; 1 = ripe'],
     ['Occlusion categories', count(annotations.map(a=>a.occlusion)), colors.gold, '0 = unoccluded; 1 = occluded'],
     ['Harvestability categories', count(annotations.map(a=>a.harvestability)), colors.violet, '0 = not harvestable; 1 = harvestable'],
     ['Keypoint visibility', count(annotations.flatMap(a=>a.keypoints.filter((v,i)=>i%3===2))), colors.blue, '0 = outside; 1 = occluded; 2 = visible'],

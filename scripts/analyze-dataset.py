@@ -162,7 +162,7 @@ def scan_dataset(dataset_root: Path, preferred_sample: str | None = None) -> tup
             raise ValueError("Representative sample must use the form 'partition/stem', for example 'train/0238'.")
         preferred_partition, preferred_stem = sample_parts
     overall = Counter()
-    ripeness = Counter()
+    maturity = Counter()
     occlusion = Counter()
     visibility = Counter()
     image_sizes = Counter()
@@ -198,7 +198,7 @@ def scan_dataset(dataset_root: Path, preferred_sample: str | None = None) -> tup
         }
         paired = set.intersection(*(modality_stems[name] for name in MODALITIES))
         partition_counts = Counter()
-        partition_ripeness = Counter()
+        partition_maturity = Counter()
         partition_occlusion = Counter()
         partition_visibility = Counter()
 
@@ -219,11 +219,11 @@ def scan_dataset(dataset_root: Path, preferred_sample: str | None = None) -> tup
                     partition_counts["instances"] += 1
                     overall["instances"] += 1
                     boxes[group_id] = shape
-                    ripeness_value = str(shape.get("ripeness", "missing"))
+                    maturity_value = str(shape.get("maturity", "missing"))
                     occlusion_value = str(shape.get("occlusion", "missing"))
-                    ripeness[ripeness_value] += 1
+                    maturity[maturity_value] += 1
                     occlusion[occlusion_value] += 1
-                    partition_ripeness[ripeness_value] += 1
+                    partition_maturity[maturity_value] += 1
                     partition_occlusion[occlusion_value] += 1
                     coordinates = shape.get("points", [])
                     valid_box = False
@@ -257,7 +257,7 @@ def scan_dataset(dataset_root: Path, preferred_sample: str | None = None) -> tup
             overall["unmatched_points"] += unmatched_points
 
             n_boxes = len(boxes)
-            record_ripeness = {str(shape.get("ripeness", "missing")) for shape in boxes.values()}
+            record_maturity = {str(shape.get("maturity", "missing")) for shape in boxes.values()}
             record_occlusion = {str(shape.get("occlusion", "missing")) for shape in boxes.values()}
             complete = n_boxes > 0 and complete_groups == n_boxes
             has_all_modalities = label_path.stem in paired
@@ -266,7 +266,7 @@ def scan_dataset(dataset_root: Path, preferred_sample: str | None = None) -> tup
                 overall["calibration_mapped_samples"] += 1
             score = (
                 (40 if 5 <= n_boxes <= 12 else max(0, 20 - abs(n_boxes - 8)))
-                + (18 if len(record_ripeness) > 1 else 0)
+                + (18 if len(record_maturity) > 1 else 0)
                 + (18 if len(record_occlusion) > 1 else 0)
                 + (18 if complete else 0)
                 + (12 if has_all_modalities else 0)
@@ -302,7 +302,7 @@ def scan_dataset(dataset_root: Path, preferred_sample: str | None = None) -> tup
             "schema_complete_instances": partition_counts["complete_groups"],
             "invalid_boxes": partition_counts["invalid_boxes"],
             "unmatched_keypoints": partition_counts["unmatched_points"],
-            "ripeness": dict(sorted(partition_ripeness.items(), key=value_sort_key)),
+            "maturity": dict(sorted(partition_maturity.items(), key=value_sort_key)),
             "occlusion": dict(sorted(partition_occlusion.items(), key=value_sort_key)),
             "keypoint_visibility": dict(sorted(partition_visibility.items(), key=value_sort_key)),
             "modalities": {name: len(modality_stems[name]) for name in MODALITIES},
@@ -369,7 +369,7 @@ def scan_dataset(dataset_root: Path, preferred_sample: str | None = None) -> tup
             "total_gib": round(total_bytes / (1024**3), 2),
         },
         "distributions": {
-            "ripeness": dict(sorted(ripeness.items(), key=value_sort_key)),
+            "maturity": dict(sorted(maturity.items(), key=value_sort_key)),
             "occlusion": dict(sorted(occlusion.items(), key=value_sort_key)),
             "keypoint_visibility": dict(sorted(visibility.items(), key=value_sort_key)),
             "image_size": dict(image_sizes),
@@ -378,10 +378,10 @@ def scan_dataset(dataset_root: Path, preferred_sample: str | None = None) -> tup
         "annotation_schema": {
             "instance_label": "strawberry",
             "keypoints": list(KEYPOINTS),
-            "ripeness_values_observed": sorted(ripeness),
+            "maturity_values_observed": sorted(maturity),
             "occlusion_values_observed": sorted(occlusion),
             "visibility_values_observed": sorted(visibility),
-            "note": "Ripeness and occlusion are reported as stored numeric categories; no undocumented semantic names are inferred.",
+            "note": "Maturity and occlusion are reported as stored numeric categories; no undocumented semantic names are inferred.",
         },
         "representative_sample": {
             "partition": candidate["partition"] if candidate else None,
@@ -464,7 +464,7 @@ def render_annotation(dataset_root: Path, candidate: dict, output_path: Path) ->
             outline=COLORS["red"],
             width=ANNOTATION_BOX_WIDTH,
         )
-        code = f"#{group_id}  R{shape.get('ripeness')} · O{shape.get('occlusion')}"
+        code = f"#{group_id}  M{shape.get('maturity')} · O{shape.get('occlusion')}"
         label_font = font(17, bold=True, mono=True)
         text_box = draw.textbbox((0, 0), code, font=label_font)
         label_w = text_box[2] - text_box[0] + 16
@@ -509,7 +509,7 @@ def render_annotation(dataset_root: Path, candidate: dict, output_path: Path) ->
 
     draw.text((panel_x, 690), "Attributes", font=font(17, bold=True, mono=True), fill=COLORS["muted"])
     badge(draw, (panel_x, 732), "R0 / R1", COLORS["navy"])
-    draw.text((panel_x, 779), "ripeness category", font=font(18), fill=COLORS["muted"])
+    draw.text((panel_x, 779), "maturity category", font=font(18), fill=COLORS["muted"])
     badge(draw, (panel_x, 822), "O0 / O1", COLORS["blue"])
     draw.text((panel_x, 869), "occlusion category", font=font(18), fill=COLORS["muted"])
 
@@ -848,14 +848,14 @@ def render_distributions(summary: dict, output_path: Path) -> None:
     boxes = {
         "samples": (44, 232, 884, 744),
         "instances": (916, 232, 1756, 744),
-        "ripeness": (44, 776, 608, 1198),
+        "maturity": (44, 776, 608, 1198),
         "occlusion": (628, 776, 1192, 1198),
         "visibility": (1212, 776, 1756, 1198),
     }
     grouping = "split" if summary["layout"] in ("train_val", "train_val_test") else "collection"
     panel(draw, boxes["samples"], "A", f"Frames by {grouping}")
     panel(draw, boxes["instances"], "B", f"Instances by {grouping}")
-    panel(draw, boxes["ripeness"], "C", "Ripeness categories")
+    panel(draw, boxes["maturity"], "C", "Maturity categories")
     panel(draw, boxes["occlusion"], "D", "Occlusion categories")
     panel(draw, boxes["visibility"], "E", "Keypoint visibility")
 
@@ -868,7 +868,7 @@ def render_distributions(summary: dict, output_path: Path) -> None:
         x1, y1, _, _ = boxes["instances"]
         for index, label in enumerate(labels):
             draw.text((x1 + 30, y1 + 118 + index * 120), label, font=font(16, mono=True), fill=COLORS["muted"])
-    draw_category_bars(draw, boxes["ripeness"], summary["distributions"]["ripeness"], COLORS["green"])
+    draw_category_bars(draw, boxes["maturity"], summary["distributions"]["maturity"], COLORS["green"])
     draw_category_bars(draw, boxes["occlusion"], summary["distributions"]["occlusion"], COLORS["gold"])
     draw_category_bars(draw, boxes["visibility"], summary["distributions"]["keypoint_visibility"], COLORS["blue"])
     canvas.save(output_path, "WEBP", quality=92, method=6)

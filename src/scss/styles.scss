@@ -790,15 +790,17 @@ a {
 
 .resources-layout {
     display: grid;
-    grid-template-columns: minmax(0, 1.1fr) minmax(20rem, 0.9fr);
-    gap: 4.5rem;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.25rem;
     margin-left: 4rem;
 }
 
 .download-record {
-    padding: 2rem;
+    min-width: 0;
+    padding: clamp(1.5rem, 3vw, 2.5rem);
     border: 1px solid var(--research-line-dark);
     border-top: 4px solid var(--research-navy);
+    border-radius: 0.25rem;
     background: #fff;
 }
 
@@ -842,19 +844,25 @@ a {
 }
 
 .resource-index {
-    border-top: 1px solid var(--research-line-dark);
+    min-width: 0;
 }
 
 .resource-index dl {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 2.5rem;
     margin: 0;
 }
 
 .resource-row {
-    display: grid;
-    grid-template-columns: 9rem 1fr;
-    padding: 0.95rem 0;
-    border-bottom: 1px solid var(--research-line);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem 0.75rem;
+    padding: 0;
 }
+
+
 
 .resource-row dt,
 .resource-row dd {
@@ -1808,7 +1816,7 @@ a {
      margin-top: 0;
 }
 
-.label-definition-item--ripeness {
+.label-definition-item--maturity {
     grid-column: 1;
     grid-row: 2;
 }
@@ -1899,7 +1907,7 @@ a {
         grid-template-columns: 1fr 1fr;
     }
 
-    .label-definition-item--ripeness {
+    .label-definition-item--maturity {
         grid-column: 1;
     }
 
@@ -1923,7 +1931,7 @@ a {
     }
 
 
-    .label-definition-item--ripeness,
+    .label-definition-item--maturity,
     .label-definition-item--occlusion,
     .label-definition-item--keypoint{
         grid-column:1;
@@ -2441,3 +2449,332 @@ a {
 .paper-affiliations p { margin: 0 0 0.25rem; }
 .paper-affiliations sup { margin-left: 0; margin-right: 0.3em; color: var(--research-navy); }
 .paper-correspondence { margin: 0.65rem 0 0; color: var(--research-muted); font-size: 0.85rem; }
+
+@media (max-width: 991.98px) {
+    .resources-layout {
+        gap: 1.25rem;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .resource-index dl {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .download-record .btn {
+        width: 100%;
+    }
+}
+
+#protocol .spec-organization-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    align-items: start;
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+    margin-top: 1.5rem;
+    font-size: 1rem;
+}
+
+#protocol .spec-organization-layout .spec-doc-directory {
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: 1.5rem;
+    border: 1px solid var(--research-line-dark);
+    border-top: 3px solid var(--research-navy);
+    border-radius: 0.25rem;
+    background: #fff;
+    color: var(--research-navy);
+    font-size: inherit;
+    line-height: 1.75;
+}
+
+#protocol .spec-organization-notes {
+    min-width: 0;
+    padding-top: 0.25rem;
+}
+
+#protocol .spec-organization-notes .spec-doc-note {
+    margin: 0 0 1.25rem;
+    line-height: 1.75;
+}
+
+@media (max-width: 991.98px) {
+    #protocol .spec-organization-layout {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 1.25rem;
+    }
+}
+
+@media (max-width: 575.98px) {
+    #protocol .spec-organization-layout .spec-doc-directory {
+        padding: 1rem;
+    }
+}
+
+/* Shared typography for the current page. Keep semantic emphasis and code fonts. */
+:root {
+    --site-font-body: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    --site-font-heading: Cambria, Georgia, "Times New Roman", serif;
+    --site-font-code: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --site-text: 1rem;
+    --site-text-small: 0.875rem;
+    --site-text-label: 0.75rem;
+}
+
+body {
+    font-family: var(--site-font-body);
+    font-size: var(--site-text);
+    line-height: 1.7;
+    color: var(--research-muted);
+}
+
+#main-content :is(p, dl, li) {
+    font-family: var(--site-font-body);
+    font-size: var(--site-text);
+    color: var(--research-muted);
+}
+
+#main-content :is(h1, h2, h3, h4),
+#main-content .paper-section :is(h3, h4),
+#main-content .spec-doc-section :is(h3, h4) {
+    font-family: var(--site-font-heading);
+    color: var(--research-navy);
+    line-height: 1.25;
+}
+
+#main-content .research-hero h1 {
+    font-size: clamp(2rem, 3vw, 2.75rem);
+}
+
+#main-content .section-heading h2 {
+    font-size: clamp(1.75rem, 2.8vw, 2.25rem);
+}
+
+#main-content .paper-section h3,
+#main-content .spec-doc-section h3 {
+    font-size: 1.5rem;
+}
+
+#main-content .paper-section h4 {
+    font-size: 1.125rem;
+}
+
+#main-content :is(.hero-abstract, .section-summary, .download-record p, .spec-doc-note) {
+    font-size: var(--site-text);
+    line-height: 1.7;
+    color: var(--research-muted);
+}
+
+#main-content :is(.paper-authors, .paper-affiliations) {
+    font-family: var(--site-font-body);
+    font-size: var(--site-text);
+    color: var(--research-muted);
+}
+
+#main-content .paper-authors {
+    color: var(--research-navy);
+}
+
+#main-content :is(.project-metadata dt, .project-metadata dd, .resource-row dt, .resource-row dd) {
+    font-size: var(--site-text);
+}
+
+#main-content :is(dt, .figure-number, .spec-doc-field-summary strong) {
+    color: var(--research-navy);
+}
+
+#main-content :is(figcaption, .benchmark-notes, .benchmark-notes p, .label-footnote, .audit-note, .protocol-note, .dataset-stat p, .pointcloud-instructions) {
+    font-family: var(--site-font-body);
+    font-size: var(--site-text-small);
+    color: var(--research-muted);
+    line-height: 1.6;
+}
+
+#main-content :is(.section-type, .stat-kicker, .project-label, .resource-status) {
+    font-family: var(--site-font-body);
+    font-size: var(--site-text-label);
+    font-weight: 700;
+    line-height: 1.5;
+}
+
+#main-content .resource-status {
+    color: #426151;
+}
+
+#main-content :is(.section-type, .stat-kicker, .project-label) {
+    color: var(--research-blue);
+}
+
+#main-content :is(.collection-table, .protocol-table, .benchmark-table, .spec-doc-table),
+#main-content .spec-doc-section .spec-doc-table {
+    font-family: var(--site-font-body);
+    font-size: var(--site-text-small);
+    color: var(--research-muted);
+}
+
+#main-content :is(.collection-table, .protocol-table, .benchmark-table, .spec-doc-table) :is(th, td) {
+    font-size: var(--site-text-small);
+}
+
+#main-content .spec-doc-table td {
+    color: var(--research-muted);
+}
+
+#main-content :is(.label-row, .keypoint-legend, .keypoint-legend span) {
+    font-family: var(--site-font-body);
+    font-size: var(--site-text-small);
+}
+
+#main-content :is(pre, code) {
+    font-family: var(--site-font-code);
+}
+
+#main-content .spec-docs,
+#main-content .spec-organization-layout,
+#main-content .spec-organization-layout .spec-doc-directory,
+#main-content .spec-doc-json,
+#main-content .spec-docs code {
+    font-size: var(--site-text);
+    line-height: 1.7;
+}
+
+#main-content .spec-doc-table code {
+    font-size: inherit;
+}
+
+#main-content .dataset-stat strong {
+    font-family: var(--site-font-heading);
+    color: var(--research-navy);
+    font-size: clamp(2rem, 3.5vw, 2.75rem);
+}
+
+.site-navbar :is(.nav-link, .btn),
+#main-content .btn,
+.site-footer :is(span, a) {
+    font-family: var(--site-font-body);
+    font-size: var(--site-text-small);
+}
+
+.brand-copy strong,
+.footer-project strong {
+    font-family: var(--site-font-heading);
+    font-size: 1.125rem;
+    color: var(--research-navy);
+}
+
+.brand-copy small {
+    font-family: var(--site-font-body);
+    font-size: var(--site-text-label);
+    color: var(--research-muted);
+}
+
+.site-footer {
+    font-family: var(--site-font-body);
+    color: var(--research-muted);
+}
+
+#main-content :is(.pointcloud-eyebrow, .pointcloud-help, .pointcloud-help span) {
+    font-family: var(--site-font-body);
+    font-size: var(--site-text-label);
+}
+
+#main-content :is(.pointcloud-reset, .pointcloud-loading, #pointcloudPointCount) {
+    font-family: var(--site-font-body);
+    font-size: var(--site-text-small);
+}
+
+#main-content .pointcloud-toolbar h3 {
+    font-family: var(--site-font-body);
+    font-size: 1.125rem;
+    color: #f2f6f8;
+}
+
+/* Stack the overview until both columns have room for readable text. */
+#overview .hero-content-layout > * {
+    min-width: 0;
+}
+
+#overview .metadata-row {
+    grid-template-columns: 8.75rem minmax(0, 1fr);
+    column-gap: 0.75rem;
+}
+
+@media (max-width: 1199.98px) {
+    #overview .project-metadata,
+    #overview .hero-figure {
+        width: 100%;
+        max-width: none;
+    }
+}
+
+@media (max-width: 767.98px) {
+    #overview .metadata-row {
+        grid-template-columns: minmax(0, 1fr);
+        column-gap: 0;
+    }
+}
+
+#overview > .container > .hero-abstract {
+    width: 100%;
+    max-width: none;
+    margin: 0 0 2rem;
+}
+
+#overview .hero-content-layout .project-metadata {
+    margin-top: 0;
+}
+
+/* Compact overview metadata with room for longer descriptions. */
+#overview .metadata-row {
+    grid-template-columns: 8rem minmax(0, 1fr);
+    column-gap: 1rem;
+}
+
+#main-content #overview .project-metadata :is(dt, dd) {
+    padding: 0.8rem 0;
+    font-size: var(--site-text-small);
+    line-height: 1.6;
+}
+
+#overview .metadata-row dt {
+    font-weight: 650;
+}
+
+@media (max-width: 767.98px) {
+    #overview .metadata-row {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 0.25rem;
+        padding: 0.8rem 0;
+    }
+
+    #main-content #overview .project-metadata :is(dt, dd) {
+        padding: 0;
+    }
+}
+
+#overview .metadata-row dt {
+    align-self: center;
+    text-align: center;
+}
+
+#overview .hero-table-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+    width: 100%;
+    max-width: 47rem;
+}
+
+#overview .hero-table-actions .btn {
+    width: 100%;
+    min-width: 0;
+    padding-inline: 0.5rem;
+}
+
+@media (max-width: 1199.98px) {
+    #overview .hero-table-actions {
+        max-width: none;
+    }
+}

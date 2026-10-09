@@ -15,10 +15,6 @@
       "mean_instances_per_frame": 3.76,
       "fully_paired_samples": 2630,
       "annotation_files": 1,
-      "ripeness": {
-        "0": 3500,
-        "1": 6398
-      },
       "maturity": {
         "0": 3500,
         "1": 6398
@@ -47,10 +43,6 @@
       "mean_instances_per_frame": 3.99,
       "fully_paired_samples": 564,
       "annotation_files": 1,
-      "ripeness": {
-        "0": 721,
-        "1": 1529
-      },
       "maturity": {
         "0": 721,
         "1": 1529
@@ -79,10 +71,6 @@
       "mean_instances_per_frame": 3.79,
       "fully_paired_samples": 564,
       "annotation_files": 1,
-      "ripeness": {
-        "0": 736,
-        "1": 1402
-      },
       "maturity": {
         "0": 736,
         "1": 1402
@@ -124,10 +112,6 @@
       "0": 4957,
       "1": 9329
     },
-    "ripeness": {
-      "0": 4957,
-      "1": 9329
-    },
     "occlusion": {
       "0": 9278,
       "1": 5008
@@ -162,10 +146,6 @@
     ],
     "attribute_labels": {
       "maturity": {
-        "0": "unripe",
-        "1": "ripe"
-      },
-      "ripeness": {
         "0": "unripe",
         "1": "ripe"
       },

@@ -4,11 +4,11 @@ html(lang='en')
     head
         meta(charset='utf-8')
         meta(name='viewport', content='width=device-width, initial-scale=1')
-        meta(name='description', content='TopoStrawberry-RGBD is a synchronized greenhouse RGB-D strawberry dataset with 3,758 frames, 14,286 instances, bounding boxes, five keypoints, ripeness, occlusion, and harvestability annotations.')
+        meta(name='description', content='TopoStrawberry-RGBD is a synchronized greenhouse RGB-D strawberry dataset with 3,758 frames, 14,286 instances, bounding boxes, five keypoints, maturity, occlusion, and harvestability annotations.')
         meta(name='theme-color', content='#17364d')
         meta(property='og:type', content='website')
         meta(property='og:title', content='TopoStrawberry')
-        meta(property='og:description', content='TopoStrawberry-RGBD: 3,758 paired RGB-D frames, 14,286 strawberry instances, and 71,430 keypoints with ripeness, occlusion, and harvestability labels.')
+        meta(property='og:description', content='TopoStrawberry-RGBD: 3,758 paired RGB-D frames, 14,286 strawberry instances, and 71,430 keypoints with maturity, occlusion, and harvestability labels.')
         meta(property='og:url', content='https://strawberry-vision-dataset.yuhao-jin.chatgpt.site/')
         meta(property='og:image', content='https://strawberry-vision-dataset.yuhao-jin.chatgpt.site/assets/og-strawberry-dataset.jpg')
         meta(name='twitter:card', content='summary_large_image')
@@ -27,7 +27,7 @@ html(lang='en')
         main#main-content
             header#overview.research-hero
                 .container.px-4.px-lg-5
-                    .project-label Controlled-access dataset | Updated October 2026
+                    .project-label October 2026
 
                     h1 TopoStrawberry: A Large-Scale Harvest-Oriented RGB-D Dataset with Topological Keypoint Refinement and Keypoint-Anchored Harvest-State Recognition
 
@@ -63,7 +63,7 @@ html(lang='en')
                             | , 
                             span.paper-author
                                 | Xiaohui Zhu
-                                sup b,*
+                                sup b
                         .paper-affiliations
                             p
                                 sup a
@@ -71,30 +71,22 @@ html(lang='en')
                             p
                                 sup b
                                 |  Academy of Artificial Intelligence and Advanced Technology, Xi’an Jiaotong-Liverpool University, Suzhou, 215123, China
-                        p.paper-correspondence
-                            | * Corresponding author: Xiaohui Zhu (
-                            a(href='mailto:Xiaohui.Zhu@xjtlu.edu.cn') Xiaohui.Zhu@xjtlu.edu.cn
-                            | )
 
-                    .row.g-5.align-items-center
-                        .col-lg-5
-                            p.hero-abstract
-                                | TopoStrawberry-RGBD contains 3,758 paired frames and 14,286 annotated strawberry instances. Each annotated strawberry includes a bounding box, five anatomical keypoints, and ripeness, occlusion, and harvestability labels in COCO keypoint format with instance attributes.
+                    p.hero-abstract
+                        | TopoStrawberry-RGBD contains 3,758 paired frames and 14,286 annotated strawberry instances. Each annotated strawberry includes a bounding box, five anatomical keypoints, and maturity, occlusion, and harvestability labels in COCO keypoint format with instance attributes.
 
-                            .d-flex.flex-wrap.gap-2.mt-3.mb-4
-                                a.btn.btn-research(href='#resources') Download dataset
-                                a.btn.btn-outline-research(href='#statistics') View dataset statistics
-
+                    .row.g-5.align-items-start.hero-content-layout
+                        .col-12.col-xl-5
                             dl.project-metadata
                                 .metadata-row
                                     dt Modalities
                                     dd RGB images and corresponding depth maps
                                 .metadata-row
                                     dt Annotations
-                                    dd Bounding boxes, keypoints, ripeness, occlusion, and harvestability labels in COCO keypoint JSON format
+                                    dd Bounding boxes, keypoints, maturity, occlusion, and harvestability labels in COCO keypoint JSON format
                                 .metadata-row
                                     dt Research tasks
-                                    dd Object detection, keypoint estimation, ripeness recognition, occlusion recognition, and harvestability recognition
+                                    dd Object detection, keypoint estimation, maturity recognition, occlusion recognition, and harvestability recognition
                                 .metadata-row
                                     dt Capture system
                                     dd Four Intel RealSense D435i cameras
@@ -105,19 +97,23 @@ html(lang='en')
                                     dt Dataset split
                                     dd Train 2,630 / Validation 564 / Test 564 frames (70% / 15% / 15%)
 
-                        .col-lg-7
+                            .hero-table-actions.mt-4
+                                a.btn.btn-research(href='#resources') Download dataset
+                                a.btn.btn-outline-research(href='#statistics') View dataset statistics
+
+                        .col-12.col-xl-7
                             figure.research-figure.hero-figure
                                 .figure-frame.figure-frame--clean
                                     img(
                                         src='assets/dataset-annotation-overview.webp',
-                                        alt='Representative greenhouse RGB frame with strawberry bounding boxes, five landmark types, ripeness categories, and occlusion categories',
+                                        alt='Representative greenhouse RGB frame with strawberry bounding boxes, five landmark types, maturity categories, and occlusion categories',
                                         width='1800',
                                         height='1080',
                                         fetchpriority='high'
                                     )
                                 figcaption
                                     span.figure-number Figure 1.
-                                    |  Real annotation overlay from train/0238; category IDs are shown exactly as stored.
+                                    |  Real annotation overlay from train/0238.
 
             section#statistics.paper-section
                 .container.px-4.px-lg-5
@@ -185,13 +181,13 @@ html(lang='en')
                                         td 3.80
                         .label-summary
                             h3 Label distributions
-                            p.label-footnote Maturity and ripeness share the same label encoding. Counts below cover all splits.
+                            p.label-footnote Counts below cover all splits.
 
 
                             .label-definition-grid
 
-                                .label-definition-item.label-definition-item--ripeness
-                                    h4 Ripeness
+                                .label-definition-item.label-definition-item--maturity
+                                    h4 Maturity
                                     .label-row
                                         span 0
                                         span Immature
@@ -240,10 +236,10 @@ html(lang='en')
 
                     figure.research-figure.data-figure
                         .figure-frame.figure-frame--clean
-                            img(src='assets/dataset-distributions.svg', alt='Charts showing train, validation, and test frame counts, per-split instance counts, and ripeness, occlusion, harvestability, and keypoint visibility distributions', width='1800', height='1250', loading='lazy')
+                            img(src='assets/dataset-distributions.svg', alt='Charts showing train, validation, and test frame counts, per-split instance counts, and maturity, occlusion, harvestability, and keypoint visibility distributions', width='1800', height='1250', loading='lazy')
                         figcaption
                             span.figure-number Figure 2.
-                            |  Distribution overview for dataset splits, ripeness, occlusion, harvestability, and keypoint visibility.
+                            |  Distribution overview for dataset splits, maturity, occlusion, harvestability, and keypoint visibility.
             section#protocol.paper-section.paper-section--alt
                 .container.px-4.px-lg-5
                     .section-heading
@@ -255,23 +251,25 @@ html(lang='en')
                     .spec-docs
                         section.spec-doc-section(aria-labelledby='directory-structure-title')
                             h3#directory-structure-title Dataset organization
-                            pre.spec-doc-directory(aria-label='Dataset directory tree')
-                                code.
-                                    TopoStrawberry-RGBD/
-                                    ├── images/
-                                    │   ├── train/
-                                    │   ├── val/
-                                    │   └── test/
-                                    ├── depth/
-                                    │   ├── train/
-                                    │   ├── val/
-                                    │   └── test/
-                                    └── annotations/
-                                        ├── strawberry_keypoints_train.json
-                                        ├── strawberry_keypoints_val.json
-                                        └── strawberry_keypoints_test.json
-                            p.spec-doc-note RGB and depth frames share matching filenames within each split.
-                            p.spec-doc-note Depth maps are unsigned 16-bit PNGs (uint16), with values in millimeters (0.001 meters per unit). A value of 0 indicates invalid depth.
+                            .spec-organization-layout
+                                pre.spec-doc-directory(aria-label='Dataset directory tree')
+                                    code.
+                                        TopoStrawberry-RGBD/
+                                        ├── images/
+                                        │   ├── train/
+                                        │   ├── val/
+                                        │   └── test/
+                                        ├── depth/
+                                        │   ├── train/
+                                        │   ├── val/
+                                        │   └── test/
+                                        └── annotations/
+                                            ├── strawberry_keypoints_train.json
+                                            ├── strawberry_keypoints_val.json
+                                            └── strawberry_keypoints_test.json
+                                .spec-organization-notes
+                                    p.spec-doc-note RGB and depth frames share matching filenames within each split.
+                                    p.spec-doc-note Depth maps are unsigned 16-bit PNGs (uint16), with values in millimeters (0.001 meters per unit). A value of 0 indicates invalid depth.
                         section.spec-doc-section(aria-labelledby='annotation-schema-title')
                             h3#annotation-schema-title Annotation format
                             .spec-doc-file
@@ -312,7 +310,6 @@ html(lang='en')
                                           "keypoints": [371.203007518797, 373.5338345864662, 2, 368.94736842105266, 408.8721804511278, 2, 359.9248120300752, 514.8872180451127, 2, 323.08270676691734, 441.203007518797, 2, 408.796992481203, 444.9624060150376, 2],
                                           "segmentation": [],
                                           "maturity": 1,
-                                          "ripeness": 1,
                                           "occlusion": 0,
                                           "harvestability": 1
                                         }
@@ -354,11 +351,6 @@ html(lang='en')
                                             td binary: 0 = unripe; 1 = ripe
                                         tr
                                             th(scope='row')
-                                                code ripeness
-                                            td Maturity state (same encoding as maturity)
-                                            td binary: 0 = unripe; 1 = ripe
-                                        tr
-                                            th(scope='row')
                                                 code occlusion
                                             td Instance occlusion state
                                             td binary: 0 = unoccluded; 1 = occluded
@@ -373,7 +365,7 @@ html(lang='en')
                                 code id, image_id, category_id, bbox, area, iscrowd, segmentation, keypoints, num_keypoints
                             p.spec-doc-field-summary
                                 strong Dataset-specific fields: 
-                                code maturity, ripeness, occlusion, harvestability
+                                code maturity, occlusion, harvestability
             section#benchmark.paper-section.paper-section--alt
                 .container.px-4.px-lg-5
                     .section-heading
@@ -572,7 +564,7 @@ html(lang='en')
                             p.section-type Qualitative inspection
                             h2 Annotation and depth visualizations
                     p.section-summary
-                        | Both views below use the same representative sample. The first shows bounding boxes, five anatomical keypoints, ripeness, and occlusion labels; the second uses the labels and subject depth to retain strawberries, foliage, and nearby background in a colorized 3D point cloud.
+                        | Both views below use the same representative sample. The first shows bounding boxes, five anatomical keypoints, maturity, and occlusion labels; the second uses the labels and subject depth to retain strawberries, foliage, and nearby background in a colorized 3D point cloud.
                     .visual-stack
                         figure.research-figure.visual-figure
                             .figure-frame.figure-frame--clean
@@ -607,7 +599,7 @@ html(lang='en')
                                     img(src='assets/dataset-pointcloud.webp', alt='Static RGB-colored 3D point cloud for training sample 0238', width='1800', height='1120', loading='lazy')
                             figcaption
                                 span.figure-number Figure 3b.
-                                |  Interactive foreground-filtered point cloud reconstructed with mapped color-camera intrinsics. Rotate, pan, and zoom freely; a label-aware crop and 0.220–0.400 m subject-depth window retain strawberries, foliage, and nearby background while excluding distant artifacts.
+                                |  Interactive foreground-filtered point cloud reconstructed with mapped color-camera intrinsics.
 
             section#resources.paper-section.paper-section--alt
                 .container.px-4.px-lg-5
@@ -633,14 +625,8 @@ html(lang='en')
                                     dt Dataset
                                     dd Controlled access
                                 .resource-row
-                                    dt Source code
-                                    dd To be added
-                                .resource-row
                                     dt Dataset license
                                     dd CC BY-NC 4.0
-                                .resource-row
-                                    dt Citation
-                                    dd To be added with publication details
 
         include includes/footer.pug
         include includes/scripts.pug
