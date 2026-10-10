@@ -1,0 +1,108 @@
+doctype html
+html(lang='en')
+    head
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1')
+        meta(name='description', content='Annotation rules for strawberry instances, bounding boxes, harvesting keypoints, maturity, and occlusion in TopoStrawberry.')
+        meta(name='theme-color', content='#17364d')
+        title Annotation Protocol | TopoStrawberry
+        link(rel='canonical', href=siteUrl + 'annotation-protocol.html')
+        link(rel='icon', type='image/png', sizes='64x64', href='assets/strawberry-favicon.png?v=pink')
+        include includes/css.pug
+    body.annotation-protocol-page
+        a.skip-link(href='#protocol-content') Skip to content
+        main#protocol-content.protocol-document.container.px-4.px-lg-5
+            a.annotation-protocol-link.protocol-back-link(href='index.html#annotation-schema-title')
+                span(aria-hidden='true') ←
+                span Back to dataset
+            header.protocol-document-header
+                p.protocol-eyebrow TopoStrawberry · Annotation protocol
+                h1 Annotation Rules for Strawberry Instances and Harvesting Keypoints
+            table.protocol-rules-table
+                caption.visually-hidden Annotation items and their rules
+                thead
+                    tr
+                        th(scope='col') Annotation item
+                        th(scope='col') Annotation rule
+                tbody
+                    tr
+                        th(scope='row') Annotation scope
+                        td Annotate developed strawberry fruit, including unripe and occluded fruit. Exclude buds, flowers, and targets clearly at the flowering stage.
+                    tr
+                        th(scope='row') Maturity
+                        td
+                            | Label fruit with an almost entirely red surface as#{' '}
+                            code Pickable
+                            | . Label other color stages, including white, green, pink, and mixed red–white, as#{' '}
+                            code Unpickable
+                            | .
+                    tr
+                        th(scope='row') Bounding box
+                        td Use an axis-aligned bounding box. Fit the left, right, and bottom edges closely to the fruit body, and extend the upper edge to include Cut with a small margin. Keypoints with valid coordinates should lie inside the box rather than on its boundary.
+                    tr
+                        th(scope='row') Cut
+                        td Place Cut on the pedicel belonging to the target fruit, at the midpoint of the line segment connecting Top to the pedicel branching point. If the branching point is not visible, the cutting location may be estimated.
+                    tr
+                        th(scope='row') Top
+                        td Place Top at the fruit–pedicel junction, where the pedicel meets the calyx or fruit shoulder.
+                    tr
+                        th(scope='row') Bottom
+                        td Place Bottom at the lowest point of the fruit contour in the image.
+                    tr
+                        th(scope='row') Left / Right
+                        td Visually estimate the intersections between the fruit contour and a line perpendicular to the Top–Bottom axis at its midpoint. Place Left and Right approximately at these locations.
+                    tr
+                        th(scope='row')
+                            | Directly visible —#{' '}
+                            code v=2
+                        td The keypoint is directly visible. Annotate its coordinates at the observed location.
+                    tr
+                        th(scope='row')
+                            | Occluded but localizable —#{' '}
+                            code v=1
+                        td The keypoint is occluded, but its location can be reasonably inferred from the fruit contour, symmetry, or contextual cues. Retain the estimated coordinates.
+                    tr
+                        th(scope='row')
+                            | Not localizable or outside the image —#{' '}
+                            code v=0
+                        td
+                            | The keypoint is occluded and cannot be reliably localized, or lies outside the image. Store it as#{' '}
+                            code (-1, -1, 0)
+                            | .
+                    tr
+                        th(scope='row') Whole-fruit occlusion
+                        td
+                            | Use a binary label:#{' '}
+                            code 0
+                            |  denotes no occlusion, and#{' '}
+                            code 1
+                            |  denotes occlusion by leaves, stems, calyces, neighbouring fruit, or other objects.
+                    tr
+                        th(scope='row') Coordinates and keypoint order
+                        td
+                            | Use pixel coordinates with the origin at the upper-left corner, the x-axis pointing right, and the y-axis pointing down. Store each point as#{' '}
+                            code (x, y, v)
+                            |  in the fixed order#{' '}
+                            code Cut, Top, Bottom, Left, Right
+                            | .
+                    tr
+                        th(scope='row') Valid keypoint coordinates
+                        td
+                            | Retain five keypoint records per instance. Records with#{' '}
+                            code v=1
+                            |  or#{' '}
+                            code v=2
+                            |  contain valid location coordinates. Records with#{' '}
+                            code v=0
+                            |  retain their state labels but are excluded from coordinate evaluation.
+                    tr
+                        th(scope='row')
+                            | Instance association —#{' '}
+                            code group_id
+                        td
+                            | Associate the bounding box and five keypoints of each instance using the same#{' '}
+                            code group_id
+                            | . IDs start at 0 in each image and increase across instances, with a distinct ID assigned to each instance.
+                    tr
+                        th(scope='row') Annotation files
+                        td Provide one JSON annotation file with the same filename stem as each image. Store images and annotation files separately.

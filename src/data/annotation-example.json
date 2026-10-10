@@ -1,0 +1,71 @@
+{
+  "info": {
+    "description": "TopoStrawberry-RGBD: RGB-D strawberry dataset with five keypoints, maturity, and occlusion annotations.",
+    "version": "1.0",
+    "year": 2026,
+    "dataset_name": "TopoStrawberry-RGBD",
+    "paper_title": "TopoStrawberry: A Large-Scale Harvest-Oriented RGB-D Dataset with Topological Keypoint Refinement and Keypoint-Anchored Harvest-State Recognition",
+    "authors": "Yuhao Jin et al.",
+    "affiliation": "University of Liverpool"
+  },
+  "licenses": [],
+  "categories": [
+    {
+      "id": 1,
+      "name": "strawberry",
+      "supercategory": "fruit",
+      "keypoints": [
+        "Cut",
+        "Top",
+        "Bottom",
+        "Left",
+        "Right"
+      ],
+      "skeleton": []
+    }
+  ],
+  "images": [
+    {
+      "id": 238,
+      "file_name": "0238.png",
+      "width": 1280,
+      "height": 720
+    }
+  ],
+  "annotations": [
+    {
+      "id": 916,
+      "image_id": 238,
+      "category_id": 1,
+      "bbox": [
+        320.07518796992485,
+        369.02255639097746,
+        92.48120300751879,
+        149.62406015037584
+      ],
+      "area": 13837.41308157611,
+      "iscrowd": 0,
+      "num_keypoints": 5,
+      "keypoints": [
+        371.203007518797,
+        373.5338345864662,
+        2,
+        368.94736842105266,
+        408.8721804511278,
+        2,
+        359.9248120300752,
+        514.8872180451127,
+        2,
+        323.08270676691734,
+        441.203007518797,
+        2,
+        408.796992481203,
+        444.9624060150376,
+        2
+      ],
+      "segmentation": [],
+      "maturity": 1,
+      "occlusion": 0
+    }
+  ]
+}

@@ -1,27 +1,33 @@
 'use strict';
 
-// Regenerate only the composition figure from the final split annotations.
+// Regenerate the composition figure from the summary, or full split annotations.
 const fs = require('fs');
 const path = require('path');
 const root = process.argv[2];
-if (!root) throw new Error('Usage: node scripts/render-distributions.js <dataset-root>');
+const summary = JSON.parse(fs.readFileSync(path.join(__dirname, '../src/assets/dataset-summary.json'), 'utf8'));
 const splits = ['train', 'val', 'test'].map((split, i) => {
+    if (!root) {
+        return { label: ['Train', 'Validation', 'Test'][i], images: { length: summary.splits[split].images }, annotations: { length: summary.splits[split].annotations } };
+    }
     const data = JSON.parse(fs.readFileSync(path.join(root, 'annotations', `strawberry_keypoints_${split}.json`), 'utf8'));
     return { label: ['Train', 'Validation', 'Test'][i], ...data };
 });
-const annotations = splits.flatMap(s => s.annotations);
+const annotations = root ? splits.flatMap(s => s.annotations) : [];
+const totalImages = splits.reduce((sum, s) => sum + s.images.length, 0);
+const totalInstances = splits.reduce((sum, s) => sum + s.annotations.length, 0);
+const totalKeypoints = root ? annotations.reduce((sum, a) => sum + a.keypoints.length / 3, 0) : totalInstances * summary.keypoint_order.length;
 const count = values => values.reduce((out, value) => { out[value] = (out[value] || 0) + 1; return out; }, {});
 const n = value => value.toLocaleString('en-US');
 const escape = value => String(value).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
 const colors = { navy: '#17364d', blue: '#2b6172', red: '#b33d4c', green: '#547a63', gold: '#c58b30', violet: '#76578f', muted: '#5f6c76' };
-let svg = '<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1250" viewBox="0 0 1800 1250" role="img" aria-labelledby="title desc"><title id="title">TopoStrawberry dataset composition</title><desc id="desc">Final train, validation and test frame and instance counts, with maturity, occlusion, harvestability and keypoint visibility distributions.</desc>';
+let svg = '<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1250" viewBox="0 0 1800 1250" role="img" aria-labelledby="title desc"><title id="title">TopoStrawberry dataset composition</title><desc id="desc">Final train, validation and test frame and instance counts, with maturity, occlusion and keypoint visibility distributions.</desc>';
 const rect = (x,y,w,h,fill,stroke='none') => { svg += `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="4" fill="${fill}" stroke="${stroke}" stroke-width="2"/>`; };
 const text = (x,y,value,size=22,color=colors.navy,bold=false) => { svg += `<text x="${x}" y="${y}" font-family="Segoe UI, Arial, sans-serif" font-size="${size}" font-weight="${bold ? 600 : 400}" fill="${color}">${escape(value)}</text>`; };
 const panel = (x,y,w,h,letter,title) => { rect(x,y,w,h,'#ffffff','#d5dde3'); text(x+28,y+36,letter,16,colors.blue,true); text(x+28,y+86,title,27,colors.navy,true); };
 rect(0,0,1800,1250,'#f3f6f8'); rect(0,0,1800,112,colors.navy);
 text(52,65,'DATASET COMPOSITION',25,'#c9d9e2',true);
-text(52,162,`${n(splits.reduce((sum,s)=>sum+s.images.length,0))} synchronized RGB-D frames · ${n(annotations.length)} strawberry instances · ${n(annotations.reduce((sum,a)=>sum+a.keypoints.length/3,0))} keypoints`,28,colors.navy,true);
-text(52,202,'Split: 70% Train / 15% Validation / 15% Test.',21,colors.muted);
+text(52,162,`${n(totalImages)} synchronized RGB-D frames · ${n(totalInstances)} strawberry instances · ${n(totalKeypoints)} keypoints`,28,colors.navy,true);
+text(52,202,`Split: ${splits.map(s => `${Math.round(100 * s.images.length / totalImages)}% ${s.label}`).join(' / ')}.`,21,colors.muted);
 function horizontal(x, title, key, color, letter) {
     panel(x,232,840,500,letter,title);
     const values=splits.map(s=>s[key].length), max=Math.max(...values);
@@ -35,13 +41,12 @@ function horizontal(x, title, key, color, letter) {
 horizontal(44,'Frames by split','images',colors.blue,'A');
 horizontal(916,'Instances by split','annotations',colors.red,'B');
 const categories = [
-    ['Maturity categories', count(annotations.map(a=>a.maturity)), colors.green, '0 = unripe; 1 = ripe'],
-    ['Occlusion categories', count(annotations.map(a=>a.occlusion)), colors.gold, '0 = unoccluded; 1 = occluded'],
-    ['Harvestability categories', count(annotations.map(a=>a.harvestability)), colors.violet, '0 = not harvestable; 1 = harvestable'],
-    ['Keypoint visibility', count(annotations.flatMap(a=>a.keypoints.filter((v,i)=>i%3===2))), colors.blue, '0 = outside; 1 = occluded; 2 = visible'],
+    ['Maturity categories', root ? count(annotations.map(a=>a.maturity)) : summary.distributions.maturity, colors.green, '0 = unripe; 1 = ripe'],
+    ['Occlusion categories', root ? count(annotations.map(a=>a.occlusion)) : summary.distributions.occlusion, colors.gold, '0 = unoccluded; 1 = occluded'],
+    ['Keypoint visibility', root ? count(annotations.flatMap(a=>a.keypoints.filter((v,i)=>i%3===2))) : summary.distributions.keypoint_visibility, colors.blue, '0 = outside; 1 = occluded; 2 = visible'],
 ];
 categories.forEach(([title,counts,color,legend],index)=>{
-    const x=44+index*433,w=413,y=766;
+    const x=44+index*577,w=558,y=766;
     panel(x,y,w,440,String.fromCharCode(67+index),title);
     const entries=Object.entries(counts).sort((a,b)=>Number(a[0])-Number(b[0]));
     const total=entries.reduce((sum,[,v])=>sum+v,0), max=Math.max(...entries.map(([,v])=>v));
@@ -55,5 +60,8 @@ categories.forEach(([title,counts,color,legend],index)=>{
     text(x+22,1189,legend,17,colors.muted);
 });
 svg += '</svg>\n';
-for(const folder of ['src/assets','dist/assets']) fs.writeFileSync(path.join(__dirname,'..',folder,'dataset-distributions.svg'),svg);
+for(const folder of ['src/assets','dist/assets']) {
+    fs.mkdirSync(path.join(__dirname, '..', folder), { recursive: true });
+    fs.writeFileSync(path.join(__dirname,'..',folder,'dataset-distributions.svg'),svg);
+}
 console.log('Rendered final dataset composition:', splits.map(s=>`${s.label}: ${s.images.length} frames, ${s.annotations.length} instances`).join('; '));

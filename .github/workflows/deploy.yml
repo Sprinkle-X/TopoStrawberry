@@ -33,7 +33,7 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          SITE_URL: ${{ vars.SITE_URL || steps.pages.outputs.base_url }}
+          SITE_URL: https://sprinkle-x.github.io/TopoStrawberry/
       - name: Check static resources
         run: npm run check:site
       - name: Upload Pages artifact

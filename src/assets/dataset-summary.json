@@ -12,7 +12,7 @@
       "share_percent": 70,
       "instances": 9898,
       "keypoints": 49490,
-      "mean_instances_per_frame": 3.76,
+      "mean_instances_per_frame": 3.7634980988593156,
       "fully_paired_samples": 2630,
       "annotation_files": 1,
       "maturity": {
@@ -22,10 +22,6 @@
       "occlusion": {
         "0": 6460,
         "1": 3438
-      },
-      "harvestability": {
-        "0": 7197,
-        "1": 2701
       },
       "keypoint_visibility": {
         "0": 555,
@@ -40,7 +36,7 @@
       "share_percent": 15,
       "instances": 2250,
       "keypoints": 11250,
-      "mean_instances_per_frame": 3.99,
+      "mean_instances_per_frame": 3.9893617021276597,
       "fully_paired_samples": 564,
       "annotation_files": 1,
       "maturity": {
@@ -50,10 +46,6 @@
       "occlusion": {
         "0": 1430,
         "1": 820
-      },
-      "harvestability": {
-        "0": 1643,
-        "1": 607
       },
       "keypoint_visibility": {
         "0": 120,
@@ -68,7 +60,7 @@
       "share_percent": 15,
       "instances": 2138,
       "keypoints": 10690,
-      "mean_instances_per_frame": 3.79,
+      "mean_instances_per_frame": 3.7907801418439715,
       "fully_paired_samples": 564,
       "annotation_files": 1,
       "maturity": {
@@ -78,10 +70,6 @@
       "occlusion": {
         "0": 1388,
         "1": 750
-      },
-      "harvestability": {
-        "0": 1553,
-        "1": 585
       },
       "keypoint_visibility": {
         "0": 84,
@@ -95,7 +83,7 @@
     "samples": 3758,
     "instances": 14286,
     "keypoints": 71430,
-    "mean_instances_per_frame": 3.8,
+    "mean_instances_per_frame": 3.8014901543374133,
     "fully_paired_samples": 3758,
     "rgb_files": 3758,
     "depth_files": 3758,
@@ -115,10 +103,6 @@
     "occlusion": {
       "0": 9278,
       "1": 5008
-    },
-    "harvestability": {
-      "0": 10393,
-      "1": 3893
     },
     "keypoint_visibility": {
       "0": 759,
@@ -152,10 +136,6 @@
       "occlusion": {
         "0": "unoccluded",
         "1": "occluded"
-      },
-      "harvestability": {
-        "0": "not harvestable",
-        "1": "harvestable"
       }
     },
     "visibility_values_observed": [
@@ -184,6 +164,58 @@
       "train": "766ea251e741456bc7f935ffdd98e7c7990fec59477aae4b52d357aad8b6f902",
       "val": "ddc79a473d6ea3564291a7a4668ddba0ca11e0978581cf2e210694db6d6aa004",
       "test": "60b565538a69c7a66b333a0c0828c076f93ef800e20bc8874996e8062285c3bf"
+    },
+    "summary_source": "User-provided dataset_summary.json",
+    "distributions_source": "Retained final-release annotation counts; the user-provided summary contains no label distribution counts."
+  },
+  "paper_title": "TopoStrawberry: A Large-Scale Harvest-Oriented RGB-D Dataset with Topological Keypoint Refinement and Keypoint-Anchored Harvest-State Recognition",
+  "authors": "Yuhao Jin et al.",
+  "affiliation": "University of Liverpool",
+  "mmpose_dataset_type": "CocoDataset",
+  "data_mode_default": "topdown",
+  "keypoint_order": [
+    "Cut",
+    "Top",
+    "Bottom",
+    "Left",
+    "Right"
+  ],
+  "category": {
+    "id": 1,
+    "name": "strawberry"
+  },
+  "splits": {
+    "train": {
+      "images": 2630,
+      "annotations": 9898
+    },
+    "val": {
+      "images": 564,
+      "annotations": 2250
+    },
+    "test": {
+      "images": 564,
+      "annotations": 2138
+    }
+  },
+  "total_images": 3758,
+  "total_annotations": 14286,
+  "contains_rgb": true,
+  "contains_depth": true,
+  "contains_maturity": true,
+  "contains_occlusion": true,
+  "base_keypoint_json_contains_attributes": true,
+  "annotation_file_pattern": "annotations/strawberry_keypoints_{split}.json",
+  "rgb_path_pattern": "images/{split}/{filename}",
+  "depth_path_pattern": "depth/{split}/{filename}",
+  "attribute_labels": {
+    "maturity": {
+      "0": "unripe",
+      "1": "ripe"
+    },
+    "occlusion": {
+      "0": "unoccluded",
+      "1": "occluded"
     }
   }
 }

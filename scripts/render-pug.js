@@ -6,7 +6,7 @@ const sh = require('shelljs');
 const prettier = require('prettier');
 
 module.exports = function renderPug(filePath) {
-    const configuredUrl = process.env.SITE_URL;
+    const configuredUrl = process.env.SITE_URL || 'https://sprinkle-x.github.io/TopoStrawberry/';
     let siteUrl;
     if (configuredUrl) {
         const url = new URL(configuredUrl);
@@ -25,7 +25,13 @@ module.exports = function renderPug(filePath) {
         doctype: 'html',
         filename: filePath,
         basedir: srcPath,
-        siteUrl
+        siteUrl,
+        dataset: JSON.parse(fs.readFileSync(upath.join(srcPath, 'assets/dataset-summary.json'), 'utf8')),
+        annotationExampleJSON: JSON.stringify(JSON.parse(fs.readFileSync(upath.join(srcPath, 'data/annotation-example.json'), 'utf8')), null, 2)
+            .replace(/\[\s*([\d.eE+\-,\s]+)\s*\]/g, (_, values) => '[' + values.trim().split(/\s*,\s*/).join(', ') + ']')
+            .replace(/\[\s*\]/g, '[]'),
+        number: value => Number(value).toLocaleString('en-US'),
+        share: (value, total) => `${Math.round(100 * value / total)}%`
     });
 
     const destPathDirname = upath.dirname(destPath);

@@ -38,14 +38,10 @@ The `Deploy GitHub Pages` workflow builds and publishes `dist` on each push to
 CSS, JavaScript, images, downloads, and point-cloud data use relative paths,
 so the same build works at the domain root or under a repository path.
 
-The deployment reads the public URL from `actions/configure-pages`; no hosting
-domain is embedded in the source. `SITE_URL` can optionally be set as a repository
-Actions variable to override it. To switch to a custom domain, configure it in
-Pages settings and rerun the workflow. Update or remove the override if one was set.
-
-Local builds omit canonical and Open Graph URL tags unless the `SITE_URL`
-environment variable is supplied. Run `npm run check:site` after a build to verify
-local resources and navigation anchors.
+The public website URL is https://sprinkle-x.github.io/TopoStrawberry/.
+Local builds use this URL for canonical and Open Graph metadata; `SITE_URL` can
+optionally override it for a preview. The Pages workflow uses the public URL.
+Run `npm run check:site` after a build to verify local resources and navigation anchors.
 
 ## Project structure
 

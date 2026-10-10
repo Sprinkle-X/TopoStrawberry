@@ -12,7 +12,7 @@ module.exports = function renderAssets() {
         'strawberry-favicon.png',
         'strawberry-mascot.png',
         'strawberry-field.webp',
-        'dataset-annotation-overview.webp',
+        'dataset-annotation-overview.svg',
         'dataset-distributions.svg',
         'dataset-pointcloud.webp',
         'dataset-pointcloud-data.json',
