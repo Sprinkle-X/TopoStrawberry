@@ -1,50 +1,50 @@
-﻿# TopoStrawberry website
+# TopoStrawberry-RGBD Dataset
 
-Source code and deployment tooling for the [TopoStrawberry project website](https://sprinkle-x.github.io/TopoStrawberry/).
+Official repository for the TopoStrawberry-RGBD dataset, including dataset documentation, access instructions, and website source code.
 
-The website is the reference for dataset statistics, annotation conventions, benchmarks, licensing, and access requirements. This repository supports the website; it does not distribute the dataset.
+[Project website](https://sprinkle-x.github.io/TopoStrawberry/) | [Annotation protocol](https://sprinkle-x.github.io/TopoStrawberry/annotation-protocol.html) | [Website source](website/)
 
-## Dataset access
+## Overview
 
-TopoStrawberry-RGBD is a controlled-access dataset for approved non-commercial research. There is no public dataset download link. Follow the [dataset access instructions on the website](https://sprinkle-x.github.io/TopoStrawberry/#resources) to obtain the application form and submit an access request.
+TopoStrawberry-RGBD is a greenhouse strawberry dataset containing paired RGB images and depth maps. Each strawberry instance has a bounding box, five anatomical keypoints, and maturity and occlusion labels in COCO keypoint format with instance attributes. The data support harvest-oriented perception, including object detection, keypoint estimation, maturity recognition, and occlusion recognition.
 
-## Local development
+## Dataset Access
 
-```bash
-npm install
-npm start
-```
+The dataset is **controlled access** for approved non-commercial research and educational use. There is no public dataset download link.
 
-## Build and validation
+1. Obtain the application form from the [dataset access section](https://sprinkle-x.github.io/TopoStrawberry/#resources).
+2. Complete the applicant, research project, and declaration fields.
+3. Submit the completed form to **Xiaohui.Zhu@xjtlu.edu.cn**, as specified in the form.
+4. Applications are reviewed individually; submission does not guarantee access.
 
-```bash
-npm run build
-npm run check:site
-```
+Access is granted to the applicant for the approved project. Do not share the dataset, access links, credentials, or keys. Commercial use requires a separate request to the data provider. See [DATASET_LICENSE.md](DATASET_LICENSE.md) for the access terms.
 
-The production build is generated in `dist`; edit source files rather than generated output.
+## Dataset Statistics
 
-## Deployment
+| Split | Paired RGB-D frames | Strawberry instances | Keypoints |
+| --- | ---: | ---: | ---: |
+| Train | 2,630 | 9,898 | 49,490 |
+| Validation | 564 | 2,250 | 11,250 |
+| Test | 564 | 2,138 | 10,690 |
+| **Total** | **3,758** | **14,286** | **71,430** |
 
-The `Deploy GitHub Pages` workflow builds and publishes `dist` on pushes to `main`. Set the repository's Pages publishing source to **GitHub Actions**.
+The images capture greenhouse scenes using four Intel RealSense D435i cameras at 1280 x 720 pixels. There is one object category, strawberry; maturity labels are unripe/ripe and occlusion labels are unoccluded/occluded. See the [website statistics](https://sprinkle-x.github.io/TopoStrawberry/#statistics) for detailed distributions.
 
-Assets use relative paths for domain-root and repository-path hosting. The public website URL supplies canonical and Open Graph metadata; `SITE_URL` can override it for previews.
+## Annotation Protocol
 
-## Source structure
+Annotations use COCO keypoint JSON with bounding boxes and instance attributes. The five keypoints are ordered **Cut, Top, Bottom, Left, Right**. Depth maps are uint16 PNGs in millimeters; zero denotes invalid depth.
 
-- `src/pug/index.pug`: main page content and structure
-- `src/pug/annotation-protocol.pug`: annotation protocol page
-- `src/pug/includes`: shared navigation, footer, styles, and scripts
-- `src/scss/styles.scss`: site styles
-- `src/js`: navigation and interactive visualizations
-- `src/assets`: website images, visualization data, and access application form
-- `scripts`: build and validation tools
-- `.github/workflows/deploy.yml`: GitHub Pages deployment
+Refer to the [annotation protocol](https://sprinkle-x.github.io/TopoStrawberry/annotation-protocol.html) for landmark definitions, visibility conventions, and labeling rules, and the [data format section](https://sprinkle-x.github.io/TopoStrawberry/#protocol) for file organization.
 
-Legacy template pages under `src/pug` are excluded from the public build.
+## Benchmark
 
-## Authors
+The dataset supports object detection, keypoint estimation, maturity recognition, and occlusion recognition. The [published website benchmark table](https://sprinkle-x.github.io/TopoStrawberry/#benchmark) compares keypoint estimation models using COCO keypoint AP, AP50, AP75, AR, and computational performance measures. Benchmark results and metric definitions are maintained on the website.
 
-## Template license
+## Citation
 
-The build system originated from the MIT-licensed Start Bootstrap Modern Business template. The repository's MIT license covers website code; dataset licensing and access terms are documented on the project website.
+## License
+
+- **Dataset:** CC BY-NC 4.0 is stated on the project website and access application. Controlled access and the application terms are documented in [DATASET_LICENSE.md](DATASET_LICENSE.md).
+- **Website source code:** [MIT license](LICENSE), including retained third-party notices. The code license does not grant access to the dataset.
+
+Website development and deployment instructions are in [website/README.md](website/README.md).
