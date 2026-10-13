@@ -1,68 +1,50 @@
-# Strawberry Dataset website
+﻿# TopoStrawberry website
 
-A responsive project website for a real-world strawberry dataset annotated with:
+Source code and deployment tooling for the [TopoStrawberry project website](https://sprinkle-x.github.io/TopoStrawberry/).
 
-- one bounding box per fruit instance;
-- five anatomical keypoints;
-- maturity labels;
-- occlusion labels.
+The website is the reference for dataset statistics, annotation conventions, benchmarks, licensing, and access requirements. This repository supports the website; it does not distribute the dataset.
 
-The public build is a focused single-page site. Legacy Start Bootstrap Pug pages are retained under `src/pug` for reference but are intentionally excluded from `dist`.
+## Dataset access
 
-## Work on the site
+TopoStrawberry-RGBD is a controlled-access dataset for approved non-commercial research. There is no public dataset download link. Follow the [dataset access instructions on the website](https://sprinkle-x.github.io/TopoStrawberry/#resources) to obtain the application form and submit an access request.
 
-Install dependencies:
+## Local development
 
 ```bash
 npm install
-```
-
-Run the local preview with live reload:
-
-```bash
 npm start
 ```
 
-Create a production build:
+## Build and validation
 
 ```bash
 npm run build
+npm run check:site
 ```
 
-The generated site is written to `dist`.
+The production build is generated in `dist`; edit source files rather than generated output.
 
-## GitHub Pages deployment
+## Deployment
 
-The `Deploy GitHub Pages` workflow builds and publishes `dist` on each push to
-`main`. Set the repository's Pages publishing source to **GitHub Actions**.
-CSS, JavaScript, images, downloads, and point-cloud data use relative paths,
-so the same build works at the domain root or under a repository path.
+The `Deploy GitHub Pages` workflow builds and publishes `dist` on pushes to `main`. Set the repository's Pages publishing source to **GitHub Actions**.
 
-The public website URL is https://sprinkle-x.github.io/TopoStrawberry/.
-Local builds use this URL for canonical and Open Graph metadata; `SITE_URL` can
-optionally override it for a preview. The Pages workflow uses the public URL.
-Run `npm run check:site` after a build to verify local resources and navigation anchors.
+Assets use relative paths for domain-root and repository-path hosting. The public website URL supplies canonical and Open Graph metadata; `SITE_URL` can override it for previews.
 
-## Project structure
+## Source structure
 
-- `src/pug/index.pug` — page content and semantic structure
-- `src/pug/includes` — shared navigation, footer, styles, and scripts
-- `src/scss/styles.scss` — Bootstrap configuration and custom visual system
-- `src/js/scripts.js` — lightweight navigation behavior
-- `src/worker/index.js` — static asset delivery and security headers
-- `src/assets` — optimized site and social-preview images
-- `dist` — generated deployment output; do not edit this folder directly
+- `src/pug/index.pug`: main page content and structure
+- `src/pug/annotation-protocol.pug`: annotation protocol page
+- `src/pug/includes`: shared navigation, footer, styles, and scripts
+- `src/scss/styles.scss`: site styles
+- `src/js`: navigation and interactive visualizations
+- `src/assets`: website images, visualization data, and access application form
+- `scripts`: build and validation tools
+- `.github/workflows/deploy.yml`: GitHub Pages deployment
 
-## Content that still needs project-owner input
+Legacy template pages under `src/pug` are excluded from the public build.
 
-The website deliberately does not invent dataset statistics or publication details. Add the following when confirmed:
+## Authors
 
-- dataset size and train/validation/test splits;
-- paper URL and author list;
-- dataset license;
-- code repository and citation entry;
-- alternative download mirrors.
+## Template license
 
-## Credits
-
-The build system began from the MIT-licensed Start Bootstrap Modern Business template. The public page design, content structure, and project branding have been replaced for the Strawberry Dataset website.
+The build system originated from the MIT-licensed Start Bootstrap Modern Business template. The repository's MIT license covers website code; dataset licensing and access terms are documented on the project website.

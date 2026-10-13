@@ -100,7 +100,7 @@ html(lang='en')
                                     dd= Object.entries(dataset.splits).map(([key, split]) => ({train: 'Train', val: 'Validation', test: 'Test'})[key] + ' ' + number(split.images)).join(' / ') + ' frames (' + Object.values(dataset.splits).map(split => share(split.images, dataset.total_images)).join(' / ') + ')'
 
                             .hero-table-actions.mt-4
-                                a.btn.btn-research(href='#resources') Download dataset
+                                a.btn.btn-research(href='#resources') Request dataset access
                                 a.btn.btn-outline-research(href='#statistics') View dataset statistics
 
                         .col-12.col-xl-7
@@ -547,7 +547,7 @@ html(lang='en')
                         span.section-number 05
                         div
                             p.section-type Dataset access
-                            h2 Downloads and resources
+                            h2 Dataset access and resources
                     .resources-layout
                         .download-record
                             .resource-status
